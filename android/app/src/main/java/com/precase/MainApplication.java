@@ -27,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNCWebViewPackage(),
             new RNGestureHandlerPackage(),
-            new NativeOpenPackage()
+            new NativeOpenPackage(),
+          new MeiqiaPackage()
       );
     }
 

@@ -13,6 +13,7 @@ import { WebView, WebViewProps } from "react-native-webview";
 import BaseComponent from "../../base/baseComponent";
 import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
+const MeiqiaManager = NativeModules.MeiqiaManager;
 
 
 class Home extends BaseComponent {
@@ -45,7 +46,7 @@ class Home extends BaseComponent {
         });
     }
     openMeiqia = () => {
-
+        MeiqiaManager.show();
     }
 
     render() {
