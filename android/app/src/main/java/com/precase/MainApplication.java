@@ -56,7 +56,7 @@ public class MainApplication extends Application implements ReactApplication {
   }
 
   private void initMeiqiaSDK() {
-//        Toast.makeText(MainApplication.this, "oooooo", Toast.LENGTH_SHORT).show();
+       Toast.makeText(MainApplication.this, "oooooo", Toast.LENGTH_SHORT).show();
 //         MQManager.setDebugMode(true);
         // 替换成自己的key
 //        String meiqiaKey = "34351ebfad18ad6e4a3b1a29b865f706";
