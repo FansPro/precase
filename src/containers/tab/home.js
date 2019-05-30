@@ -7,11 +7,16 @@ import {
     TouchableOpacity,
     Linking,
     Alert,
+    NativeModules
 } from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
+import BaseComponent from "../../base/baseComponent";
+import homeStyles from "../../style/home/homeStyle";
+const NativeOpenManager = NativeModules.NativeOpenManager;
+const MeiqiaManager = NativeModules.MeiqiaManager;
 
 
-class Home extends Component {
+class Home extends BaseComponent {
     constructor(props) {
         super(props);
 
@@ -21,35 +26,47 @@ class Home extends Component {
     }
     changeState = () => {
         console.log("sss");
-        this.setState({
-            visible: !this.state.visible,
-        })
+        this.navPush("game")
     }
     openLinking = () => {
         const appUrl = "winboxcd://";
         Linking.canOpenURL(appUrl).then(rs => {
+            console.log("link", rs);
             if (rs) {
                 Linking.openURL(appUrl);
+            } else {
+                Alert.alert("请先安装此应用");
             }
         })
 
     }
+    openAndroid = () => {
+        NativeOpenManager.open("com.wakedemo").then(rs => {
+            Alert.alert(rs);
+        });
+    }
+    openMeiqia = () => {
+        MeiqiaManager.show();
+    }
+
     render() {
-        let gameUrl = "http://ekortest.fb88.net/?sn=92a02193452d49ad94838509d179c4eb&token=31e8599633d84eda93e6ccb8cc3fce7e&loginid=EKO225";
+
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
         return (
             <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
                 <StatusBar barStyle={'light-content'} hidden/>
-                <TouchableOpacity onPress={() => this.changeState()} style={{height: 60, backgroundColor: "#f6f6f6"}}></TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.openLinking() }>
-                    <Text style={{ height: 60, backgroundColor: "#f6f6f6", marginTop: 10}}>123123</Text>
+                <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>游戏H5测试</Text>
                 </TouchableOpacity>
-                <Modal visible={this.state.visible}>
-                    <WebView
-                        style={{flex: 1}}
-                        source={{uri: gameUrl}}
-                    />
-                </Modal>
+                <TouchableOpacity onPress={()=> this.openLinking() } style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>应用跳转测试</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> this.openAndroid() } style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>应用跳转原生测试</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> this.openMeiqia() } style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>美洽客服测试</Text>
+                </TouchableOpacity>
             </View>
         )
     }

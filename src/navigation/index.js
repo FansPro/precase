@@ -9,10 +9,11 @@ function getNavigation() {
             let tab = createBottomTabNavigator(navigator.screen);
             tab.navigationOptions = {
                 header: null,
+                mode: "card",
             }
             routes["tab"] = tab;
         } else {
-            routes[navigator[key]] = navigator;
+            routes[navigator["key"]] = navigator;
         }
     })
     return routes;
