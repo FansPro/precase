@@ -4,15 +4,21 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "bundle:build-android": "rm -rf bundle && mkdir bundle && react-native bundle --entry-file index.js --bundle-output ./bundle/main.jsbundle --platform android --assets-dest ./bundle --dev false"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "16.8.3",
+    "react-logger": "^1.1.0",
     "react-native": "0.59.8",
     "react-native-gesture-handler": "^1.2.1",
+    "react-native-i18n": "^2.0.15",
     "react-native-webview": "^5.10.0",
-    "react-navigation": "^3.11.0"
+    "react-navigation": "^3.11.0",
+    "react-redux": "^7.0.3",
+    "react-thunk": "^1.0.0",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

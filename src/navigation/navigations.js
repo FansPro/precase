@@ -6,6 +6,7 @@ import {
 // page
 import Home from "../containers/tab/home";
 import My from "../containers/tab/my";
+import Game from "../containers/game/game";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -29,10 +30,12 @@ export const tabs = {
     }
 }
 export const navigators = [
-    { screen: tabs, isTab: true, key: "tab"}
+    { screen: tabs, isTab: true, key: "tab"},
+    { key: "game", screen: Game, title: "游戏", navigationOptions: { header: null}}
 ];
 
 export const pages = {
     home: "home",
     my: "my",
+    game: "game"
 }
