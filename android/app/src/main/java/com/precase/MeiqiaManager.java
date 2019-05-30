@@ -1,11 +1,14 @@
 package com.precase;
 
 import android.content.Intent;
+import android.widget.Toast;
 
+import android.app.Application;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.meiqia.meiqiasdk.util.MQIntentBuilder;
+
 
 /**
  * Created by ywen(yaliyingwy@gmail.com) on 2017/7/5.
