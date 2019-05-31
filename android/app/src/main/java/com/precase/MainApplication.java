@@ -1,7 +1,10 @@
 package com.precase;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
+import android.content.Intent;
+
 
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -53,22 +56,22 @@ public class MainApplication extends Application implements ReactApplication {
 
     SoLoader.init(this, /* native exopackage */ false);
     initMeiqiaSDK();
+
   }
 
   private void initMeiqiaSDK() {
-       Toast.makeText(MainApplication.this, "oooooo", Toast.LENGTH_SHORT).show();
-//         MQManager.setDebugMode(true);
+        MQManager.setDebugMode(true);
         // 替换成自己的key
 //        String meiqiaKey = "34351ebfad18ad6e4a3b1a29b865f706";
-        MQConfig.init(this, "34351ebfad18ad6e4a3b1a29b865f706", new OnInitCallback() {
+        MQConfig.init(this, "6a031e3cec7bbaf0f7bac757c4999c53", new OnInitCallback() {
             @Override
             public void onSuccess(String clientId) {
-                Toast.makeText(MainApplication.this, "init success", Toast.LENGTH_SHORT).show();
+                Log.d("sadfj", "123123123");
              }
 
             @Override
             public void onFailure(int code, String message) {
-                Toast.makeText(MainApplication.this, "int failure message = ", Toast.LENGTH_SHORT).show();
+                Log.d("sadfj", "123123");
             }
          });
 

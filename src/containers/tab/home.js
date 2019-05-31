@@ -41,8 +41,7 @@ class Home extends BaseComponent {
 
     }
     openAndroid = () => {
-        NativeOpenManager.open("com.wakedemo").then(rs => {
-            Alert.alert(rs);
+        NativeOpenManager.open("winboxcd").then(rs => {
         });
     }
     openMeiqia = () => {

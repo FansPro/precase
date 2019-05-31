@@ -1,7 +1,10 @@
 package com.precase;
 
 import android.content.Intent;
+import android.content.ComponentName;
+import android.os.Bundle;
 
+import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -25,12 +28,12 @@ public class NativeOpenManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void open(String packageName,Promise promise) {
+    public void open(String packageName, Promise promise) {
         try {
             Intent intent = getReactApplicationContext().getPackageManager().getLaunchIntentForPackage(packageName);
             if(intent !=null){
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getReactApplicationContext().startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getCurrentActivity().startActivity(intent);
                 promise.resolve("ok");
             }
             else{
@@ -41,5 +44,10 @@ public class NativeOpenManager extends ReactContextBaseJavaModule {
             promise.resolve("fail");
         }
 
+        // Intent intent = new getReactApplicationContext().getPackageManager().getLaunchIntentForPackage("com.cuber.JQKCD");
+        // // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // getCurrentActivity().startActivity(intent);
     }
+
 }
