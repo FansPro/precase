@@ -1,10 +1,21 @@
 import { createStore, applyMiddleware } from "redux";
-import RootReducer from "../reducers";
-import reactthunk from "react-thunk";
-import { } from "react-logger";
-function configureStore(previousState) {
-    let store = createStore(RootReducer, previousState,applyMiddleware(reactthunk) )
+import rootReducer from "../reducers";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+const applyMiddlewares = [];
+applyMiddlewares.push(thunk);
+
+
+if(__DEV__) {
+    applyMiddlewares.push(logger);
+}
+
+const applyStoreWithMiddleWare = applyMiddleware(...applyMiddlewares)(createStore);
+
+export default function configureStore(initialState) {
+    const store = applyStoreWithMiddleWare(rootReducer, initialState);
     return store;
 }
 
-export default { configureStore }
+
+

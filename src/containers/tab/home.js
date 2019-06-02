@@ -14,6 +14,10 @@ import BaseComponent from "../../base/baseComponent";
 import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const MeiqiaManager = NativeModules.MeiqiaManager;
+import { connect } from "react-redux";
+import * as types  from "../../common/actionType";
+
+
 
 
 class Home extends BaseComponent {
@@ -67,9 +71,28 @@ class Home extends BaseComponent {
                 <TouchableOpacity onPress={()=> this.openMeiqia() } style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>美洽客服测试</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={()=> this.props.addOne() } style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>Store测试</Text>
+                </TouchableOpacity>
+                <Text>{this.props.count}</Text>
             </View>
         )
     }
 
 }
-export default Home;
+function mapStateToProps(state) {
+    const { home } = state;
+    return {
+        count: home.count
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addOne: () => dispatch({
+            type: types.ADD,
+            num: 1,
+        })
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

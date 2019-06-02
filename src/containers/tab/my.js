@@ -3,6 +3,8 @@ import {
     View,
     Text,
 } from "react-native";
+import * as types from "../../common/actionType"
+import { connect } from "react-redux";
 
 class My extends Component {
     constructor(props) {
@@ -12,10 +14,22 @@ class My extends Component {
     render() {
         return (
             <View>
-                <Text>this is Foo Page</Text>
+                <Text>123123123</Text>
+                <Text>{this.props.count}</Text>
             </View>
         )
     }
 
 }
-export default My;
+function mapStateToProps(state) {
+    const { home } = state;
+    return {
+        count: home.count
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(My);
