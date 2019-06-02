@@ -4929,12 +4929,19 @@ react-native-gesture-handler@^1.2.1:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-i18n@^2.0.15:
+react-native-i18n@^2.0.15, react-native-i18n@^2.0.8:
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
   integrity sha512-V8VwUP0TLda3oJvgt5tdnFaOV7WXPhTjCTLO7sXI3C2SHggSbD4bCUryMzNJhesimJidH21V2Owvj4zAylHoQQ==
   dependencies:
     i18n-js "3.0.11"
+
+react-native-redux-i18n@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-native-redux-i18n/-/react-native-redux-i18n-1.0.11.tgz#8f779402ddf435cd6465a1450c95da395ab390b9"
+  integrity sha512-ukoE5HdRyTxaY/WXltedVGrEK5coEovcAGslP5Kw8q3nubipQsvobRb6p9tIj2+uOITze0JntK1tuNHcFRuySQ==
+  dependencies:
+    react-native-i18n "^2.0.8"
 
 react-native-safe-area-view@^0.14.1:
   version "0.14.4"
