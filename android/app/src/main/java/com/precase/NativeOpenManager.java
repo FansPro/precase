@@ -29,25 +29,27 @@ public class NativeOpenManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void open(String packageName, Promise promise) {
-        try {
-            Intent intent = getReactApplicationContext().getPackageManager().getLaunchIntentForPackage(packageName);
-            if(intent !=null){
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                getCurrentActivity().startActivity(intent);
-                promise.resolve("ok");
-            }
-            else{
-                promise.resolve("fail");
-            }
-        }
-        catch (IllegalViewOperationException e){
-            promise.resolve("fail");
-        }
+        // try {
+        //     Intent intent = getReactApplicationContext().getPackageManager().getLaunchIntentForPackage(packageName);
+        //     if(intent !=null){
+        //         // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //         // getReactApplicationContext().startActivity(intent);
+        //         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //         getCurrentActivity().startActivity(intent);
+        //         promise.resolve("ok");
+        //     }
+        //     else{
+        //         promise.resolve("fail");
+        //     }
+        // }
+        // catch (IllegalViewOperationException e){
+        //     promise.resolve("fail");
+        // }
 
-        // Intent intent = new getReactApplicationContext().getPackageManager().getLaunchIntentForPackage("com.cuber.JQKCD");
-        // // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // getCurrentActivity().startActivity(intent);
+    Intent intent = new Intent("android.intent.action.SINGLE_INSTANCE_SHARE");
+        // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getCurrentActivity().startActivity(intent);
     }
 
 }
