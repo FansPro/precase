@@ -8,9 +8,11 @@
     "bundle:build-android": "rm -rf bundle && mkdir bundle && react-native bundle --entry-file index.js --bundle-output ./bundle/main.jsbundle --platform android --assets-dest ./bundle --dev false"
   },
   "dependencies": {
+    "aurora-imui-react-native": "^0.14.0",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-i18n": "^2.0.15",
     "react-native-redux-i18n": "^1.0.11",

@@ -7,6 +7,7 @@ import {
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
 import XMPP from "react-native-xmpp";
+import ChatCell from "../../components/chat/chatCell";
 
 
 class ChatList extends Component {
@@ -31,6 +32,11 @@ class ChatList extends Component {
                 <TouchableOpacity onPress={this.props.sendMessage}>
                     <Text>发送消息</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom")}>
+                    <Text>聊天</Text>
+                </TouchableOpacity>
+                <ChatCell/>
+                <ChatCell/>
             </View>
         )
     }

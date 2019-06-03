@@ -46,6 +46,18 @@
 		6F63159909304B8B8203AC37 /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 872283BEFB7547A6B8862FC9 /* libRNI18n-tvOS.a */; };
 		E8420B63332B43ECBBD8A64E /* XmppDemo.app in Resources */ = {isa = PBXBuildFile; fileRef = 5784E82AE2F640ACB73FD0B3 /* XmppDemo.app */; };
 		F449A5D9CB2C4116BB4421D1 /* XmppDemoTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 842E5C69C7E64145BBF60F1F /* XmppDemoTests.xctest */; };
+		9B641384483D4EBC919FD6A7 /* libAuroraIMUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B52CF4CD6A49B999330479 /* libAuroraIMUI.a */; };
+		9D700CB65F9444189ED055A6 /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BA5929E17546E59FD03767 /* RCTAuroraIMUI.framework */; };
+		CA25A93618814141A0AB308B /* RCTAuroraIMUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 848FB9B64B01489FACEF1493 /* RCTAuroraIMUITests.xctest */; };
+		E3F61F037BE147C1B8BC50CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B67DC0A9AA422DA46EC528 /* libz.tbd */; };
+		7975CF4281494671B743DCE8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FD6C31E7454C2C9A1E8C4D /* CoreTelephony.framework */; };
+		D75B65D260844A418199B712 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F8A45DD10F4CC8824E87C6 /* CFNetwork.framework */; };
+		E173356447824A35B94F4A88 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C9E6B08B80245AB9BFC1F82 /* CoreFoundation.framework */; };
+		BBDE97F8F1CE44D9B25D6F7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DE17869B2B4BA485D3A566 /* SystemConfiguration.framework */; };
+		512996A4B5CD4AC6A65CA1A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907411DF32AB4872986431A2 /* Foundation.framework */; };
+		2C6A0B8035AA420697AFF608 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE78A2846E6B4BEFBAD739F8 /* UIKit.framework */; };
+		8B84D25DD06B4A9AA9D59D6D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDCE2B86DF6401FA78FBC55 /* CoreGraphics.framework */; };
+		C5261E6F83AA44A591BB0F4E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B6C4DD4151449C8BB840FA /* libRNFS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -364,6 +376,20 @@
 		FE0B8C1DDA4942BF913FF19E /* XmppDemo.xcodeproj */ = {isa = PBXFileReference; name = "XmppDemo.xcodeproj"; path = "../node_modules/react-native-xmpp/XmppDemo/ios/XmppDemo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		5784E82AE2F640ACB73FD0B3 /* XmppDemo.app */ = {isa = PBXFileReference; name = "XmppDemo.app"; path = "XmppDemo.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
 		842E5C69C7E64145BBF60F1F /* XmppDemoTests.xctest */ = {isa = PBXFileReference; name = "XmppDemoTests.xctest"; path = "XmppDemoTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
+		E94046917CD64D4FA3551F32 /* RCTAuroraIMUI.xcodeproj */ = {isa = PBXFileReference; name = "RCTAuroraIMUI.xcodeproj"; path = "../node_modules/aurora-imui-react-native/ReactNative/ios/RCTAuroraIMUI.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		23B52CF4CD6A49B999330479 /* libAuroraIMUI.a */ = {isa = PBXFileReference; name = "libAuroraIMUI.a"; path = "libAuroraIMUI.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		72BA5929E17546E59FD03767 /* RCTAuroraIMUI.framework */ = {isa = PBXFileReference; name = "RCTAuroraIMUI.framework"; path = "System/Library/Frameworks/RCTAuroraIMUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		848FB9B64B01489FACEF1493 /* RCTAuroraIMUITests.xctest */ = {isa = PBXFileReference; name = "RCTAuroraIMUITests.xctest"; path = "RCTAuroraIMUITests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
+		21B67DC0A9AA422DA46EC528 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		67FD6C31E7454C2C9A1E8C4D /* CoreTelephony.framework */ = {isa = PBXFileReference; name = "CoreTelephony.framework"; path = "System/Library/Frameworks/CoreTelephony.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		F8F8A45DD10F4CC8824E87C6 /* CFNetwork.framework */ = {isa = PBXFileReference; name = "CFNetwork.framework"; path = "System/Library/Frameworks/CFNetwork.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0C9E6B08B80245AB9BFC1F82 /* CoreFoundation.framework */ = {isa = PBXFileReference; name = "CoreFoundation.framework"; path = "System/Library/Frameworks/CoreFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		D0DE17869B2B4BA485D3A566 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		907411DF32AB4872986431A2 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		BE78A2846E6B4BEFBAD739F8 /* UIKit.framework */ = {isa = PBXFileReference; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		9CDCE2B86DF6401FA78FBC55 /* CoreGraphics.framework */ = {isa = PBXFileReference; name = "CoreGraphics.framework"; path = "System/Library/Frameworks/CoreGraphics.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		F295CAFFF2324B95B28716E0 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		66B6C4DD4151449C8BB840FA /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +423,18 @@
 				8CE814E8360A4E96AD5F6B8D /* libRNI18n.a in Frameworks */,
 				E8420B63332B43ECBBD8A64E /* XmppDemo.app in Resources */,
 				F449A5D9CB2C4116BB4421D1 /* XmppDemoTests.xctest in Resources */,
+				9B641384483D4EBC919FD6A7 /* libAuroraIMUI.a in Frameworks */,
+				9D700CB65F9444189ED055A6 /* RCTAuroraIMUI.framework in Frameworks */,
+				CA25A93618814141A0AB308B /* RCTAuroraIMUITests.xctest in Resources */,
+				E3F61F037BE147C1B8BC50CA /* libz.tbd in Frameworks */,
+				7975CF4281494671B743DCE8 /* CoreTelephony.framework in Frameworks */,
+				D75B65D260844A418199B712 /* CFNetwork.framework in Frameworks */,
+				E173356447824A35B94F4A88 /* CoreFoundation.framework in Frameworks */,
+				BBDE97F8F1CE44D9B25D6F7E /* SystemConfiguration.framework in Frameworks */,
+				512996A4B5CD4AC6A65CA1A7 /* Foundation.framework in Frameworks */,
+				2C6A0B8035AA420697AFF608 /* UIKit.framework in Frameworks */,
+				8B84D25DD06B4A9AA9D59D6D /* CoreGraphics.framework in Frameworks */,
+				C5261E6F83AA44A591BB0F4E /* libRNFS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +589,14 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				21B67DC0A9AA422DA46EC528 /* libz.tbd */,
+				67FD6C31E7454C2C9A1E8C4D /* CoreTelephony.framework */,
+				F8F8A45DD10F4CC8824E87C6 /* CFNetwork.framework */,
+				0C9E6B08B80245AB9BFC1F82 /* CoreFoundation.framework */,
+				D0DE17869B2B4BA485D3A566 /* SystemConfiguration.framework */,
+				907411DF32AB4872986431A2 /* Foundation.framework */,
+				BE78A2846E6B4BEFBAD739F8 /* UIKit.framework */,
+				9CDCE2B86DF6401FA78FBC55 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -592,6 +638,8 @@
 				D0F669C3438A48D8A036D935 /* RNCWebView.xcodeproj */,
 				903E65FFEC7E4B03B814FBF2 /* RNI18n.xcodeproj */,
 				FE0B8C1DDA4942BF913FF19E /* XmppDemo.xcodeproj */,
+				E94046917CD64D4FA3551F32 /* RCTAuroraIMUI.xcodeproj */,
+				F295CAFFF2324B95B28716E0 /* RNFS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1226,6 +1274,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1233,6 +1285,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Debug;
@@ -1261,6 +1315,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1268,6 +1326,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Release;
@@ -1294,6 +1354,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Debug;
@@ -1319,6 +1381,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Release;
@@ -1355,6 +1419,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1362,6 +1430,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Debug;
@@ -1398,6 +1468,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1405,6 +1479,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Release;
@@ -1440,6 +1516,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1447,6 +1527,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Debug;
@@ -1482,6 +1564,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)/System/Library/Frameworks\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1489,6 +1575,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
+					"$(SRCROOT)\..\node_modules\aurora-imui-react-native\iOS\IMUIMessageCollectionView/**",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
 				);
 			};
 			name = Release;
