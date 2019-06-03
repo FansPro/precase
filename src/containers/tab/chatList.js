@@ -8,6 +8,21 @@ import { connect } from "react-redux";
 import * as types from "../../common/actionType";
 import XMPP from "react-native-xmpp";
 import ChatCell from "../../components/chat/chatCell";
+import Swipeout from "react-native-swipeout";
+
+var swipeoutBtns = [
+    {
+        text: "置顶",
+
+    },
+    {
+        text: '删除',
+        onPress: (ss) => {
+            console.log("asfjkasdf", ss);
+        },
+        backgroundColor: "red",
+    }
+]
 
 
 class ChatList extends Component {
@@ -35,8 +50,17 @@ class ChatList extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom")}>
                     <Text>聊天</Text>
                 </TouchableOpacity>
-                <ChatCell/>
-                <ChatCell/>
+
+                <Swipeout right={swipeoutBtns}>
+                    <TouchableOpacity onPress={() => console.log("touch")}>
+                        <ChatCell/>
+                    </TouchableOpacity>
+                </Swipeout>
+                <Swipeout right={swipeoutBtns}>
+                    <TouchableOpacity onPress={() => console.log("touch")}>
+                        <ChatCell/>
+                    </TouchableOpacity>
+                </Swipeout>
             </View>
         )
     }
