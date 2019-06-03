@@ -4970,6 +4970,11 @@ react-native-webview@^5.10.0:
     escape-string-regexp "1.0.5"
     invariant "2.2.4"
 
+react-native-xmpp@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-xmpp/-/react-native-xmpp-1.0.3.tgz#4b8fe99c2f64ba7c058fc0d50cec01fca040097e"
+  integrity sha512-/IBx0ZvhtwYdp7UwkIlER3frs+1dnWY7XTqLX7yDJWtuO4rra/4wezX44UE4Eb6+uSfHDWothsmVN6bYDCNdlQ==
+
 react-native@0.59.8:
   version "0.59.8"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.8.tgz#ade4141c777c60f5ec4889d9811d0f80a9d56547"

@@ -44,6 +44,8 @@
 		5AB499CDAD3B4CC99B331272 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D94DDB80B7146B79363B0A2 /* libRNCWebView.a */; };
 		8CE814E8360A4E96AD5F6B8D /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E10A28C29F2647F78F25C1C6 /* libRNI18n.a */; };
 		6F63159909304B8B8203AC37 /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 872283BEFB7547A6B8862FC9 /* libRNI18n-tvOS.a */; };
+		E8420B63332B43ECBBD8A64E /* XmppDemo.app in Resources */ = {isa = PBXBuildFile; fileRef = 5784E82AE2F640ACB73FD0B3 /* XmppDemo.app */; };
+		F449A5D9CB2C4116BB4421D1 /* XmppDemoTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 842E5C69C7E64145BBF60F1F /* XmppDemoTests.xctest */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,6 +361,9 @@
 		903E65FFEC7E4B03B814FBF2 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; name = "RNI18n.xcodeproj"; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E10A28C29F2647F78F25C1C6 /* libRNI18n.a */ = {isa = PBXFileReference; name = "libRNI18n.a"; path = "libRNI18n.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		872283BEFB7547A6B8862FC9 /* libRNI18n-tvOS.a */ = {isa = PBXFileReference; name = "libRNI18n-tvOS.a"; path = "libRNI18n-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		FE0B8C1DDA4942BF913FF19E /* XmppDemo.xcodeproj */ = {isa = PBXFileReference; name = "XmppDemo.xcodeproj"; path = "../node_modules/react-native-xmpp/XmppDemo/ios/XmppDemo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5784E82AE2F640ACB73FD0B3 /* XmppDemo.app */ = {isa = PBXFileReference; name = "XmppDemo.app"; path = "XmppDemo.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
+		842E5C69C7E64145BBF60F1F /* XmppDemoTests.xctest */ = {isa = PBXFileReference; name = "XmppDemoTests.xctest"; path = "XmppDemoTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +395,8 @@
 				5F3DFD2A66974DA3BF17BF45 /* libRNGestureHandler.a in Frameworks */,
 				5AB499CDAD3B4CC99B331272 /* libRNCWebView.a in Frameworks */,
 				8CE814E8360A4E96AD5F6B8D /* libRNI18n.a in Frameworks */,
+				E8420B63332B43ECBBD8A64E /* XmppDemo.app in Resources */,
+				F449A5D9CB2C4116BB4421D1 /* XmppDemoTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +591,7 @@
 				30681F6A59FB45F5B42D6069 /* RNGestureHandler.xcodeproj */,
 				D0F669C3438A48D8A036D935 /* RNCWebView.xcodeproj */,
 				903E65FFEC7E4B03B814FBF2 /* RNI18n.xcodeproj */,
+				FE0B8C1DDA4942BF913FF19E /* XmppDemo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1216,12 +1224,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Debug;
@@ -1248,12 +1259,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Release;
@@ -1279,6 +1293,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Debug;
@@ -1303,6 +1318,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Release;
@@ -1337,12 +1353,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Debug;
@@ -1377,12 +1396,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Release;
@@ -1416,12 +1438,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Debug;
@@ -1455,12 +1480,15 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-webview\ios",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
+					"$(SRCROOT)\..\node_modules\react-native-xmpp\RNXMPP/**",
 				);
 			};
 			name = Release;

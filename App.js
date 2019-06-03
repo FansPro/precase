@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 
 const stores = configureStore();
 class App extends Component {
+    constructor(props) {
+        super(props);
+        console.log("oooo", props);
+    }
     componentDidMount() {
 
     }
