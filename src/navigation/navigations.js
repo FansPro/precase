@@ -7,6 +7,7 @@ import {
 import Home from "../containers/tab/home";
 import My from "../containers/tab/my";
 import Game from "../containers/game/game";
+import I18n from "../i18n/index";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -22,7 +23,7 @@ function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
 export const tabs = {
     "home": {
         screen: Home,
-        navigationOptions: createBottomNavConfig("主页", <Image/>, <Image/> )
+        navigationOptions: createBottomNavConfig(`${I18n.t("home.h5")}`, <Image/>, <Image/> )
     },
     "my": {
         screen: My,

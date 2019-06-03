@@ -1664,11 +1664,6 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
-console@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/console/-/console-0.5.2.tgz#ab20ccf5e16c92f9253816eef3b7ae78f7ad1f43"
-  integrity sha1-qyDM9eFskvklOBbu87euePetH0M=
-
 convert-source-map@^1.1.0, convert-source-map@^1.4.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.6.0.tgz#51b537a8c43e0f04dec1993bffcdd504e758ac20"
@@ -1798,6 +1793,11 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+
+deep-diff@^0.3.5:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
+  integrity sha1-wB3mPvsO7JeYgB1Ax+Da4ltYLIQ=
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -4920,14 +4920,6 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-logger@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-logger/-/react-logger-1.1.0.tgz#a400bb9f3d403bc87c1230b865691540a7fbde4a"
-  integrity sha1-pAC7nz1AO8h8EjC4ZWkVQKf73ko=
-  dependencies:
-    array-slice "^0.2.3"
-    console "^0.5.2"
-
 react-native-gesture-handler@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.2.1.tgz#9c48fb1ab13d29cece24bbb77b1e847eebf27a2b"
@@ -4937,12 +4929,19 @@ react-native-gesture-handler@^1.2.1:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-i18n@^2.0.15:
+react-native-i18n@^2.0.15, react-native-i18n@^2.0.8:
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
   integrity sha512-V8VwUP0TLda3oJvgt5tdnFaOV7WXPhTjCTLO7sXI3C2SHggSbD4bCUryMzNJhesimJidH21V2Owvj4zAylHoQQ==
   dependencies:
     i18n-js "3.0.11"
+
+react-native-redux-i18n@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-native-redux-i18n/-/react-native-redux-i18n-1.0.11.tgz#8f779402ddf435cd6465a1450c95da395ab390b9"
+  integrity sha512-ukoE5HdRyTxaY/WXltedVGrEK5coEovcAGslP5Kw8q3nubipQsvobRb6p9tIj2+uOITze0JntK1tuNHcFRuySQ==
+  dependencies:
+    react-native-i18n "^2.0.8"
 
 react-native-safe-area-view@^0.14.1:
   version "0.14.4"
@@ -5090,11 +5089,6 @@ react-test-renderer@16.8.3:
     react-is "^16.8.3"
     scheduler "^0.13.3"
 
-react-thunk@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-thunk/-/react-thunk-1.0.0.tgz#79813d47f31147e81aee841ed5e76a9e3eabc8b1"
-  integrity sha1-eYE9R/MRR+ga7oQe1edqnj6ryLE=
-
 react-transform-hmr@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz#e1a40bd0aaefc72e8dfd7a7cda09af85066397bb"
@@ -5166,6 +5160,18 @@ realpath-native@^1.1.0:
   integrity sha512-wlgPA6cCIIg9gKz0fgAPjnzh4yR/LnXovwuo9hvyGvx3h8nX4+/iLZplfUWasXpqD8BdnGnP5njOFjkUwPzvjA==
   dependencies:
     util.promisify "^1.0.0"
+
+redux-logger@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
+  integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
+  dependencies:
+    deep-diff "^0.3.5"
+
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
 redux@^4.0.1:
   version "4.0.1"
