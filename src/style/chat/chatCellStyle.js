@@ -17,6 +17,16 @@ const chatCellStyle = StyleSheet.create({
         backgroundColor: "#999999",
         borderRadius: 4,
     },
+    cell_point: {
+        height:8,
+        width: 8,
+        borderRadius: 4,
+        backgroundColor:"red",
+        marginTop: 0,
+        marginRight: 0,
+        marginLeft:"auto"
+    },
+
     cell_info: {
         height: 40,
         marginLeft: 10,

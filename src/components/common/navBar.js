@@ -10,7 +10,7 @@ import navBarStyles from "../../style/common/navBarStyle";
 class NavBar extends Component {
     render() {
         return <View style={navBarStyles.container}>
-
+            <StatusBar hidden={false} barStyle={"dark-content"}/>
         </View>
     }
 }

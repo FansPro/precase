@@ -16,7 +16,7 @@ function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
         tabBarLabel,
         tabBarIcon: (focused) => {
             return focused ? tintImg : defaultImg;
-        }
+        },
     }
 }
 
@@ -37,8 +37,8 @@ export const tabs = {
 }
 export const navigators = [
     { screen: tabs, isTab: true, key: "tab"},
-    { key: "game", screen: Game, title: "游戏", navigationOptions: { header: null}},
-    { key: "chatRoom", screen: ChatRoom, title: "聊天"}
+    { key: "game", screen: Game, title: "游戏", navigationOptions: { headerTitle: "游戏"}},
+    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: { headerTitle: "xi"}}
 ];
 
 export const pages = {

@@ -20,7 +20,6 @@ import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
 import I18n from "../../i18n";
 
 
-
 class Home extends BaseComponent {
     constructor(props) {
         super(props);

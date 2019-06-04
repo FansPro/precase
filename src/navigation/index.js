@@ -19,7 +19,7 @@ function getNavigation() {
             });
             tab.navigationOptions = {
                 mode: "card",
-
+                // header: null,
             }
             routes["tab"] = tab;
         } else {

@@ -9,6 +9,8 @@ import * as types from "../../common/actionType";
 import XMPP from "react-native-xmpp";
 import ChatCell from "../../components/chat/chatCell";
 import Swipeout from "react-native-swipeout";
+import List from "../../components/common/list";
+import NavBar from "../../components/common/navBar";
 
 var swipeoutBtns = [
     {
@@ -28,7 +30,7 @@ var swipeoutBtns = [
 class ChatList extends Component {
     constructor(props) {
         super(props);
-        XMPP.on('message', (message) => console.log('MESSAGE:' + JSON.stringify(message)));
+        XMPP.on('message', this.onReceiveMessage);
         XMPP.on('iq', (message) => console.log('IQ:' + JSON.stringify(message)));
         XMPP.on('presence', (message) => console.log('PRESENCE:' + JSON.stringify(message)));
         XMPP.on('error', (message) => console.log('ERROR:' + message));
@@ -40,35 +42,50 @@ class ChatList extends Component {
 
     }
 
+    onReceiveMessage = ({from, body}) => {
+        console.log("onReceiveMessage")
+        // extract username from XMPP UID
+        if (!from || !body){
+            return;
+        }
+        var name = from.match(/^([^@]*)@/)[1];
+        console.log("receive",from, body, name);
+        this.props.receiveMessage(name, body);
+        // this.conversation.unshift({own:false, text:body});
+    }
+    renderCell = (item) => {
+        return  <Swipeout right={swipeoutBtns} key={item.index}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom", { name: item.item.get("name") })}>
+                <ChatCell unRead={item.item.get("unRead")} name={item.item.get("name")} message={item.item.get("message")}/>
+            </TouchableOpacity>
+        </Swipeout>
+    }
+
     render() {
         return (
-            <View>
-                <Text>this is ChatList Page</Text>
-                <TouchableOpacity onPress={this.props.sendMessage}>
-                    <Text>发送消息</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom")}>
-                    <Text>聊天</Text>
-                </TouchableOpacity>
-
-                <Swipeout right={swipeoutBtns}>
-                    <TouchableOpacity onPress={() => console.log("touch")}>
-                        <ChatCell/>
-                    </TouchableOpacity>
-                </Swipeout>
-                <Swipeout right={swipeoutBtns}>
-                    <TouchableOpacity onPress={() => console.log("touch")}>
-                        <ChatCell/>
-                    </TouchableOpacity>
-                </Swipeout>
+            <View style={{flex: 1}}>
+                {/*<NavBar/>*/}
+                {/*<Text>this is ChatList Page</Text>*/}
+                {/*<TouchableOpacity onPress={this.props.sendMessage}>*/}
+                {/*    <Text>发送消息</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom")}>*/}
+                {/*    <Text>聊天</Text>*/}
+                {/*</TouchableOpacity>*/}
+                <List ds={this.props.chatList} renderCell={this.renderCell}/>
             </View>
         )
     }
 
 }
-function mapStateToProps() {
-    return {
 
+
+function mapStateToProps(state) {
+    const { xmpp } = state;
+
+    console.log("sdsad", xmpp.get("chatList"));
+    return {
+        chatList: xmpp.get("chatList").toArray(),
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -78,6 +95,11 @@ function mapDispatchToProps(dispatch) {
         }),
         sendMessage: () => dispatch({
             type: types.XMPP_SEND_MESSAGE,
+        }),
+        receiveMessage: (name, message) => dispatch({
+            type: types.XMPP_RECEIVE_MESSAGE,
+            message,
+            name
         })
     }
 }
