@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import * as types  from "../../common/actionType";
 import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
 import I18n from "../../i18n";
+import NavBar from "../../components/common/navBar";
 
 
 class Home extends BaseComponent {
@@ -61,7 +62,7 @@ class Home extends BaseComponent {
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
         return (
             <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
-                <StatusBar barStyle={'light-content'} hidden/>
+                <NavBar title={"首页"}/>
                 <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>{I18n.t("home.h5")}</Text>
                 </TouchableOpacity>

@@ -17,6 +17,10 @@ function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
         tabBarIcon: (focused) => {
             return focused ? tintImg : defaultImg;
         },
+        tabBarOptions: {
+            activeTintColor: "#4D78B0",
+            activeBackgroundColor: "#f6f6f6"
+        },
     }
 }
 
@@ -24,6 +28,7 @@ function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
 export const tabs = {
     "home": {
         screen: Home,
+
         navigationOptions: createBottomNavConfig("首页", <Image/>, <Image/> )
     },
     "chatList": {
@@ -38,7 +43,7 @@ export const tabs = {
 export const navigators = [
     { screen: tabs, isTab: true, key: "tab"},
     { key: "game", screen: Game, title: "游戏", navigationOptions: { headerTitle: "游戏"}},
-    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: { headerTitle: "xi"}}
+    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: { headerTitle: "聊天"}}
 ];
 
 export const pages = {

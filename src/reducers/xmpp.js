@@ -28,7 +28,7 @@ const initialState = Immutable.fromJS({
                 unRead: false,
                 message: '',
                 messages: Immutable.List(),
-            })
+            }),
         ]),
 });
 const RNXMPP = NativeModules.RNXMPP;

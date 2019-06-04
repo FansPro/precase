@@ -11,6 +11,7 @@ import ChatCell from "../../components/chat/chatCell";
 import Swipeout from "react-native-swipeout";
 import List from "../../components/common/list";
 import NavBar from "../../components/common/navBar";
+import chatListStyle from "../../style/chat/chatListStyle"
 
 var swipeoutBtns = [
     {
@@ -64,7 +65,7 @@ class ChatList extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                {/*<NavBar/>*/}
+                <NavBar title={"消息"} right={<Text style={chatListStyle.nav_right}>+</Text>}/>
                 {/*<Text>this is ChatList Page</Text>*/}
                 {/*<TouchableOpacity onPress={this.props.sendMessage}>*/}
                 {/*    <Text>发送消息</Text>*/}

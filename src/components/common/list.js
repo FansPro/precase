@@ -17,7 +17,7 @@ class List extends Component {
 
     render() {
         return <FlatList
-            contentContainerStyle={{flex: 1}}
+            style={{flex:1}}
             renderItem={ (item) => this.props.renderCell(item) }
             keyExtractor={(item, index) => `${index}chatlist`}
             data={this.props.ds}
