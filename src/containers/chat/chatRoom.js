@@ -17,7 +17,8 @@ import IMUI from 'aurora-imui-react-native'
 var InputView = IMUI.ChatInput
 var MessageListView = IMUI.MessageList
 const AuroraIController = IMUI.AuroraIMUIController
-const window = Dimensions.get('window')
+const window = Dimensions.get('window');
+import NavBar from "../../components/common/navBar";
 
 
 var themsgid = 1
@@ -479,6 +480,7 @@ class ChatRoom extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <NavBar/>
                 {/*<View style={this.state.navigationBar}*/}
                 {/*      ref="NavigatorView">*/}
                 {/*    <Button*/}
