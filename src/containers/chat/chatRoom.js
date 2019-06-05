@@ -13,7 +13,7 @@ import * as types from "../../common/actionType";
 var RNFS = require('react-native-fs')
 
 var ReactNative = require('react-native')
-import IMUI from 'aurora-imui-react-native'
+import IMUI from "aurora-imui-react-native"
 var InputView = IMUI.ChatInput
 var MessageListView = IMUI.MessageList
 const AuroraIController = IMUI.AuroraIMUIController
@@ -185,8 +185,8 @@ class ChatRoom extends Component {
                     var message = constructNormalMessage()
                     message.fromUser.avatarUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534926548887&di=f107f4f8bd50fada6c5770ef27535277&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F11%2F67%2F23%2F69i58PICP37.jpg",//1
                         message.msgType = 'text';
-                    message.text = msg.message;
-                    message.isOutgoing = name === msg.fromUser ? false : true;
+                    message.text = msg.get("message");
+                    message.isOutgoing = name === msg.get("name") ? false : true;
                     messages.push(message);
                 })
             }
@@ -481,106 +481,64 @@ class ChatRoom extends Component {
         return (
             <View style={styles.container}>
                 <NavBar/>
-                {/*<View style={this.state.navigationBar}*/}
-                {/*      ref="NavigatorView">*/}
-                {/*    <Button*/}
-                {/*        style={styles.sendCustomBtn}*/}
-                {/*        title="Custom Message"*/}
-                {/*        onPress={() => {*/}
-                {/*            if (Platform.OS === 'ios') {*/}
-                {/*                var message = constructNormalMessage()*/}
-                {/*                message.msgType = 'custom'*/}
-                {/*                message.content = `*/}
-                {/*<h5>This is a custom message. </h5>*/}
-                {/*<img src="file://${RNFS.MainBundlePath}/default_header.png"/>*/}
-                {/*`*/}
-                {/*                console.log(message.content)*/}
-                {/*                message.contentSize = { 'height': 100, 'width': 200 }*/}
-                {/*                message.extras = { "extras": "fdfsf" }*/}
-                {/*                AuroraIController.appendMessages([message])*/}
-                {/*                AuroraIController.scrollToBottom(true)*/}
-                {/*            } else {*/}
-                {/*                var message = constructNormalMessage()*/}
-                {/*                message.msgType = "custom"*/}
-                {/*                message.msgId = "10"*/}
-                {/*                message.status = "send_going"*/}
-                {/*                message.isOutgoing = true*/}
-                {/*                message.content = `*/}
-                {/*<body bgcolor="#ff3399">*/}
-                {/*  <h5>This is a custom message. </h5>*/}
-                {/*  <img src="/storage/emulated/0/XhsEmoticonsKeyboard/Emoticons/wxemoticons/icon_040_cover.png"></img>*/}
-                {/*</body>`*/}
-                {/*                message.contentSize = { 'height': 100, 'width': 200 }*/}
-                {/*                message.extras = { "extras": "fdfsf" }*/}
-                {/*                var user = {*/}
-                {/*                    userId: "1",*/}
-                {/*                    displayName: "",*/}
-                {/*                    avatarPath: ""*/}
-                {/*                }*/}
-                {/*                user.displayName = "0001"*/}
-                {/*                user.avatarPath = "ironman"*/}
-                {/*                message.fromUser = user*/}
-                {/*                AuroraIController.appendMessages([message]);*/}
-                {/*            }*/}
-                {/*        }}>*/}
-                {/*    </Button>*/}
-                {/*</View>*/}
-                <MessageListView style={this.state.messageListLayout}
-                                 ref="MessageList"
-                                 isAllowPullToRefresh={true}
-                                 onAvatarClick={this.onAvatarClick}
-                                 onMsgClick={this.onMsgClick}
-                                 onStatusViewClick={this.onStatusViewClick}
-                                 onTouchMsgList={this.onTouchMsgList}
-                                 onTapMessageCell={this.onTapMessageCell}
-                                 onBeginDragMessageList={this.onBeginDragMessageList}
-                                 onPullToRefresh={this.onPullToRefresh}
-                                 avatarSize={{ width: 50, height: 50 }}
-                                 avatarCornerRadius={25}
-                                 messageListBackgroundColor={"#f3f3f3"}
-                                 sendBubbleTextSize={18}
-                                 sendBubbleTextColor={"#000000"}
-                                 sendBubblePadding={{ left: 10, top: 10, right: 15, bottom: 10 }}
-                                 datePadding={{ left: 5, top: 5, right: 5, bottom: 5 }}
-                                 dateBackgroundColor={"#F3F3F3"}
-                                 photoMessageRadius={5}
-                                 maxBubbleWidth={0.7}
-                                 videoDurationTextColor={"#ffffff"}
-                />
-                <InputView style={this.state.inputViewLayout}
-                           ref="ChatInput"
-                           onSendText={this.onSendText}
-                           onTakePicture={this.onTakePicture}
-                           onStartRecordVoice={this.onStartRecordVoice}
-                           onFinishRecordVoice={this.onFinishRecordVoice}
-                           onCancelRecordVoice={this.onCancelRecordVoice}
-                           onStartRecordVideo={this.onStartRecordVideo}
-                           onFinishRecordVideo={this.onFinishRecordVideo}
-                           onSendGalleryFiles={this.onSendGalleryFiles}
-                           onSwitchToEmojiMode={this.onSwitchToEmojiMode}
-                           onSwitchToMicrophoneMode={this.onSwitchToMicrophoneMode}
-                           onSwitchToGalleryMode={this.onSwitchToGalleryMode}
-                           onSwitchToCameraMode={this.onSwitchToCameraMode}
-                           onShowKeyboard={this.onShowKeyboard}
-                           onTouchEditText={this.onTouchEditText}
-                           onFullScreen={this.onFullScreen}
-                           onRecoverScreen={this.onRecoverScreen}
-                           onSizeChange={this.onInputViewSizeChange}
-                           closeCamera={this.onCloseCamera}
-                           switchCameraMode={this.switchCameraMode}
-                           showSelectAlbumBtn={true}
-                           showRecordVideoBtn={false}
-                           onClickSelectAlbum={this.onClickSelectAlbum}
-                           inputPadding={{ left: 30, top: 10, right: 10, bottom: 10 }}
-                           galleryScale={0.6}//default = 0.5
-                           compressionQuality={0.6}
-                           cameraQuality={0.7}//default = 0.5
-                           customLayoutItems={{
-                               left: [],
-                               right: ['send'],
-                               bottom: ['voice','gallery','emoji','camera']
-                           }}
-                />
+                <View style={{flex: 1}}>
+                    <MessageListView style={this.state.messageListLayout}
+                                     ref="MessageList"
+                                     isAllowPullToRefresh={true}
+                                     onAvatarClick={this.onAvatarClick}
+                                     onMsgClick={this.onMsgClick}
+                                     onStatusViewClick={this.onStatusViewClick}
+                                     onTouchMsgList={this.onTouchMsgList}
+                                     onTapMessageCell={this.onTapMessageCell}
+                                     onBeginDragMessageList={this.onBeginDragMessageList}
+                                     onPullToRefresh={this.onPullToRefresh}
+                                     avatarSize={{ width: 50, height: 50 }}
+                                     avatarCornerRadius={25}
+                                     messageListBackgroundColor={"#f3f3f3"}
+                                     sendBubbleTextSize={18}
+                                     sendBubbleTextColor={"#000000"}
+                                     sendBubblePadding={{ left: 10, top: 10, right: 15, bottom: 10 }}
+                                     datePadding={{ left: 5, top: 5, right: 5, bottom: 5 }}
+                                     dateBackgroundColor={"#F3F3F3"}
+                                     photoMessageRadius={5}
+                                     maxBubbleWidth={0.7}
+                                     videoDurationTextColor={"#ffffff"}
+                    />
+                    <InputView style={this.state.inputViewLayout}
+                               ref="ChatInput"
+                               onSendText={this.onSendText}
+                               onTakePicture={this.onTakePicture}
+                               onStartRecordVoice={this.onStartRecordVoice}
+                               onFinishRecordVoice={this.onFinishRecordVoice}
+                               onCancelRecordVoice={this.onCancelRecordVoice}
+                               onStartRecordVideo={this.onStartRecordVideo}
+                               onFinishRecordVideo={this.onFinishRecordVideo}
+                               onSendGalleryFiles={this.onSendGalleryFiles}
+                               onSwitchToEmojiMode={this.onSwitchToEmojiMode}
+                               onSwitchToMicrophoneMode={this.onSwitchToMicrophoneMode}
+                               onSwitchToGalleryMode={this.onSwitchToGalleryMode}
+                               onSwitchToCameraMode={this.onSwitchToCameraMode}
+                               onShowKeyboard={this.onShowKeyboard}
+                               onTouchEditText={this.onTouchEditText}
+                               onFullScreen={this.onFullScreen}
+                               onRecoverScreen={this.onRecoverScreen}
+                               onSizeChange={this.onInputViewSizeChange}
+                               closeCamera={this.onCloseCamera}
+                               switchCameraMode={this.switchCameraMode}
+                               showSelectAlbumBtn={true}
+                               showRecordVideoBtn={false}
+                               onClickSelectAlbum={this.onClickSelectAlbum}
+                               inputPadding={{ left: 30, top: 10, right: 10, bottom: 10 }}
+                               galleryScale={0.6}//default = 0.5
+                               compressionQuality={0.6}
+                               cameraQuality={0.7}//default = 0.5
+                               customLayoutItems={{
+                                   left: [],
+                                   right: ['send'],
+                                   bottom: ['voice','gallery','emoji','camera']
+                               }}
+                    />
+                </View>
             </View>
         );
     }

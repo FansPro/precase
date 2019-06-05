@@ -11,28 +11,16 @@ import ChatCell from "../../components/chat/chatCell";
 import Swipeout from "react-native-swipeout";
 import List from "../../components/common/list";
 import NavBar from "../../components/common/navBar";
-import chatListStyle from "../../style/chat/chatListStyle"
+import chatListStyle from "../../style/chat/chatListStyle";
+import DB from "../../utils/storage";
 
-var swipeoutBtns = [
-    {
-        text: "置顶",
-
-    },
-    {
-        text: '删除',
-        onPress: (ss) => {
-            console.log("asfjkasdf", ss);
-        },
-        backgroundColor: "red",
-    }
-]
 
 
 class ChatList extends Component {
     constructor(props) {
         super(props);
         XMPP.on('message', this.onReceiveMessage);
-        XMPP.on('iq', (message) => console.log('IQ:' + JSON.stringify(message)));
+        XMPP.on('iq', this.onIQBack);
         XMPP.on('presence', (message) => console.log('PRESENCE:' + JSON.stringify(message)));
         XMPP.on('error', (message) => console.log('ERROR:' + message));
         XMPP.on('loginError', (message) => console.log('LOGIN ERROR:' + message));
@@ -40,11 +28,20 @@ class ChatList extends Component {
         XMPP.on('connect', (message) => console.log('CONNECTED!'));
         XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
         this.props.logIn();
+        this.props.getChatList();
+    }
+    onIQBack = (message) => {
+        console.log("onIQBack", message, message.query);
+        if (message.query) {
+            console.log("jid", message.query.item.jid);
+            var name = message.query.item.jid.match(/^([^@]*)@/)[1];
+            this.props.getChatList(name, message.id);
+        }
+
 
     }
-
     onReceiveMessage = ({from, body}) => {
-        console.log("onReceiveMessage")
+        console.log("onReceiveMessage", from, body);
         // extract username from XMPP UID
         if (!from || !body){
             return;
@@ -54,10 +51,29 @@ class ChatList extends Component {
         this.props.receiveMessage(name, body);
         // this.conversation.unshift({own:false, text:body});
     }
+
+    goChatRoom = (item) => {
+        this.props.navigation.navigate("chatRoom", { name: item.item.get("name") });
+        this.props.goChatRoom(item.item.get("name"));
+    }
     renderCell = (item) => {
-        return  <Swipeout right={swipeoutBtns} key={item.index}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("chatRoom", { name: item.item.get("name") })}>
-                <ChatCell unRead={item.item.get("unRead")} name={item.item.get("name")} message={item.item.get("message")}/>
+
+        var btns = [
+            {
+                text: "置顶",
+
+            },
+            {
+                text: '删除',
+                onPress: () => {
+                    this.props.doDeleteChat(item.item.get("name"));
+                },
+                backgroundColor: "red",
+            }
+        ]
+        return  <Swipeout right={btns} key={item.index + item.item.get("name")}>
+            <TouchableOpacity onPress={() => this.goChatRoom(item)}>
+                <ChatCell unReadNum={item.item.get("unReadNum")} name={item.item.get("name")} message={item.item.get("message")}/>
             </TouchableOpacity>
         </Swipeout>
     }
@@ -97,11 +113,34 @@ function mapDispatchToProps(dispatch) {
         sendMessage: () => dispatch({
             type: types.XMPP_SEND_MESSAGE,
         }),
-        receiveMessage: (name, message) => dispatch({
-            type: types.XMPP_RECEIVE_MESSAGE,
-            message,
-            name
+        receiveMessage: async (name, message) => {
+            let rs = await DB.get("chatList");
+            dispatch({
+                type: types.XMPP_RECEIVE_MESSAGE,
+                message,
+                name,
+                chatList: rs,
+            })
+        },
+        getChatList: async (name, id) => {
+            let rs = await DB.get("chatList");
+            dispatch({
+                type: types.CHAT_GET_CHATLIST,
+                name,
+                id,
+                chatList: rs,
+            })
+        },
+        goChatRoom: (name) => dispatch({
+            type: types.CHAT_GO_ROOM,
+            isChatList: false,
+            name: name,
+        }),
+        doDeleteChat: (name) => dispatch({
+            type: types.CHAT_DELETE_CELL,
+            name,
         })
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

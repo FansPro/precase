@@ -15,6 +15,7 @@ const navBarStyles  = StyleSheet.create({
             height: 64,
         },
         backgroundColor: "#4D78B0",
+        zIndex: 10000000,
     },
     content: {
         flex: 1,

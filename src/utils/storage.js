@@ -14,6 +14,7 @@ class DB {
     if (typeof value === 'object') {
       result = JSON.stringify(value);
     }
+    console.log("save", result);
     return AsyncStorage.setItem(key, result);
   }
 
@@ -32,6 +33,9 @@ class DB {
     } finally {
       return result;
     }
+  }
+  getValue(key) {
+    return AsyncStorage.getItem(key)
   }
 
   multiSet(kvs) {

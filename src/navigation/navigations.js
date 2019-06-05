@@ -43,7 +43,7 @@ export const tabs = {
 export const navigators = [
     { screen: tabs, isTab: true, key: "tab"},
     { key: "game", screen: Game, title: "游戏", navigationOptions: { headerTitle: "游戏"}},
-    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: { headerTitle: "聊天"}}
+    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: {header: null}}
 ];
 
 export const pages = {
