@@ -18,7 +18,9 @@ class ChatCell extends Component {
                 style={chatCellStyle.cell_content}
             >
                 <View style={chatCellStyle.cell_avator}>
-                    { unRead && <View style={chatCellStyle.cell_point}/>}
+                    { true && <View style={chatCellStyle.cell_point}>
+                        <Text style={chatCellStyle.cell_point_txt} >99+</Text>
+                    </View>}
                 </View>
                 <View style={chatCellStyle.cell_info}>
                     <Text style={chatCellStyle.cell_info_name}>{name}</Text>

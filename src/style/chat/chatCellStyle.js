@@ -2,7 +2,7 @@ import StyleSheet from "../../utils/sheetStyle";
 
 const chatCellStyle = StyleSheet.create({
     cell_content: {
-        height: 60,
+        height: 70,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -12,23 +12,33 @@ const chatCellStyle = StyleSheet.create({
         backgroundColor: "white",
     },
     cell_avator: {
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         backgroundColor: "#999999",
         borderRadius: 4,
     },
     cell_point: {
-        height:8,
-        width: 8,
-        borderRadius: 4,
+        height:14,
+        minWidth: 14,
+        borderRadius: 7,
         backgroundColor:"red",
-        marginTop: 0,
-        marginRight: 0,
-        marginLeft:"auto"
+        marginTop: -5,
+        marginRight: -5,
+        marginLeft:"auto",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    cell_point_txt: {
+        color: "white",
+        textAlign: "center",
+        paddingLeft:2,
+        paddingRight: 2,
+        fontSize:10,
     },
 
     cell_info: {
-        height: 40,
+        height: 50,
         marginLeft: 10,
         display: "flex",
         justifyContent: "space-between",
