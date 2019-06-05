@@ -8,7 +8,7 @@ import android.content.Intent;
 
 import com.facebook.react.ReactApplication;
 import com.rnfs.RNFSPackage;
-import rnxmpp.RNXMPPPackage;
+import com.rnxmpp.RNXMPPPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
