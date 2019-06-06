@@ -44,7 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+            new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
             new RNFSPackage(),
             new RNXMPPPackage(),
             new RNI18nPackage(),
@@ -61,6 +61,7 @@ public class MainApplication extends Application implements ReactApplication {
       return "index";
     }
   };
+
 
   @Override
   public ReactNativeHost getReactNativeHost() {
