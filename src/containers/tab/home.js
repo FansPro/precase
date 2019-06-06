@@ -21,6 +21,7 @@ import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
 import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
+import PayTips from "../../components/common/payTips";
 
 let codePushOptions = {
     //设置检查更新的频率
@@ -157,6 +158,7 @@ class Home extends BaseComponent {
                 <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>
                 </Modal>
+                <PayTips/>
             </View>
         )
     }
