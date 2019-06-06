@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "bundle:build-android": "rm -rf bundle && mkdir bundle && react-native bundle --entry-file index.js --bundle-output ./bundle/main.jsbundle --platform android --assets-dest ./bundle --dev false"
+    "bundle:build-android": "rm -rf bundle && mkdir bundle && react-native bundle --entry-file index.js --bundle-output ./bundle/main.jsbundle --platform android --assets-dest ./bundle --dev false",
+    "push:android": "code-push release-react pc-android android --d Production --description \" \""
   },
   "dependencies": {
     "aurora-imui-react-native": "^0.14.0",

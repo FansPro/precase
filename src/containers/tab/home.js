@@ -19,7 +19,17 @@ import * as types  from "../../common/actionType";
 import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
+import CodePush from "react-native-code-push";
+import UpdateTips from "../../components/common/updateTips";
 
+let codePushOptions = {
+    //设置检查更新的频率
+    //ON_APP_RESUME APP恢复到前台的时候
+    //ON_APP_START APP开启的时候
+    //MANUAL 手动检查
+    checkFrequency : CodePush.CheckFrequency.ON_APP_START,
+    installMode: CodePush.InstallMode.IMMEDIATE,
+};
 
 class Home extends BaseComponent {
     constructor(props) {
@@ -28,6 +38,44 @@ class Home extends BaseComponent {
             visible: false,
         }
         this.props.setLocale("zh");
+        this.state = {
+            isShow: false,
+        }
+        console.log("constuctor", this.state.isShow);
+    }
+    componentDidMount() {
+        CodePush.allowRestart();
+        this.checkUpdate();
+    }
+    componentWillUnmount(): void {
+        CodePush.disallowRestart();
+    }
+
+    checkUpdate = () => {
+        setImmediate(() => {
+            CodePush.checkForUpdate().then(update => {
+                console.log("updateInfo", update);
+
+                if (update) {
+                    this.setState({ isShow:  true });
+                    CodePush.sync({
+
+                        },
+                         (status) => {
+                            console.log("status", status);
+                        },
+                        (progress) => {
+                            console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
+                        }
+                    )
+                } else {
+                    this.setState({isShow: false});
+                }
+                setTimeout(() => console.log("show", this.state.isShow), 500);
+            }).catch(e => {
+                console.log("chechError", e);
+            })
+        })
     }
     changeState = () => {
         console.log("sss");
@@ -82,6 +130,9 @@ class Home extends BaseComponent {
                 <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
                 </TouchableOpacity>
+                <Modal visible={this.state.isShow} transparent={true}>
+                    <UpdateTips/>
+                </Modal>
             </View>
         )
     }
@@ -104,4 +155,5 @@ function mapDispatchToProps(dispatch) {
         setLocale: (lacale) => dispatch(setLocale(lacale))
     }
 }
+Home = CodePush(codePushOptions)(Home);
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
