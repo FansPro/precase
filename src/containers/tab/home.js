@@ -27,7 +27,7 @@ let codePushOptions = {
     //ON_APP_RESUME APP恢复到前台的时候
     //ON_APP_START APP开启的时候
     //MANUAL 手动检查
-    checkFrequency : CodePush.CheckFrequency.ON_APP_START,
+    checkFrequency : CodePush.CheckFrequency.ON_APP_RESUME,
     installMode: CodePush.InstallMode.IMMEDIATE,
 };
 
@@ -35,48 +35,72 @@ class Home extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
+            modalVisible: false,
         }
         this.props.setLocale("zh");
-        this.state = {
-            isShow: false,
-        }
-        console.log("constuctor", this.state.isShow);
     }
-    componentDidMount() {
+    componentWillMount() {
         CodePush.allowRestart();
-        this.checkUpdate();
+        this.syncImmediate();
     }
     componentWillUnmount(): void {
         CodePush.disallowRestart();
     }
 
-    checkUpdate = () => {
-        setImmediate(() => {
-            CodePush.checkForUpdate().then(update => {
-                console.log("updateInfo", update);
+    codePushStatusDidChange(syncStatus) {
+        switch(syncStatus) {
+            case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+                console.log("Checking for update");
+                break;
+            case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+                console.log("Downloading package");
+                this.setState({modalVisible: true});
+                break;
+            case CodePush.SyncStatus.AWAITING_USER_ACTION:
+                console.log("Awaiting user action");
+                break;
+            case CodePush.SyncStatus.INSTALLING_UPDATE:
+                console.log("Installing update");
+                this.setState({modalVisible: true});
+                break;
+            case CodePush.SyncStatus.UP_TO_DATE:
+                console.log("App up to date.");
+                break;
+            case CodePush.SyncStatus.UPDATE_IGNORED:
+                console.log("Update cancelled by user.");
+                break;
+            case CodePush.SyncStatus.UPDATE_INSTALLED:
+                console.log("Update installed and will be applied on restart.");
+                this.setState({modalVisible: false});
+                break;
+            case CodePush.SyncStatus.UNKNOWN_ERROR:
+                console.log("An unknown error occurred");
+                // this.setState({modalVisible: false});
+                break;
+        }
+    }
+    codePushDownloadDidProgress = (progress) => {
+            let currProgress = parseFloat(progress.receivedBytes / progress.totalBytes).toFixed(2)
+            console.log("currProgress", currProgress);
+    }
 
-                if (update) {
-                    this.setState({ isShow:  true });
-                    CodePush.sync({
-
-                        },
-                         (status) => {
-                            console.log("status", status);
-                        },
-                        (progress) => {
-                            console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
-                        }
-                    )
-                } else {
-                    this.setState({isShow: false});
-                }
-                setTimeout(() => console.log("show", this.state.isShow), 500);
-            }).catch(e => {
-                console.log("chechError", e);
-            })
+    syncImmediate = () => {
+        CodePush.checkForUpdate().then((update) => {
+            console.log('-------' + update)
+            if (!update) {
+                console.log('notNeedUpNode',)
+            } else {
+                this.setState({modalVisible: true});
+                setTimeout(() => this.immediateUpdate(), 500);
+            }
         })
     }
+    immediateUpdate = () => {
+        CodePush.sync( {installMode: CodePush.InstallMode.IMMEDIATE},
+        this.codePushStatusDidChange,
+        this.codePushDownloadDidProgress);
+    }
+
     changeState = () => {
         console.log("sss");
         this.navPush("game")
@@ -130,7 +154,7 @@ class Home extends BaseComponent {
                 <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
                 </TouchableOpacity>
-                <Modal visible={this.state.isShow} transparent={true}>
+                <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>
                 </Modal>
             </View>
