@@ -24,6 +24,8 @@ import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
 import PayTips from "../../components/common/payTips";
 import JPushModule from "jpush-react-native";
+import Realm from "realm";
+
 
 let codePushOptions = {
     //设置检查更新的频率
