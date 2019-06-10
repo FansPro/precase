@@ -112,6 +112,11 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName "1.0.0"
+        manifestPlaceholders = [
+                JPUSH_APPKEY: "6420625f1fdf9c444d45c30c",
+                APP_CHANNEL : "default"
+        ]
+
     }
     signingConfigs {
             release {
@@ -170,6 +175,8 @@ android {
 }
 
 dependencies {
+    implementation project(':jcore-react-native')
+    implementation project(':jpush-react-native')
     implementation project(':react-native-code-push')
     implementation project(':react-native-fs')
     implementation project(':aurora-imui-react-native')

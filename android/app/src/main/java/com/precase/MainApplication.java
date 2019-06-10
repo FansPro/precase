@@ -21,10 +21,11 @@ import com.meiqia.meiqiasdk.util.MQConfig;
 import com.meiqia.core.callback.OnInitCallback;
 import com.meiqia.core.MQManager;
 import cn.jiguang.imui.messagelist.ReactIMUIPackage;
-
+import cn.jpush.reactnativejpush.JPushPackage;
 
 import java.util.Arrays;
 import java.util.List;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -51,8 +52,9 @@ public class MainApplication extends Application implements ReactApplication {
             new RNCWebViewPackage(),
             new RNGestureHandlerPackage(),
             new NativeOpenPackage(),
-          new MeiqiaPackage(),
-          new ReactIMUIPackage()
+            new MeiqiaPackage(),
+            new ReactIMUIPackage(),
+            new JPushPackage(true, true)
       );
     }
 
