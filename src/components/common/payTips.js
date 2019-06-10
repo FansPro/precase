@@ -34,15 +34,10 @@ class PayTips extends Component {
                                 <Text style={payTipsStyle.pt_title}>支付密码</Text>
                             </View>
                             {(()=> {
-                                let pwdArr = [];
-                                for (let i in password ) {
-                                    pwdArr.push(password[i]);
-                                }
                                 let pwdViews = [];
                                for(let i = 0; i < 6; i++) {
-                                   console.log("value", pwdArr.length ? pwdArr[i] : "")
                                     pwdViews.push(
-                                        <TextInput editable={false} secureTextEntry={true} value={ i < pwdArr.length ? pwdArr[i] : "" } style={{...payTipsStyle.input_children,marginLeft: i === 0 ? 0 :1 }}/>
+                                        <TextInput editable={false} secureTextEntry={true} value={ i < password.length ? password.charAt(i)  : "" } style={{...payTipsStyle.input_children,marginLeft: i === 0 ? 0 :1 }}/>
                                     );
                                }
                                return <View style={payTipsStyle.input_content}>
