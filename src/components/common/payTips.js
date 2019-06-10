@@ -37,7 +37,7 @@ class PayTips extends Component {
                                 let pwdViews = [];
                                for(let i = 0; i < 6; i++) {
                                     pwdViews.push(
-                                        <TextInput editable={false} secureTextEntry={true} value={ i < password.length ? password.charAt(i)  : "" } style={{...payTipsStyle.input_children,marginLeft: i === 0 ? 0 :1 }}/>
+                                        <TextInput key={i + "input"} editable={false} secureTextEntry={true} value={ i < password.length ? password.charAt(i)  : "" } style={{...payTipsStyle.input_children,marginLeft: i === 0 ? 0 :1 }}/>
                                     );
                                }
                                return <View style={payTipsStyle.input_content}>

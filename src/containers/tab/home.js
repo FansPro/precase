@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Linking,
     Alert,
-    NativeModules
+    NativeModules,
+    Platform,
 } from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
 import BaseComponent from "../../base/baseComponent";
@@ -22,6 +23,7 @@ import NavBar from "../../components/common/navBar";
 import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
 import PayTips from "../../components/common/payTips";
+import JPushModule from "jpush-react-native";
 
 let codePushOptions = {
     //设置检查更新的频率
@@ -40,9 +42,38 @@ class Home extends BaseComponent {
         }
         this.props.setLocale("zh");
     }
+    componentDidMount() {
+        // JPUSH
+        JPushModule.initPush();
+        JPushModule.notifyJSDidLoad((result) => {
+            console.log("notifi", result);
+        });
+        JPushModule.addReceiveCustomMsgListener((message) => {
+            console.log("custom msg:", message);
+        });
+        JPushModule.addReceiveNotificationListener((map) => {
+            console.log("alertContent: " + map.alertContent);
+        });
+        JPushModule.addReceiveOpenNotificationListener((map) => {
+            console.log("Opening notification!", map);
+
+            // this.props.navigator.replace({name: "HomePage",component:HomePage});
+
+        });
+        JPushModule.getInfo((result) => {
+            console.log("JPush info", result);
+        })
+    }
+
     componentWillMount() {
         CodePush.allowRestart();
         this.syncImmediate();
+
+
+        if (Platform.OS === "android") {
+
+        }
+
     }
     componentWillUnmount(): void {
         CodePush.disallowRestart();
