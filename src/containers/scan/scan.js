@@ -10,6 +10,7 @@ import { RNCamera } from "react-native-camera";
 import scanStyles from "../../style/scan/sanStyle";
 import {WINDOW_WIDTH} from "../../common/constants";
 import NavBar from "../../components/common/navBar";
+import ImagePicker from "react-native-image-picker";
 
 class Scan extends Component {
     constructor(props) {
@@ -34,7 +35,49 @@ class Scan extends Component {
         Alert.alert(`result:${e.data}`);
     }
     goPhotos = () => {
+        const options = {
+            title: '选择图片',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择照片',
+            cameraType: 'back',
+            mediaType: 'photo',
+            videoQuality: 'high',
+            durationLimit: 10,
+            maxWidth: 300,
+            maxHeight: 300,
+            quality: 0.8,
+            angle: 0,
+            allowsEditing: false,
+            noData: false,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
 
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    avatarSource: source
+                });
+            }
+        });
     }
     render() {
         return (
