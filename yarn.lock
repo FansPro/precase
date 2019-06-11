@@ -5354,6 +5354,11 @@ react-native-image-picker@^0.28.1:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.28.1.tgz#1127460522e0c9741fc62f3d040271d298fb6a6e"
   integrity sha512-CW2dm+cjsdW2fjBW2WD/cSufNG0x0UpljwGHrjSzyB0TckoW+tjYv44UWtckCWxr1JtCg+QrYDO/MzlRyFcjwQ==
 
+react-native-local-barcode-recognizer@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-local-barcode-recognizer/-/react-native-local-barcode-recognizer-0.0.2.tgz#e59716623d8a851705637fe241cf749ea186119c"
+  integrity sha512-19b9Q5buH7tUibCOZl/6fBOeVAQcJE0co72ZE53dvBIjralt7jbyju5JkF53OEIX8y9gjitPskpPBb5gJ5MZWA==
+
 react-native-redux-i18n@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/react-native-redux-i18n/-/react-native-redux-i18n-1.0.11.tgz#8f779402ddf435cd6465a1450c95da395ab390b9"

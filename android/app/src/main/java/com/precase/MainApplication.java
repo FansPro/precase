@@ -7,6 +7,7 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
+import cn.jystudio.local.barcode.recognizer.LocalBarcodeRecognizerPackage;
 import com.imagepicker.ImagePickerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -47,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LocalBarcodeRecognizerPackage(),
             new ImagePickerPackage(),
             new RNCameraPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),

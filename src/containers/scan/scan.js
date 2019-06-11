@@ -11,12 +11,14 @@ import scanStyles from "../../style/scan/sanStyle";
 import {WINDOW_WIDTH} from "../../common/constants";
 import NavBar from "../../components/common/navBar";
 import ImagePicker from "react-native-image-picker";
+import LocalBarcodeRecognizer from 'react-native-local-barcode-recognizer';
 
 class Scan extends Component {
     constructor(props) {
         super(props);
         this.state = {
             top: new Animated.Value(0),
+            result: "no result"
         }
         this.scanAnimation();
     }
@@ -31,8 +33,9 @@ class Scan extends Component {
     }
     scanBarCode = (e) => {
         console.log("scanBarCode", e);
-        this.animated.stop();
-        Alert.alert(`result:${e.data}`);
+        this.setState({
+            result: JSON.stringify(e),
+        })
     }
     goPhotos = () => {
         const options = {
@@ -68,16 +71,21 @@ class Scan extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = { uri: response.uri };
+                // let source = { uri: response.uri };
 
                 // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                this.setState({
-                    avatarSource: source
-                });
+                let source = response.data ;
+                this.decodeLocalCode(source)
             }
         });
+    }
+
+    decodeLocalCode = async (source) => {
+        let result = await LocalBarcodeRecognizer.decode(source,{codeTypes:['ean13','qr']});
+        console.log("decode", result);
+        this.setState({
+            result: JSON.stringify(result),
+        })
     }
     render() {
         return (
@@ -127,7 +135,9 @@ class Scan extends Component {
                         <View style={scanStyles.scan_tb}/>
                     </View>
 
-                    <View style={scanStyles.scan_tb}/>
+                    <View style={scanStyles.scan_tb}>
+                        <Text style={{fontSize: 15, color: "red"}}>{this.state.result}</Text>
+                    </View>
                 </RNCamera>
             </View>
         )
