@@ -12,7 +12,7 @@ class NavBar extends Component {
 
     render() {
         const { title, left, leftAction, right, rightAction } = this.props;
-        return <View style={navBarStyles.container}>
+        return <View style={{...navBarStyles.container, backgroundColor: !this.props.transparent ? "#4D78B0" : "rgba(0,0,0,0.5)"}}>
             <StatusBar translucent hidden={false} barStyle={"light-content"} backgroundColor="transparent" />
             <View style={navBarStyles.content}>
                 <View style={{...navBarStyles.content_bar}}></View>

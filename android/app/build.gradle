@@ -111,11 +111,12 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
         manifestPlaceholders = [
                 JPUSH_APPKEY: "6420625f1fdf9c444d45c30c",
                 APP_CHANNEL : "default"
         ]
+        missingDimensionStrategy 'react-native-camera', 'general'
 
     }
     signingConfigs {
@@ -175,7 +176,7 @@ android {
 }
 
 dependencies {
-    implementation project(':realm')
+    implementation project(':react-native-camera')
     implementation project(':jcore-react-native')
     implementation project(':jpush-react-native')
     implementation project(':react-native-code-push')

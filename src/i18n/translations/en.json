@@ -5,6 +5,7 @@
     "nativeOpenApp": "NATIVE OPEN APP TEST",
     "meiqiaTest": "MEIQIA OPEN TEST",
     "storeTest": "STORE TEST",
-    "languageTest": "LANGUAGE TEST"
+    "languageTest": "LANGUAGE TEST",
+    "scanTest": "SCAN TEST"
   }
 }

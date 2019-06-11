@@ -9,6 +9,7 @@ import My from "../containers/tab/my";
 import ChatList from "../containers/tab/chatList";
 import Game from "../containers/game/game";
 import ChatRoom from "../containers/chat/chatRoom";
+import Scan from "../containers/scan/scan";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -43,7 +44,8 @@ export const tabs = {
 export const navigators = [
     { screen: tabs, isTab: true, key: "tab"},
     { key: "game", screen: Game, title: "游戏", navigationOptions: { headerTitle: "游戏"}},
-    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: {header: null}}
+    { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: {header: null}},
+    {key: "scan", screen: Scan, title: "扫码",  navigationOptions: {header: null}}
 ];
 
 export const pages = {

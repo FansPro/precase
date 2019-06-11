@@ -7,7 +7,7 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
-import io.realm.react.RealmReactPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.rnfs.RNFSPackage;
 import com.rnxmpp.RNXMPPPackage;
@@ -46,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RealmReactPackage(),
+            new RNCameraPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
             new RNFSPackage(),
             new RNXMPPPackage(),

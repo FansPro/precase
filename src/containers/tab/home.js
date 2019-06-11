@@ -24,7 +24,6 @@ import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
 import PayTips from "../../components/common/payTips";
 import JPushModule from "jpush-react-native";
-import Realm from "realm";
 
 
 let codePushOptions = {
@@ -162,6 +161,10 @@ class Home extends BaseComponent {
         this.props.setLocale( I18n.locale === "zh" ? "en" : "zh");
     }
 
+    goScanPage = () => {
+        this.props.navigation.navigate("scan");
+    }
+
 
     render() {
         const name = "fafaffa"
@@ -188,10 +191,13 @@ class Home extends BaseComponent {
                 <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={ this.goScanPage } style={homeStyles.home_cell}>
+                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.scanTest")}</Text>
+                </TouchableOpacity>
                 <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>
                 </Modal>
-                <PayTips/>
+                {/*<PayTips/>*/}
             </View>
         )
     }
