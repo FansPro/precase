@@ -7,6 +7,7 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
+import io.realm.react.RealmReactPackage;
 import cn.jystudio.local.barcode.recognizer.LocalBarcodeRecognizerPackage;
 import com.imagepicker.ImagePickerPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -48,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RealmReactPackage(),
             new LocalBarcodeRecognizerPackage(),
             new ImagePickerPackage(),
             new RNCameraPackage(),
