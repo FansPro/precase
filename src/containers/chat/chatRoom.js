@@ -482,7 +482,7 @@ class ChatRoom extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <NavBar title={name}/>
+                    <NavBar title={name} navigation={this.props.navigation}/>
                     <MessageListView style={this.state.messageListLayout}
                                      ref="MessageList"
                                      isAllowPullToRefresh={true}
