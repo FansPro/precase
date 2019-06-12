@@ -27,6 +27,7 @@ class ChatList extends Component {
         XMPP.on('login', (message) => console.log('LOGGED!'));
         XMPP.on('connect', (message) => console.log('CONNECTED!'));
         XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
+        XMPP.on('error', (message) => console.log("error", message))
         this.props.logIn();
         this.props.getChatList();
     }
@@ -81,7 +82,7 @@ class ChatList extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <NavBar left={null} title={"消息"} right={<Text style={chatListStyle.nav_right}>+</Text>}/>
+                <NavBar left={true} title={"消息"} right={<Text style={chatListStyle.nav_right}>+</Text>}/>
                 {/*<Text>this is ChatList Page</Text>*/}
                 {/*<TouchableOpacity onPress={this.props.sendMessage}>*/}
                 {/*    <Text>发送消息</Text>*/}

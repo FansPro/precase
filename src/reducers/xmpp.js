@@ -20,7 +20,6 @@ const initialState = Immutable.fromJS({
         }),
         chatList: Immutable.List(),
 });
-const RNXMPP = NativeModules.RNXMPP;
 
 
 function _userForName(name){
@@ -59,6 +58,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case types.XMPP_CONNECT:
             // XMPP.connect(_userForName("admin"), "abcd!!!xyz");
+            console.log("login");
             XMPP.trustHosts([DOMAIN])
             XMPP.connect(_userForName(newState.get("user").get("name")), newState.get("user").get("pwd"));
             return newState;

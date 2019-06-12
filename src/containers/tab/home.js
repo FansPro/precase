@@ -171,7 +171,7 @@ class Home extends BaseComponent {
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
         return (
             <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
-                <NavBar left={null} title={"首页"}/>
+                <NavBar left={true} title={"首页"}/>
                 <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
                     <Text style={homeStyles.home_cell_txt}>{I18n.t("home.h5")}</Text>
                 </TouchableOpacity>
