@@ -98,6 +98,7 @@ class Scan extends Component {
                     onBarCodeRead={(e) => this.scanBarCode(e)}
                 >
                     <NavBar
+                        navigation={this.props.navigation}
                         transparent title={"扫一扫"}
                         right={<Text style={{fontSize: 18, color: "white", marginRight: 10}}>相册</Text>}
                         rightAction={() => this.goPhotos()}

@@ -22,7 +22,7 @@ class NavBar extends Component {
                         {left}
                     </TouchableOpacity>}
                     {
-                        !left && <TouchableOpacity onPress={() => rightAction ? rightAction() : this.props.navigation.goBack()}>
+                        !left && <TouchableOpacity onPress={() => leftAction ? leftAction() : this.props.navigation.goBack()}>
                             <Image style={{marginLeft: 10}} source={backIcon}/>
                         </TouchableOpacity>
                     }

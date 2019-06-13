@@ -46,6 +46,7 @@ class Home extends BaseComponent {
     componentDidMount() {
         // JPUSH
         JPushModule.initPush();
+        // JPushModule.setStyleCustom();
         JPushModule.notifyJSDidLoad((result) => {
             console.log("notifi", result);
         });
@@ -66,6 +67,7 @@ class Home extends BaseComponent {
         })
     }
 
+
     componentWillMount() {
         CodePush.allowRestart();
         this.syncImmediate();
@@ -78,6 +80,11 @@ class Home extends BaseComponent {
     }
     componentWillUnmount(): void {
         CodePush.disallowRestart();
+        JPushModule.removeReceiveCustomMsgListener();
+        JPushModule.removeReceiveNotificationListener();
+        JPushModule.removeReceiveOpenNotificationListener();
+        // 清除所有通知
+        JPushModule.clearAllNotifications()
     }
 
     codePushStatusDidChange(syncStatus) {
