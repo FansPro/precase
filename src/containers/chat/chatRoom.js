@@ -31,7 +31,7 @@ function constructNormalMessage() {
     message.status = "send_succeed"
     message.isOutgoing = true
     var date = new Date()
-    message.timeString = date.getHours() + ":" + date.getMinutes()
+    // message.timeString = date.getHours() + ":" + date.getMinutes()
     var user = {
         userId: "",
         displayName: "replace your nickname",
@@ -344,7 +344,7 @@ class ChatRoom extends Component {
         message.msgType = 'text'
         message.text = text;
         const name = this.props.navigation.state.params.name;
-        sendMessage(text, name, "fansx");
+        sendMessage(text, name, "fansq");
         AuroraIController.appendMessages([message])
     }
 
@@ -356,7 +356,7 @@ class ChatRoom extends Component {
         message.mediaPath = media.mediaPath
         AuroraIController.appendMessages([message])
         this.resetMenu()
-        sendMessage(message.mediaPath, name, "fansx");
+        sendMessage(message.mediaPath, name, "fansq");
         AuroraIController.scrollToBottom(true)
     }
 
@@ -505,7 +505,7 @@ class ChatRoom extends Component {
                                      messageListBackgroundColor={"#f3f3f3"}
                                      sendBubbleTextSize={18}
                                      sendBubbleTextColor={"#000000"}
-                                     sendBubblePadding={{ left: 10, top: 10, right: 15, bottom: 10 }}
+                                     sendBubblePadding={{ left: 10, top: 5, right: 15, bottom: 5 }}
                                      datePadding={{ left: 5, top: 5, right: 5, bottom: 5 }}
                                      dateBackgroundColor={"#F3F3F3"}
                                      photoMessageRadius={5}

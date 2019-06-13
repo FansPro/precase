@@ -42,7 +42,6 @@ class ChatList extends Component {
         XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
         XMPP.on('error', (message) => console.log("error", message))
         this.props.logIn();
-        this.props.addOneChat();
         this.props.getChatList();
     }
     onIQBack = (message) => {
@@ -126,8 +125,6 @@ class ChatList extends Component {
 
 function mapStateToProps(state) {
     const { xmpp } = state;
-
-    console.log("sdsad", xmpp.get("chatList"));
     return {
         chatList: xmpp.get("chatList").toArray(),
     };
