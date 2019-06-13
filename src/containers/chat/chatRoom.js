@@ -284,13 +284,13 @@ class ChatRoom extends Component {
     }
 
     onAvatarClick = (message) => {
-        Alert.alert()
-        AuroraIController.removeMessage(message.msgId)
+        // Alert.alert()
+        // AuroraIController.removeMessage(message.msgId)
     }
 
     onMsgClick(message) {
-        console.log(message)
-        Alert.alert("message", JSON.stringify(message))
+        // console.log(message)
+        // Alert.alert("message", JSON.stringify(message))
     }
 
     onMsgLongClick = (message) => {
@@ -312,27 +312,27 @@ class ChatRoom extends Component {
     }
 
     onPullToRefresh = () => {
-        console.log("on pull to refresh")
-        var messages = []
-        for (var i = 0; i < 14; i++) {
-            var message = constructNormalMessage()
-            // if (index%2 == 0) {
-            message.msgType = "text"
-            message.text = "" + i
-            // }
-
-            if (i % 3 == 0) {
-                message.msgType = "video"
-                message.text = "" + i
-                message.mediaPath = "/storage/emulated/0/ScreenRecorder/screenrecorder.20180323101705.mp4"
-                message.duration = 12
-            }
-            messages.push(message)
-        }
-        AuroraIController.insertMessagesToTop(messages)
-        if (Platform.OS === 'android') {
+        // console.log("on pull to refresh")
+        // var messages = []
+        // for (var i = 0; i < 14; i++) {
+        //     var message = constructNormalMessage()
+        //     // if (index%2 == 0) {
+        //     message.msgType = "text"
+        //     message.text = "" + i
+        //     // }
+        //
+        //     if (i % 3 == 0) {
+        //         message.msgType = "video"
+        //         message.text = "" + i
+        //         message.mediaPath = "/storage/emulated/0/ScreenRecorder/screenrecorder.20180323101705.mp4"
+        //         message.duration = 12
+        //     }
+        //     messages.push(message)
+        // }
+        // AuroraIController.insertMessagesToTop(messages)
+        // if (Platform.OS === 'android') {
             this.refs["MessageList"].refreshComplete()
-        }
+        // }
 
     }
 
@@ -350,11 +350,13 @@ class ChatRoom extends Component {
 
     onTakePicture = (media) => {
         console.log("media " + JSON.stringify(media))
+        const { sendMessage } = this.props;
         var message = constructNormalMessage()
         message.msgType = 'image'
         message.mediaPath = media.mediaPath
         AuroraIController.appendMessages([message])
         this.resetMenu()
+        sendMessage(message.mediaPath, name, "fansx");
         AuroraIController.scrollToBottom(true)
     }
 
@@ -477,12 +479,17 @@ class ChatRoom extends Component {
         }
     }
 
+    goBack = () => {
+        this.props.navigation.goBack();
+        this.props.goChatList();
+    }
+
     render() {
         const { name } = this.props.navigation.state.params;
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <NavBar title={name} navigation={this.props.navigation}/>
+                    <NavBar leftAction={this.goBack} title={name} navigation={this.props.navigation}/>
                     <MessageListView style={this.state.messageListLayout}
                                      ref="MessageList"
                                      isAllowPullToRefresh={true}
@@ -583,6 +590,9 @@ function mapDispatchToProps(dispatch) {
             message: message,
             userId,
             fromUser,
+        }),
+        goChatList: () => dispatch({
+            type: types.CHAT_ROOM_BACK,
         })
     }
 }

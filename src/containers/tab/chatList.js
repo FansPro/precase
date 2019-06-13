@@ -13,22 +13,36 @@ import List from "../../components/common/list";
 import NavBar from "../../components/common/navBar";
 import chatListStyle from "../../style/chat/chatListStyle";
 import DB from "../../utils/storage";
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+    MenuProvider,
+    renderers
+} from 'react-native-popup-menu';
 
+const Popover = renderers.Popover;
 
 
 class ChatList extends Component {
     constructor(props) {
         super(props);
+
+        this.state ={
+            isLogin: false,
+        };
         XMPP.on('message', this.onReceiveMessage);
         XMPP.on('iq', this.onIQBack);
         XMPP.on('presence', (message) => console.log('PRESENCE:' + JSON.stringify(message)));
         XMPP.on('error', (message) => console.log('ERROR:' + message));
         XMPP.on('loginError', (message) => console.log('LOGIN ERROR:' + message));
-        XMPP.on('login', (message) => console.log('LOGGED!'));
+        XMPP.on('login', (message) => this.setState({isLogin: true}));
         XMPP.on('connect', (message) => console.log('CONNECTED!'));
         XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
         XMPP.on('error', (message) => console.log("error", message))
         this.props.logIn();
+        this.props.addOneChat();
         this.props.getChatList();
     }
     onIQBack = (message) => {
@@ -36,10 +50,8 @@ class ChatList extends Component {
         if (message.query) {
             console.log("jid", message.query.item.jid);
             var name = message.query.item.jid.match(/^([^@]*)@/)[1];
-            this.props.getChatList(name, message.id);
+            // this.props.getChatList(name, message.id);
         }
-
-
     }
     onReceiveMessage = ({from, body}) => {
         console.log("onReceiveMessage", from, body);
@@ -82,7 +94,21 @@ class ChatList extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <NavBar left={true} title={"消息"} right={<Text style={chatListStyle.nav_right}>+</Text>}/>
+                <NavBar left={true} title={"消息"} right={<View>
+                    <Menu  renderer={Popover} rendererProps={{ placement: 'bottom' }}>
+                        <MenuTrigger  >
+                            <Text style={{color: "white", fontSize: 28, marginRight: 10}}>+</Text>
+                        </MenuTrigger>
+                        <MenuOptions style={{padding: 5, backgroundColor: "#444444", borderRadius: 4}}>
+                            <MenuOption onSelect={()=> this.props.navigation.navigate("chatAdd")}>
+                                <Text style={{color: "white"}}>添加好友</Text>
+                            </MenuOption>
+                        </MenuOptions>
+                    </Menu>
+                </View>}/>
+                {!this.state.isLogin && <View style={chatListStyle.chat_tip}>
+                    <Text style={chatListStyle.chat_logTxt}>正在连接中...</Text>
+                </View>}
                 {/*<Text>this is ChatList Page</Text>*/}
                 {/*<TouchableOpacity onPress={this.props.sendMessage}>*/}
                 {/*    <Text>发送消息</Text>*/}
@@ -140,8 +166,10 @@ function mapDispatchToProps(dispatch) {
         doDeleteChat: (name) => dispatch({
             type: types.CHAT_DELETE_CELL,
             name,
+        }),
+        addOneChat: () => dispatch({
+            type: types.CHAT_ADD_ONE,
         })
-
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

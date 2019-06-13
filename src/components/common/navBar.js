@@ -18,12 +18,14 @@ class NavBar extends Component {
             <StatusBar translucent hidden={false} barStyle={"light-content"} backgroundColor="transparent" />
             <View style={navBarStyles.content}>
                 <View style={{...navBarStyles.content_bar}}>
-                    {left && typeof left !== "Boolean" && <TouchableOpacity onPress={rightAction}>
+                    {left && typeof left !== "Boolean" && <TouchableOpacity onPress={leftAction}>
                         {left}
                     </TouchableOpacity>}
                     {
                         !left && <TouchableOpacity onPress={() => leftAction ? leftAction() : this.props.navigation.goBack()}>
-                            <Image style={{marginLeft: 10}} source={backIcon}/>
+                            <View style={{height: 46, width:46, display:"flex", justifyContent: "center" }}>
+                                <Image style={{marginLeft: 10,}} source={backIcon}/>
+                            </View>
                         </TouchableOpacity>
                     }
                 </View>

@@ -23,6 +23,7 @@
     "react-native-i18n": "^2.0.15",
     "react-native-image-picker": "^0.28.1",
     "react-native-local-barcode-recognizer": "^0.0.2",
+    "react-native-popup-menu": "^0.15.6",
     "react-native-redux-i18n": "^1.0.11",
     "react-native-swipeout": "^2.3.6",
     "react-native-webview": "^5.10.0",

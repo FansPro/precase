@@ -34,7 +34,7 @@ class Scan extends Component {
     scanBarCode = (e) => {
         console.log("scanBarCode", e);
         this.setState({
-            result: JSON.stringify(e),
+            result: JSON.stringify(e.data),
         })
     }
     goPhotos = () => {

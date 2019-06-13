@@ -7,19 +7,19 @@ import * as types from "../../common/actionType"
 import { connect } from "react-redux";
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
-import Realm from "realm";
+// import Realm from "realm";
 
 class My extends Component {
     constructor(props) {
         super(props);
 
-        this.doRealmAction();
+        // this.doRealmAction();
     }
 
-    doRealmAction = () => {
-        let currentVersion = Realm.schemaVersion(Realm.defaultPath);
-        console.log("currentVersion", currentVersion);
-    }
+    // doRealmAction = () => {
+    //     let currentVersion = Realm.schemaVersion(Realm.defaultPath);
+    //     console.log("currentVersion", currentVersion);
+    // }
 
     render() {
         return (

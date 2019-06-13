@@ -5610,6 +5610,11 @@ react-native-local-barcode-recognizer@^0.0.2:
   resolved "https://registry.yarnpkg.com/react-native-local-barcode-recognizer/-/react-native-local-barcode-recognizer-0.0.2.tgz#e59716623d8a851705637fe241cf749ea186119c"
   integrity sha512-19b9Q5buH7tUibCOZl/6fBOeVAQcJE0co72ZE53dvBIjralt7jbyju5JkF53OEIX8y9gjitPskpPBb5gJ5MZWA==
 
+react-native-popup-menu@^0.15.6:
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.15.6.tgz#ebf885c289028e330dd66d887e685a8b0c2de970"
+  integrity sha512-ILFbQEofZQThVYAtVcOEgHJ+9wvn8992J+Oy/ByX83PoP88Meq3iw3pG1AwxMOoAPm/LjihtsDBqZ1lxjvosDg==
+
 react-native-redux-i18n@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/react-native-redux-i18n/-/react-native-redux-i18n-1.0.11.tgz#8f779402ddf435cd6465a1450c95da395ab390b9"
