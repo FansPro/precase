@@ -290,7 +290,9 @@ class ChatRoom extends Component {
 
     onMsgClick(message) {
         // console.log(message)
-        // Alert.alert("message", JSON.stringify(message))
+        if(message.msgType !== "text") {
+            Alert.alert("message", JSON.stringify(message))
+        }
     }
 
     onMsgLongClick = (message) => {
@@ -344,7 +346,7 @@ class ChatRoom extends Component {
         message.msgType = 'text'
         message.text = text;
         const name = this.props.navigation.state.params.name;
-        sendMessage(text, name, "fansq");
+        sendMessage(text, name, "fansx");
         AuroraIController.appendMessages([message])
     }
 
@@ -356,7 +358,7 @@ class ChatRoom extends Component {
         message.mediaPath = media.mediaPath
         AuroraIController.appendMessages([message])
         this.resetMenu()
-        sendMessage(message.mediaPath, name, "fansq");
+        // sendMessage(message.mediaPath, name, "fansx");
         AuroraIController.scrollToBottom(true)
     }
 
@@ -368,7 +370,7 @@ class ChatRoom extends Component {
         var message = constructNormalMessage()
         message.msgType = "voice"
         message.mediaPath = mediaPath
-        message.timeString = "safsdfa"
+        // message.timeString = "safsdfa"
         message.duration = duration
         AuroraIController.appendMessages([message])
         console.log("on finish record voice")
@@ -403,7 +405,7 @@ class ChatRoom extends Component {
          *
          * 代码用例不做裁剪操作。
          */
-        Alert.alert('fas', JSON.stringify(mediaFiles))
+        // Alert.alert('fas', JSON.stringify(mediaFiles))
         for (index in mediaFiles) {
             var message = constructNormalMessage()
             if (mediaFiles[index].mediaType == "image") {
@@ -413,9 +415,11 @@ class ChatRoom extends Component {
                 message.duration = mediaFiles[index].duration
             }
 
-            message.mediaPath = mediaFiles[index].mediaPath
-            message.timeString = "8:00"
-            message.status = "send_going"
+            message.mediaPath = "http://s14.sinaimg.cn/mw690/002b5d98hcc64063fd78d&690";
+            const { name } = this.props.navigation.state.params;
+            this.props.sendMessage(JSON.stringify(message), name, "fansx")
+            // message.timeString = "8:00"
+            // message.status = "send_going"
             AuroraIController.appendMessages([message])
             AuroraIController.scrollToBottom(true)
         }

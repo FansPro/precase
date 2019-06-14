@@ -52,9 +52,9 @@ const chatCellStyle = StyleSheet.create({
         color: "#999999",
     },
     cell_line: {
-        marginLeft: 60,
+        marginLeft: 15,
         height: 1,
-        backgroundColor: "#999999",
+        backgroundColor: "#999",
     }
 });
 export default chatCellStyle;

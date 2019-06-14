@@ -15,7 +15,7 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansq",
+        name: "fansx",
         pwd: "123456",
     }),
     chatList: Immutable.List(),
@@ -77,7 +77,7 @@ export default (state = initialState, action) => {
                 }
                 return item;
             });
-            DB.put("chatList", list);
+            // DB.put("chatList", list);
             newState = newState.set("chatList", list);
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
@@ -128,7 +128,6 @@ export default (state = initialState, action) => {
             DB.put("chatList", newChatList);
             return newState;
         case types.CHAT_GET_CHATLIST:
-
             chatList.map(item => {
                 tempMessages = Immutable.List();
                 item.messages && item.messages.length > 0 && item.messages.map(itemm => {
@@ -159,12 +158,11 @@ export default (state = initialState, action) => {
             if (tempChat) {
                 newChatList = newChatList.insert(0, tempChat);
             }
-            console.log("====", newChatList.size, newChatList)
             if (newChatList.size === 0) {
                 newChatList = newChatList.push(Immutable.fromJS({
                     message: "",
                     unReadNum: 0,
-                    name: "fansx",
+                    name: "fansq",
                     messages: Immutable.List(),
                 }))
             }
@@ -192,20 +190,6 @@ export default (state = initialState, action) => {
             return newState;
         case types.CHAT_ROOM_BACK:
             newState = newState.set("isChatList", true);
-            return newState;
-        case types.CHAT_ADD_ONE:
-
-            if(list.size === 0) {
-                list = list.push(Immutable.fromJS({
-                    message: "",
-                    unReadNum: 0,
-                    name: "fansx",
-                    messages: Immutable.List(),
-                }));
-            }
-            console.log("list", list.size);
-            newState = newState.set("chatList", list);
-            DB.put("chatList", list);
             return newState;
     }
     return state;

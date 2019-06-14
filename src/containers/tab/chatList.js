@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
+    ImageBackground,
 } from "react-native";
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
@@ -13,6 +15,7 @@ import List from "../../components/common/list";
 import NavBar from "../../components/common/navBar";
 import chatListStyle from "../../style/chat/chatListStyle";
 import DB from "../../utils/storage";
+import avator from "../../../assets/img/avator_01.jpeg";
 import {
     Menu,
     MenuOptions,
@@ -21,6 +24,7 @@ import {
     MenuProvider,
     renderers
 } from 'react-native-popup-menu';
+import chatCellStyle from "../../style/chat/chatCellStyle";
 
 const Popover = renderers.Popover;
 
@@ -83,11 +87,21 @@ class ChatList extends Component {
                 backgroundColor: "red",
             }
         ]
-        return  <Swipeout right={btns} key={item.index + item.item.get("name")}>
-            <TouchableOpacity onPress={() => this.goChatRoom(item)}>
-                <ChatCell unReadNum={item.item.get("unReadNum")} name={item.item.get("name")} message={item.item.get("message")}/>
-            </TouchableOpacity>
-        </Swipeout>
+        let unReadNum = item.item.get("unReadNum");
+        return  <View style={{height: 70, width: "100%", display: "flex", flexDirection:"row", alignItems: "center"}}>
+            <View style={{paddingRight: 10,}}>
+                <ImageBackground source={avator} style={{...chatCellStyle.cell_avator, marginLeft: 15}}>
+                    { unReadNum > 0 && <View style={chatCellStyle.cell_point}>
+                        <Text style={chatCellStyle.cell_point_txt} >{ unReadNum > 99 ? "99+" : unReadNum }</Text>
+                    </View>}
+                </ImageBackground>
+            </View>
+            <Swipeout style={{flex: 1}} right={btns} key={item.index + item.item.get("name")}>
+                <TouchableOpacity onPress={() => this.goChatRoom(item)}>
+                    <ChatCell unReadNum={item.item.get("unReadNum")} name={item.item.get("name")} message={item.item.get("message")}/>
+                </TouchableOpacity>
+            </Swipeout>
+        </View>
     }
 
     render() {

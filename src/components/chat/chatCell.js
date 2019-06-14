@@ -17,11 +17,11 @@ class ChatCell extends Component {
             <View
                 style={chatCellStyle.cell_content}
             >
-                <View style={chatCellStyle.cell_avator}>
-                    { this.props.unReadNum > 0 && <View style={chatCellStyle.cell_point}>
-                        <Text style={chatCellStyle.cell_point_txt} >{ this.props.onReadNum > 99 ? "99+" : this.props.unReadNum }</Text>
-                    </View>}
-                </View>
+                {/*<View style={chatCellStyle.cell_avator}>*/}
+                {/*    { this.props.unReadNum > 0 && <View style={chatCellStyle.cell_point}>*/}
+                {/*        <Text style={chatCellStyle.cell_point_txt} >{ this.props.onReadNum > 99 ? "99+" : this.props.unReadNum }</Text>*/}
+                {/*    </View>}*/}
+                {/*</View>*/}
                 <View style={chatCellStyle.cell_info}>
                     <Text style={chatCellStyle.cell_info_name}>{name}</Text>
                     <Text style={chatCellStyle.cell_info_msg}>{message}</Text>
