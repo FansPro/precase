@@ -2,24 +2,37 @@ import React, { Component } from "react";
 import {
     View,
     Text,
+    Alert
 } from "react-native";
 import * as types from "../../common/actionType"
 import { connect } from "react-redux";
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
-// import Realm from "realm";
+import Realm from "realm";
+
+
 
 class My extends Component {
     constructor(props) {
         super(props);
 
-        // this.doRealmAction();
+        this.doRealmAction();
     }
 
-    // doRealmAction = () => {
-    //     let currentVersion = Realm.schemaVersion(Realm.defaultPath);
-    //     console.log("currentVersion", currentVersion);
-    // }
+    doRealmAction = () => {
+        let message = {
+            name: "Message",
+            primaryKey: "fromUser",
+            properties: {
+                fromUser: "string",
+                unReadNum: { type: "int", default: 0 },
+                content: "string?",
+            }
+        }
+        this.realm = new Realm.object()
+
+
+    }
 
     render() {
         return (

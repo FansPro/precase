@@ -7,6 +7,7 @@ import {
     Dimensions,
     Button,
     Platform,
+    Image,
 } from 'react-native'
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
@@ -184,8 +185,9 @@ class ChatRoom extends Component {
                 item.get("messages").map(msg => {
                     var message = constructNormalMessage()
                     message.fromUser.avatarUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534926548887&di=f107f4f8bd50fada6c5770ef27535277&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F11%2F67%2F23%2F69i58PICP37.jpg",//1
-                        message.msgType = 'text';
-                    message.text = msg.get("message");
+                        message.msgType = 'image';
+                    // message.text = msg.get("message");
+                    message.mediaPath = msg.get("message");
                     message.isOutgoing = name === msg.get("name") ? false : true;
                     messages.push(message);
                 })
@@ -346,7 +348,7 @@ class ChatRoom extends Component {
         message.msgType = 'text'
         message.text = text;
         const name = this.props.navigation.state.params.name;
-        sendMessage(text, name, "fansx");
+        sendMessage(text, name, "fansq");
         AuroraIController.appendMessages([message])
     }
 
@@ -372,13 +374,38 @@ class ChatRoom extends Component {
         message.mediaPath = mediaPath
         // message.timeString = "safsdfa"
         message.duration = duration
+        RNFS.readFile(message.mediaPath, "base64").then(rs => {
+            console.log("voice", rs);
+            let size = this.base64file_size(rs);
+            var strLen=rs.length;
+            var fileSize= strLen-(strLen/8)*2
+            console.log("voice size", fileSize, fileSize / 1024);
+        })
         AuroraIController.appendMessages([message])
         console.log("on finish record voice")
     }
 
-    onCancelRecordVoice = () => {
-        console.log("on cancel record voice")
+    //
+    base64file_size = (base64String ) =>  {
+        //1.获取base64字符串长度(不含data:audio/wav;base64,文件头)
+        let size0 = base64String.length;
+
+        //2.获取字符串的尾巴的最后10个字符，用于判断尾巴是否有等号，正常生成的base64文件'等号'不会超过4个
+        let tail = base64String.substring(size0-10);
+
+        //3.找到等号，把等号也去掉,(等号其实是空的意思,不能算在文件大小里面)
+        let equalIndex = tail.indexOf("=");
+        if(equalIndex > 0) {
+        size0 = size0 - (10 - equalIndex);
+
+        console.log("voice size", size0);
+}
+
+        //4.计算后得到的文件流大小，单位为字节
+        return size0 -( size0 / 8 ) * 2;
     }
+
+
 
     onStartRecordVideo = () => {
         console.log("on start record video")
@@ -414,10 +441,12 @@ class ChatRoom extends Component {
                 message.msgType = "video"
                 message.duration = mediaFiles[index].duration
             }
-
-            message.mediaPath = "http://s14.sinaimg.cn/mw690/002b5d98hcc64063fd78d&690";
+            message.mediaPath = mediaFiles[index].mediaPath;
             const { name } = this.props.navigation.state.params;
-            this.props.sendMessage(JSON.stringify(message), name, "fansx")
+            RNFS.readFile(message.mediaPath, "base64").then(rs => {
+                this.props.sendMessage(rs.toString(), name, "fansq")
+            })
+
             // message.timeString = "8:00"
             // message.status = "send_going"
             AuroraIController.appendMessages([message])

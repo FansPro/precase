@@ -15,7 +15,7 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansx",
+        name: "fansq",
         pwd: "123456",
     }),
     chatList: Immutable.List(),
@@ -82,9 +82,10 @@ export default (state = initialState, action) => {
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
             var message = constructNormalMessage()
-            message.msgType = 'text';
-            message.text = action.message;
+            message.msgType = 'image';
+            message.mediaPath = "data:image/jpg;base64," + action.message;
             message.isOutgoing = false;
+            console.log("message", message);
             AuroraIController.appendMessages([message]);
             chatList.map(item => {
                 tempMessages = Immutable.List();
@@ -125,7 +126,7 @@ export default (state = initialState, action) => {
 
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
-            DB.put("chatList", newChatList);
+            // DB.put("chatList", newChatList);
             return newState;
         case types.CHAT_GET_CHATLIST:
             chatList.map(item => {
@@ -162,13 +163,13 @@ export default (state = initialState, action) => {
                 newChatList = newChatList.push(Immutable.fromJS({
                     message: "",
                     unReadNum: 0,
-                    name: "fansq",
+                    name: "fansx",
                     messages: Immutable.List(),
                 }))
             }
             console.log("chat", newChatList);
             newState = newState.set("chatList", newChatList);
-            DB.put("chatList", newChatList);
+            // DB.put("chatList", newChatList);
             return newState;
         case types.CHAT_GO_ROOM:
 
@@ -181,12 +182,12 @@ export default (state = initialState, action) => {
             });
             newState = newState.set("chatList", list);
             newState = newState.set("isChatList", false);
-            DB.put("chatList", list);
+            // DB.put("chatList", list);
             return newState;
         case types.CHAT_DELETE_CELL:
             list = list.filter(item => item.get("name") !== action.name);
             newState = newState.set("chatList", list);
-            DB.put("chatList", list);
+            // DB.put("chatList", list);
             return newState;
         case types.CHAT_ROOM_BACK:
             newState = newState.set("isChatList", true);
