@@ -371,17 +371,14 @@ class ChatRoom extends Component {
     onFinishRecordVoice = (mediaPath, duration) => {
         var message = constructNormalMessage()
         message.msgType = "voice"
-        message.mediaPath = mediaPath
         // message.timeString = "safsdfa"
         message.duration = duration
-        RNFS.readFile(message.mediaPath, "base64").then(rs => {
+        RNFS.readFile(mediaPath, "base64").then(rs => {
             console.log("voice", rs);
-            let size = this.base64file_size(rs);
-            var strLen=rs.length;
-            var fileSize= strLen-(strLen/8)*2
-            console.log("voice size", fileSize, fileSize / 1024);
+            message.mediaPath = '' + rs;
+            AuroraIController.appendMessages([message])
         })
-        AuroraIController.appendMessages([message])
+
         console.log("on finish record voice")
     }
 
