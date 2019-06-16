@@ -2,37 +2,28 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    Alert
+    Alert,
+    NativeModules,
 } from "react-native";
 import * as types from "../../common/actionType"
 import { connect } from "react-redux";
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
-import Realm from "realm";
-
+import ChatDao from "../../realm/ChatDao";
+const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 
 class My extends Component {
     constructor(props) {
         super(props);
-
         this.doRealmAction();
-    }
 
+    }
     doRealmAction = () => {
-        let message = {
-            name: "Message",
-            primaryKey: "fromUser",
-            properties: {
-                fromUser: "string",
-                unReadNum: { type: "int", default: 0 },
-                content: "string?",
-            }
-        }
-        this.realm = new Realm.object()
-
-
+        ChatDao.deleteAll();
+        // DecodeAudioManager.decodeAudio();
     }
+
 
     render() {
         return (

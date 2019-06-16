@@ -8,3 +8,4 @@ export const CHAT_DELETE_CELL = "CHAT_DELETE_CELL";
 export const CHAT_ADD = "CHAT_ADD";
 export const CHAT_ROOM_BACK = "CHAT_ROOM_BACK";
 export const CHAT_ADD_ONE = "CHAT_ADD_ONE";
+export const CHAT_MESSAGES = "CHAT_MESSAGES";

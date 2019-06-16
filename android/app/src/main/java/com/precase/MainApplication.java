@@ -61,6 +61,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNGestureHandlerPackage(),
             new NativeOpenPackage(),
             new MeiqiaPackage(),
+            new DecodeAudioPackage(),
             new ReactIMUIPackage(),
             new JPushPackage(true, true)
       );

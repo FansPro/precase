@@ -3,6 +3,11 @@ package com.precase;
 import android.content.Intent;
 import android.content.ComponentName;
 import android.os.Bundle;
+import android.util.Base64;
+import android.content.Context;
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -14,6 +19,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 
 import java.util.Map;
 import java.util.HashMap;
+
 
 public class NativeOpenManager extends ReactContextBaseJavaModule {
 
@@ -46,10 +52,11 @@ public class NativeOpenManager extends ReactContextBaseJavaModule {
         //     promise.resolve("fail");
         // }
 
-    Intent intent = new Intent("android.intent.action.SINGLE_INSTANCE_SHARE");
+        Intent intent = new Intent("android.intent.action.SINGLE_INSTANCE_SHARE");
         // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getCurrentActivity().startActivity(intent);
     }
+
 
 }

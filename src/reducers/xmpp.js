@@ -6,10 +6,13 @@ import XMPP from "react-native-xmpp";
 import * as types  from "../common/actionType";
 const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
+import ChatDao from "../realm/ChatDao"
 const AuroraIController = IMUI.AuroraIMUIController;
 
+const fromAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
+const toAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
+const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
-const SCHEMA = "ios";
 const initialState = Immutable.fromJS({
     logIn: false,
     remote: "",
@@ -17,8 +20,12 @@ const initialState = Immutable.fromJS({
     user: Immutable.fromJS({
         name: "fansq",
         pwd: "123456",
+        displayName: "fansq",
+        avatarPath: fromAvatar,
+        userId: "123"
     }),
     chatList: Immutable.List(),
+    messages: Immutable.List(),
 });
 
 
@@ -55,70 +62,107 @@ export default (state = initialState, action) => {
     let newChatList = Immutable.List();
     let tempChat = null;
     let tempMessages = Immutable.List();
+    let chatMessage = "";
     switch (action.type) {
         case types.XMPP_CONNECT:
-            // XMPP.connect(_userForName("admin"), "abcd!!!xyz");
-            console.log("login");
             XMPP.trustHosts([DOMAIN])
             XMPP.connect(_userForName(newState.get("user").get("name")), newState.get("user").get("pwd"));
             return newState;
         case types.XMPP_SEND_MESSAGE:
-            XMPP.message(action.message, _userForName(action.userId));
+            XMPP.message(action.message.toString(), _userForName(action.user));
+            console.log("fromUser", action.message.fromUser);
+            let msg = {
+                msgType: action.message.msgType,
+                text: action.message.msgType === 'text' ? action.message.text : null,
+                mediaPath: action.message.msgType === "text" ? null : action.message.mediaPath,
+                duration: action.message.duration ? action.message.duration : null,
+                fromUser: {
+                    ...action.message.fromUser,
+                },
+                id: new Date().toTimeString(),
+                timeStamp: new Date(),
+            }
+
+            switch (action.message.msgType) {
+                case "voice":
+                    chatMessage = "[语音]";
+                    break;
+                case "image":
+                    chatMessage = "[图片]";
+                    break;
+                case "text":
+                    chatMessage = action.message.text;
+                    break;
+            }
             list =  list.map(item => {
-                if (item.get("name") === action.userId) {
-                    let messages = item.get("messages");
-                    messages =  messages.push(Immutable.fromJS({
-                        message: action.message,
-                        name: action.fromUser,
-                    }));
-                    item =item.set("message", action.message);
-                    item = item.set("messages", messages);
+                if (item.get("name") === action.user) {
+
+                    item =item.set("message", chatMessage);
                     return item;
                 }
                 return item;
             });
-            // DB.put("chatList", list);
+
             newState = newState.set("chatList", list);
+            ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
+            ChatDao.saveChatList({name: action.user, message: chatMessage})
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
+            let jsonMessage = action.message.toJSON();
             var message = constructNormalMessage()
-            message.msgType = 'image';
-            message.mediaPath = "data:image/jpg;base64," + action.message;
-            message.isOutgoing = false;
-            console.log("message", message);
-            AuroraIController.appendMessages([message]);
-            chatList.map(item => {
-                tempMessages = Immutable.List();
-                item.messages && item.messages.length > 0 && item.messages.map(itemm => {
-                    tempMessages = tempMessages.push(Immutable.fromJS({
-                        ...itemm
-                    }))
+            message.msgType = jsonMessage.msgType;
+            if (jsonMessage.msgType === "voice") {
+                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
+                    message.mediaPath = rs;
                 })
+            } else {
+                message.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
+            }
+            message.duration = jsonMessage.duration ? jsonMessage.duration : null;
+
+            message.text = jsonMessage.text ? jsonMessage.text : null;
+            message.isOutgoing = false;
+            message.fromUser = jsonMessage.fromUser;
+            setTimeout(() => {
+                AuroraIController.appendMessages([message]);
+            }, 200);
+            chatList.map(item => {
                 if(item.name === action.name) {
                     tempChat = Immutable.fromJS({
-                        messages: tempMessages,
                         ...item,
+                        messages: null,
                     });
                 } else {
                     newChatList = newChatList.push(Immutable.fromJS({
-                        messages: tempMessages,
                         ...item,
+                        messages: null,
                     }))
                 }
             });
             if(!tempChat) tempChat = Immutable.fromJS({
                 name: action.name,
                 message: "",
-                messages: Immutable.List(),
+                messages: null,
                 unReadNum: 0,
+                avatarPath: toAvatar,
+                timeStamp: new Date(),
             });
-            let messages = tempChat.get("messages");
-            messages = messages.push(Immutable.fromJS({
-                name: action.name,
-                message: action.message,
-            }));
-            tempChat = tempChat.set("messages", messages);
-            tempChat = tempChat.set("message", action.message);
+
+            //
+            switch (jsonMessage.msgType) {
+                case "voice":
+                    chatMessage = "[语音]";
+                    break;
+                case "image":
+                    chatMessage = "[图片]";
+                    break;
+                case "text":
+                    chatMessage = action.message.text;
+                    break;
+            }
+            tempChat = tempChat.set("message", chatMessage);
+
+            //
             if(newState.get("isChatList")) {
                 let unReadNum = tempChat.get("unReadNum");
                 tempChat = tempChat.set("unReadNum", unReadNum + 1);
@@ -126,50 +170,32 @@ export default (state = initialState, action) => {
 
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
-            // DB.put("chatList", newChatList);
+            ChatDao.saveChatList({name: action.name, timeStamp: new Date(), message: chatMessage});
+            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: { ...jsonMessage.fromUser}, timeStamp: new Date()})
             return newState;
         case types.CHAT_GET_CHATLIST:
             chatList.map(item => {
-                tempMessages = Immutable.List();
-                item.messages && item.messages.length > 0 && item.messages.map(itemm => {
-                    tempMessages = tempMessages.push(Immutable.fromJS({
-                        ...itemm
-                    }))
-                })
-                if(action.name && action.name === item.name) {
-                    tempChat = Immutable.fromJS({
-                        messages: tempMessages,
-                        ...item,
-                    });
-                } else {
-                    newChatList = newChatList.push(Immutable.fromJS({
-                        messages: tempMessages,
-                        ...item
-                    }));
-                }
-            });
-            if(action.name && !tempChat) {
-                tempChat = Immutable.fromJS({
-                    message: "",
-                    unReadNum: 0,
-                    name: action.name,
-                    messages: Immutable.List(),
-                });
-            }
-            if (tempChat) {
-                newChatList = newChatList.insert(0, tempChat);
-            }
-            if (newChatList.size === 0) {
                 newChatList = newChatList.push(Immutable.fromJS({
+                    ...item,
+                    messages: null,
+                }));
+            });
+
+            if (newChatList.size === 0) {
+                let initChat = {
                     message: "",
                     unReadNum: 0,
                     name: "fansx",
-                    messages: Immutable.List(),
-                }))
+                    avatarPath: toAvatar,
+                    messages: [],
+                    timeStamp: new Date(),
+                }
+                newChatList = newChatList.push(Immutable.fromJS({
+                    ...initChat,
+                }));
+                ChatDao.saveChatList({...initChat});
             }
-            console.log("chat", newChatList);
             newState = newState.set("chatList", newChatList);
-            // DB.put("chatList", newChatList);
             return newState;
         case types.CHAT_GO_ROOM:
 
@@ -182,15 +208,26 @@ export default (state = initialState, action) => {
             });
             newState = newState.set("chatList", list);
             newState = newState.set("isChatList", false);
-            // DB.put("chatList", list);
             return newState;
         case types.CHAT_DELETE_CELL:
             list = list.filter(item => item.get("name") !== action.name);
             newState = newState.set("chatList", list);
-            // DB.put("chatList", list);
+            ChatDao.deleteChatList(action.name);
             return newState;
         case types.CHAT_ROOM_BACK:
             newState = newState.set("isChatList", true);
+            return newState;
+        case types.CHAT_MESSAGES:
+            action.messages && action.messages.map(item => {
+                console.log("item", item);
+                tempMessages = tempMessages.push(Immutable.fromJS({
+                    ...item,
+                    fromUser: Immutable.fromJS({
+                        ...item.fromUser,
+                    })
+                }))
+            });
+            newState = newState.set("messages", tempMessages);
             return newState;
     }
     return state;

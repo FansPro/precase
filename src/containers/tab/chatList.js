@@ -25,6 +25,7 @@ import {
     renderers
 } from 'react-native-popup-menu';
 import chatCellStyle from "../../style/chat/chatCellStyle";
+import ChatDao from "../../realm/ChatDao";
 
 const Popover = renderers.Popover;
 
@@ -70,14 +71,13 @@ class ChatList extends Component {
 
     goChatRoom = (item) => {
         this.props.navigation.navigate("chatRoom", { name: item.item.get("name") });
-        this.props.goChatRoom(item.item.get("name"));
+        this.props.getMessages(item.item.get("name"));
     }
     renderCell = (item) => {
 
         var btns = [
             {
                 text: "置顶",
-
             },
             {
                 text: '删除',
@@ -86,11 +86,12 @@ class ChatList extends Component {
                 },
                 backgroundColor: "red",
             }
-        ]
+        ];
+
         let unReadNum = item.item.get("unReadNum");
         return  <View style={{height: 70, width: "100%", display: "flex", flexDirection:"row", alignItems: "center"}}>
             <View style={{paddingRight: 10,}}>
-                <ImageBackground source={avator} style={{...chatCellStyle.cell_avator, marginLeft: 15}}>
+                <ImageBackground source={{uri: item.item.get("avatarPath")}} style={{...chatCellStyle.cell_avator, marginLeft: 15}}>
                     { unReadNum > 0 && <View style={chatCellStyle.cell_point}>
                         <Text style={chatCellStyle.cell_point_txt} >{ unReadNum > 99 ? "99+" : unReadNum }</Text>
                     </View>}
@@ -151,22 +152,16 @@ function mapDispatchToProps(dispatch) {
         sendMessage: () => dispatch({
             type: types.XMPP_SEND_MESSAGE,
         }),
-        receiveMessage: async (name, message) => {
-            let rs = await DB.get("chatList");
-            dispatch({
+        receiveMessage: (name, message) => dispatch({
                 type: types.XMPP_RECEIVE_MESSAGE,
                 message,
                 name,
-                chatList: rs,
-            })
-        },
+        }),
         getChatList: async (name, id) => {
-            let rs = await DB.get("chatList");
+            let rs = ChatDao.getAllChatList();
             dispatch({
                 type: types.CHAT_GET_CHATLIST,
-                name,
-                id,
-                chatList: rs,
+                chatList: rs.length > 0 ? rs : null,
             })
         },
         goChatRoom: (name) => dispatch({
@@ -178,9 +173,14 @@ function mapDispatchToProps(dispatch) {
             type: types.CHAT_DELETE_CELL,
             name,
         }),
-        addOneChat: () => dispatch({
-            type: types.CHAT_ADD_ONE,
-        })
+        getMessages: async (name) => {
+            let messages = await ChatDao.getMessages(name);
+            dispatch({
+                type: types.CHAT_MESSAGES,
+                messages: messages,
+            })
+        }
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
