@@ -91,7 +91,7 @@ class ChatList extends Component {
             return;
         }
         var name = from.match(/^([^@]*)@/)[1];
-        console.log("receive",from, body, name);
+        // console.log("receive",from, body, name);
         this.props.receiveMessage(name, body);
         // this.conversation.unshift({own:false, text:body});
     }
@@ -136,7 +136,7 @@ class ChatList extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <NavBar left={true} title={"消息"} right={<View>
+                <NavBar isLoading={!this.state.isLogin} left={true} title={"消息"} right={<View>
                     <Menu  renderer={Popover} rendererProps={{ placement: 'bottom' }}>
                         <MenuTrigger  >
                             <Text style={{color: "white", fontSize: 28, marginRight: 10}}>+</Text>
@@ -148,9 +148,9 @@ class ChatList extends Component {
                         </MenuOptions>
                     </Menu>
                 </View>}/>
-                {!this.state.isLogin && <View style={chatListStyle.chat_tip}>
-                    <Text style={chatListStyle.chat_logTxt}>正在连接中...</Text>
-                </View>}
+                {/*{!this.state.isLogin && <View style={chatListStyle.chat_tip}>*/}
+                    {/*<Text style={chatListStyle.chat_logTxt}>正在连接中...</Text>*/}
+                {/*</View>}*/}
                 {/*<Text>this is ChatList Page</Text>*/}
                 {/*<TouchableOpacity onPress={this.props.sendMessage}>*/}
                 {/*    <Text>发送消息</Text>*/}
@@ -181,8 +181,12 @@ function mapDispatchToProps(dispatch) {
             type: types.XMPP_SEND_MESSAGE,
         }),
         receiveMessage: async (name, message) => {
+            dispatch({
+                type: types.XMPP_RECEIVE_MESSAGE,
+                message,
+                name,
+            });
             let jsonMessage = JSON.parse(message);
-
             var msg = constructNormalMessage()
             msg.msgType = jsonMessage.msgType;
             msg.duration = jsonMessage.duration ? jsonMessage.duration : null;
@@ -194,20 +198,14 @@ function mapDispatchToProps(dispatch) {
                 DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
                     msg.mediaPath = rs;
                     AuroraIController.appendMessages([msg]);
-                    msg.voicePath = rs;
-                    ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
+                    ChatDao.saveMessage(name, { ...jsonMessage, voicePath: rs, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
                 });
 
             } else {
                 msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
                 AuroraIController.appendMessages([msg]);
-                ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
+                ChatDao.saveMessage(name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             }
-            dispatch({
-                type: types.XMPP_RECEIVE_MESSAGE,
-                message,
-                name,
-            })
         },
         getChatList: async (name, id) => {
             let rs = ChatDao.getAllChatList();

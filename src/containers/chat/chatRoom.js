@@ -21,6 +21,7 @@ var MessageListView = IMUI.MessageList
 const AuroraIController = IMUI.AuroraIMUIController
 const window = Dimensions.get('window');
 import NavBar from "../../components/common/navBar";
+import ChatDao from "../../realm/ChatDao"
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 
@@ -76,6 +77,7 @@ class ChatRoom extends Component {
             inputViewLayout: { width: window.width, height: initHeight, },
             isAllowPullToRefresh: true,
             navigationBar: {},
+            refresh: true,
         }
 
 
@@ -122,8 +124,9 @@ class ChatRoom extends Component {
 
                 }
             }
+            tmpmessages.push(message);
         });
-        AuroraIController.appendMessages([message]);
+        AuroraIController.appendMessages(tmpmessages);
         AuroraIController.scrollToBottom(true);
         // for (var i = 0; i < 10; i++) {
         //   var message = constructNormalMessage()
@@ -233,28 +236,38 @@ class ChatRoom extends Component {
         AuroraIController.hidenFeatureView(true)
     }
 
+
     onPullToRefresh = () => {
-        // console.log("on pull to refresh")
-        // var messages = []
-        // for (var i = 0; i < 14; i++) {
-        //     var message = constructNormalMessage()
-        //     // if (index%2 == 0) {
-        //     message.msgType = "text"
-        //     message.text = "" + i
-        //     // }
-        //
-        //     if (i % 3 == 0) {
-        //         message.msgType = "video"
-        //         message.text = "" + i
-        //         message.mediaPath = "/storage/emulated/0/ScreenRecorder/screenrecorder.20180323101705.mp4"
-        //         message.duration = 12
-        //     }
-        //     messages.push(message)
-        // }
-        // AuroraIController.insertMessagesToTop(messages)
-        // if (Platform.OS === 'android') {
+        console.log("on pull to refresh")
+        if(this.state.refresh) {
+            const name = this.props.navigation.state.params.name;
+            var messages = [];
+            ChatDao.getOldMessages(name).map(item => {
+                console.log("chat", item);
+                var message = constructNormalMessage()
+                message.msgType = item.msgType;
+                message.fromUser = { ...item.fromUser};
+                message.text = item.text;
+                message.duration = item.duration;
+                message.isOutgoing = name === item.fromUser.displayName ? false : true;
+                if (item.msgType !== "text") {
+                    if (item.msgType === "voice") {
+                        message.mediaPath = item.voicePath;
+                    } else {
+                        message.mediaPath =  item.mediaPath;
+
+                    }
+                }
+                messages.push(message);
+                this.setState({refresh: false});
+            })
+
+            AuroraIController.insertMessagesToTop(messages)
+
+        }
+        if (Platform.OS === 'android') {
             this.refs["MessageList"].refreshComplete()
-        // }
+        }
 
     }
 
@@ -355,19 +368,25 @@ class ChatRoom extends Component {
                 message.duration = mediaFiles[index].duration
             }
             message.fromUser = user.toJSON();
-
+            console.log("mediaFile", mediaFiles[index].size / 1024);
             const { name } = this.props.navigation.state.params;
             let mediaPath =  mediaFiles[index].mediaPath;
-            RNFS.readFile(mediaPath, "base64").then(rs => {
+            let mediaFile = mediaFiles[index];
 
-                let subbfix = mediaPath.substring(mediaPath.lastIndexOf('.') + 1, mediaPath.length);
-                message.mediaPath = `data:image/${subbfix};base64,${rs}`;
+            AuroraIController.scaleImage({path: mediaPath, width: 750, height: mediaFile.height * 750 / mediaFile.width }, (result) => {
+                console.log("compress", result.thumbPath ? result.thumbPath : mediaPath);
+                RNFS.readFile(result.thumbPath ? result.thumbPath : mediaPath, "base64").then(rs => {
 
-                sendMessage(message, name)
-                AuroraIController.appendMessages([message])
-                AuroraIController.scrollToBottom(true)
-                this.resetMenu()
-            })
+                    let subbfix = mediaPath.substring(mediaPath.lastIndexOf('.') + 1, mediaPath.length);
+                    message.mediaPath = `data:image/${subbfix};base64,${rs}`;
+
+                    sendMessage(message, name)
+                    AuroraIController.appendMessages([message])
+                    AuroraIController.scrollToBottom(true)
+                    this.resetMenu()
+                })
+            });
+
 
             // message.timeString = "8:00"
             // message.status = "send_going"
