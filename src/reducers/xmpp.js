@@ -18,11 +18,11 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansx",
+        name: "fansq",
         pwd: "123456",
-        displayName: "fansx",
+        displayName: "fansq",
         avatarPath: fromAvatar,
-        userId: "123"
+        userId: "555"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
@@ -188,7 +188,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fansq",
+                    name: "fansx",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),

@@ -107,7 +107,7 @@ class ChatRoom extends Component {
         const name = this.props.navigation.state.params.name;
         messages.map(msg => {
             var message = constructNormalMessage()
-            message.fromUser = msg.get("fromUser");
+            message.fromUser = msg.get("fromUser").toJSON();
             message.msgType = msg.get("msgType");
             message.text = msg.get("text");
             message.duration = msg.get("duration");
