@@ -194,11 +194,14 @@ function mapDispatchToProps(dispatch) {
                 DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
                     msg.mediaPath = rs;
                     AuroraIController.appendMessages([msg]);
+                    msg.voicePath = rs;
+                    ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
                 });
 
             } else {
                 msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
                 AuroraIController.appendMessages([msg]);
+                ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             }
             dispatch({
                 type: types.XMPP_RECEIVE_MESSAGE,

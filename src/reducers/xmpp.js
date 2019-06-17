@@ -82,8 +82,16 @@ export default (state = initialState, action) => {
             });
 
             newState = newState.set("chatList", list);
-            ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
-            ChatDao.saveChatList({name: action.user, message: chatMessage})
+
+            if (msg.msgType === "voice") {
+                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
+                    msg.voicePath = rs;
+                    ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
+                });
+            } else {
+                ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
+            }
+            ChatDao.saveChatList({name: action.user, message: chatMessage});
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
 
@@ -132,7 +140,6 @@ export default (state = initialState, action) => {
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
             ChatDao.saveChatList({name: action.name, avatarPath: tempChat.get("avatarPath"), unReadNum: tempChat.get("unReadNum"), timeStamp: new Date(), message: chatMessage});
-            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             console.log("wait refresh");
             return newState;
         case types.CHAT_GET_CHATLIST:

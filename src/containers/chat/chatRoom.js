@@ -116,22 +116,15 @@ class ChatRoom extends Component {
             if (msg.get("msgType") !== "text") {
                 if (msg.get("msgType") === "voice") {
                     let path = msg.get("mediaPath");
-                    DecodeAudioManager.decodeAudio(path, (rs) => {
-                        message.mediaPath = rs;
-                        AuroraIController.appendMessages([message]);
-                        AuroraIController.scrollToBottom(true);
-                    });
+                    message.mediaPath = msg.get("voicePath");
                 } else {
                     message.mediaPath =  msg.get("mediaPath");
-                    AuroraIController.appendMessages([message]);
-                    AuroraIController.scrollToBottom(true);
+
                 }
-            } else {
-                AuroraIController.appendMessages([message]);
-                AuroraIController.scrollToBottom(true);
             }
         });
-
+        AuroraIController.appendMessages([message]);
+        AuroraIController.scrollToBottom(true);
         // for (var i = 0; i < 10; i++) {
         //   var message = constructNormalMessage()
         //   message.msgType = 'custom'
