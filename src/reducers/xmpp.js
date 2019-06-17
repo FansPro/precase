@@ -69,7 +69,7 @@ export default (state = initialState, action) => {
             XMPP.connect(_userForName(newState.get("user").get("name")), newState.get("user").get("pwd"));
             return newState;
         case types.XMPP_SEND_MESSAGE:
-            XMPP.message(action.message.toString(), _userForName(action.user));
+            XMPP.message(JSON.stringify(action.message), _userForName(action.user));
             console.log("fromUser", action.message.fromUser);
             let msg = {
                 msgType: action.message.msgType,
@@ -82,6 +82,7 @@ export default (state = initialState, action) => {
                 id: new Date().toTimeString(),
                 timeStamp: new Date(),
             }
+            console.log("sendMsg", msg);
 
             switch (action.message.msgType) {
                 case "voice":
@@ -108,7 +109,8 @@ export default (state = initialState, action) => {
             ChatDao.saveChatList({name: action.user, message: chatMessage})
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
-            let jsonMessage = JSON.stringify(action.message);
+
+            let jsonMessage = JSON.parse(action.message);
             var message = constructNormalMessage()
             message.msgType = jsonMessage.msgType;
             if (jsonMessage.msgType === "voice") {
@@ -122,7 +124,7 @@ export default (state = initialState, action) => {
             message.id = new Date().toTimeString();
             message.text = jsonMessage.text ? jsonMessage.text : null;
             message.isOutgoing = false;
-            message.fromUser = { ...JSON.stringify(jsonMessage.fromUser) };
+            message.fromUser = jsonMessage.fromUser;
             setTimeout(() => {
                 AuroraIController.appendMessages([message]);
             }, 200);
@@ -157,7 +159,7 @@ export default (state = initialState, action) => {
                     chatMessage = "[图片]";
                     break;
                 case "text":
-                    chatMessage = action.message.text;
+                    chatMessage = jsonMessage.text;
                     break;
             }
             tempChat = tempChat.set("message", chatMessage);
@@ -165,13 +167,15 @@ export default (state = initialState, action) => {
             //
             if(newState.get("isChatList")) {
                 let unReadNum = tempChat.get("unReadNum");
-                tempChat = tempChat.set("unReadNum", unReadNum + 1);
+                unReadNum = unReadNum + 1
+                tempChat = tempChat.set("unReadNum", unReadNum);
+                console.log("temchat", unReadNum );
             }
 
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
             ChatDao.saveChatList({name: action.name, timeStamp: new Date(), message: chatMessage});
-            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: { ...JSON.stringify(jsonMessage.fromUser)}, id: new Date().toTimeString(), timeStamp: new Date()})
+            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             return newState;
         case types.CHAT_GET_CHATLIST:
             chatList.map(item => {
