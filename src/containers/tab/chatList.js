@@ -97,8 +97,9 @@ class ChatList extends Component {
     }
 
     goChatRoom = (item) => {
-        this.props.navigation.navigate("chatRoom", { name: item.item.get("name") });
+        this.props.goChatRoom(item.item.get("name"));
         this.props.getMessages(item.item.get("name"));
+        this.props.navigation.navigate("chatRoom", { name: item.item.get("name") });
     }
     renderCell = (item) => {
 

@@ -118,19 +118,19 @@ class ChatRoom extends Component {
                     let path = msg.get("mediaPath");
                     DecodeAudioManager.decodeAudio(path, (rs) => {
                         message.mediaPath = rs;
-                        AuroraIController.appendMessages([message])
+                        AuroraIController.appendMessages([message]);
+                        AuroraIController.scrollToBottom(true);
                     });
                 } else {
                     message.mediaPath =  msg.get("mediaPath");
                     AuroraIController.appendMessages([message]);
+                    AuroraIController.scrollToBottom(true);
                 }
+            } else {
+                AuroraIController.appendMessages([message]);
+                AuroraIController.scrollToBottom(true);
             }
-        })
-
-
-        setTimeout(() => {
-            AuroraIController.scrollToBottom(true)
-        }, 100)
+        });
 
         // for (var i = 0; i < 10; i++) {
         //   var message = constructNormalMessage()

@@ -17,9 +17,9 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansx",
+        name: "fansq",
         pwd: "123456",
-        displayName: "fansx",
+        displayName: "fansq",
         avatarPath: fromAvatar,
         userId: "2222"
     }),
@@ -88,17 +88,15 @@ export default (state = initialState, action) => {
         case types.XMPP_RECEIVE_MESSAGE:
 
             let jsonMessage = JSON.parse(action.message);
-            chatList.map(item => {
-                if(item.name === action.name) {
-                    tempChat = Immutable.fromJS({
-                        ...item,
-                        messages: null,
-                    });
+            // console.log("name", action.name)
+            list.map(item => {
+                console.log("name", action.name, item.name);
+                if(item.get("name") === action.name) {
+
+                    tempChat = item
+                    console.log("hastempChat", tempChat.toJSON())
                 } else {
-                    newChatList = newChatList.push(Immutable.fromJS({
-                        ...item,
-                        messages: null,
-                    }))
+                    newChatList = newChatList.push(item)
                 }
             });
             if(!tempChat) tempChat = Immutable.fromJS({
@@ -126,15 +124,14 @@ export default (state = initialState, action) => {
 
             //
             if(newState.get("isChatList")) {
-                let unReadNum = tempChat.get("unReadNum");
-                unReadNum = unReadNum + 1
-                tempChat = tempChat.set("unReadNum", unReadNum);
-                console.log("temchat", unReadNum );
+
+                tempChat = tempChat.set("unReadNum", tempChat.get("unReadNum") + 1);
+                console.log("temchat", tempChat, tempChat.get("unReadNum"));
             }
 
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
-            ChatDao.saveChatList({name: action.name, timeStamp: new Date(), message: chatMessage});
+            ChatDao.saveChatList({name: action.name, avatarPath: tempChat.get("avatarPath"), unReadNum: tempChat.get("unReadNum"), timeStamp: new Date(), message: chatMessage});
             ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             console.log("wait refresh");
             return newState;
@@ -150,7 +147,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fansq",
+                    name: "fansx",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),
@@ -163,7 +160,6 @@ export default (state = initialState, action) => {
             newState = newState.set("chatList", newChatList);
             return newState;
         case types.CHAT_GO_ROOM:
-
             list = list.map(item => {
                 if (item.get("name") === action.name) {
                     item = item.set("unReadNum", 0);
@@ -173,6 +169,7 @@ export default (state = initialState, action) => {
             });
             newState = newState.set("chatList", list);
             newState = newState.set("isChatList", false);
+            ChatDao.saveChatList({name: action.name, unReadNum: 0})
             return newState;
         case types.CHAT_DELETE_CELL:
             list = list.filter(item => item.get("name") !== action.name);
@@ -184,7 +181,6 @@ export default (state = initialState, action) => {
             return newState;
         case types.CHAT_MESSAGES:
             action.messages && action.messages.map(item => {
-                console.log("item", item);
                 tempMessages = tempMessages.push(Immutable.fromJS({
                     ...item,
                     fromUser: Immutable.fromJS({
