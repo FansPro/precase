@@ -118,17 +118,17 @@ class ChatRoom extends Component {
                     let path = msg.get("mediaPath");
                     DecodeAudioManager.decodeAudio(path, (rs) => {
                         message.mediaPath = rs;
+                        AuroraIController.appendMessages([message])
                     });
                 } else {
                     message.mediaPath =  msg.get("mediaPath");
+                    AuroraIController.appendMessages([message]);
                 }
             }
-            tmpmessages.push(message);
         })
 
 
         setTimeout(() => {
-            AuroraIController.appendMessages(tmpmessages)
             AuroraIController.scrollToBottom(true)
         }, 100)
 

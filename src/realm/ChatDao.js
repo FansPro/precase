@@ -10,7 +10,7 @@ class ChatDao {
     static  saveMessage(name, info) {
         let chatList = realm.objects("ChatList");
         let chat = chatList.filtered(`name = "${name}"`);
-        console.log("sdf", chatMessages, chat);
+        console.log("sdf", chat);
         let chatMessages = chat[0].messages;
         realm.write(() => {
             chatMessages.push(info);

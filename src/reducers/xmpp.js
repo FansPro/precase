@@ -21,7 +21,7 @@ const initialState = Immutable.fromJS({
         pwd: "123456",
         displayName: "fansx",
         avatarPath: fromAvatar,
-        userId: "122343"
+        userId: "2222"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
