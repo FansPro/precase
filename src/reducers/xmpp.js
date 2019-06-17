@@ -6,9 +6,8 @@ import XMPP from "react-native-xmpp";
 import * as types  from "../common/actionType";
 const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
-import ChatDao from "../realm/ChatDao"
 const AuroraIController = IMUI.AuroraIMUIController;
-
+import ChatDao from "../realm/ChatDao"
 const toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
 const fromAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
@@ -18,11 +17,11 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansx",
+        name: "fansq",
         pwd: "123456",
-        displayName: "fansx",
+        displayName: "fansq",
         avatarPath: fromAvatar,
-        userId: "123"
+        userId: "122343"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
@@ -32,28 +31,7 @@ const initialState = Immutable.fromJS({
 function _userForName(name){
     return name + '@' + DOMAIN;
 }
-var themsgid = 1
-function constructNormalMessage() {
 
-    var message = {}
-    message.msgId = themsgid.toString()
-    themsgid += 1
-    message.status = "send_succeed"
-    message.isOutgoing = true;
-    // var date = new Date()
-    // message.timeString = date.getHours() + ":" + date.getMinutes()
-    var user = {
-        userId: "",
-        displayName: "replace your nickname",
-        avatarPath: "images"
-    }
-    if (Platform.OS === "ios") {
-        user.avatarPath = RNFS.MainBundlePath + '/default_header.png'
-    }
-    message.fromUser = user
-
-    return message
-}
 
 export default (state = initialState, action) => {
     let newState = state;
@@ -82,7 +60,6 @@ export default (state = initialState, action) => {
                 id: new Date().toTimeString(),
                 timeStamp: new Date(),
             }
-            console.log("sendMsg", msg);
 
             switch (action.message.msgType) {
                 case "voice":
@@ -111,23 +88,6 @@ export default (state = initialState, action) => {
         case types.XMPP_RECEIVE_MESSAGE:
 
             let jsonMessage = JSON.parse(action.message);
-            var message = constructNormalMessage()
-            message.msgType = jsonMessage.msgType;
-            if (jsonMessage.msgType === "voice") {
-                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
-                    message.mediaPath = rs;
-                })
-            } else {
-                message.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
-            }
-            message.duration = jsonMessage.duration ? jsonMessage.duration : null;
-            message.id = new Date().toTimeString();
-            message.text = jsonMessage.text ? jsonMessage.text : null;
-            message.isOutgoing = false;
-            message.fromUser = jsonMessage.fromUser;
-            setTimeout(() => {
-                AuroraIController.appendMessages([message]);
-            }, 200);
             chatList.map(item => {
                 if(item.name === action.name) {
                     tempChat = Immutable.fromJS({
@@ -176,6 +136,7 @@ export default (state = initialState, action) => {
             newState = newState.set("chatList", newChatList);
             ChatDao.saveChatList({name: action.name, timeStamp: new Date(), message: chatMessage});
             ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
+            console.log("wait refresh");
             return newState;
         case types.CHAT_GET_CHATLIST:
             chatList.map(item => {
@@ -189,7 +150,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fansq",
+                    name: "fansx",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),

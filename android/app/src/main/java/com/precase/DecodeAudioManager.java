@@ -16,6 +16,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 public class DecodeAudioManager extends ReactContextBaseJavaModule {
 
     private ReactApplicationContext Context;
+    private Promise promise;
     public DecodeAudioManager(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -37,8 +39,7 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public void decodeAudio(String base64Str, Callback callback) {
-
+    public String decodeAudio(String base64Str) {
         File  tempFile = null;
         try {
             // 创建临时文件,注意这里的格式为.pcm  .amr  .mp3
@@ -47,11 +48,13 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
             FileOutputStream out = new FileOutputStream(tempFile);
             out.write(buffer);
             out.close();
-            callback.invoke(tempFile.getPath());
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            callback.invoke("error");
+        } finally {
+            return "123.m4a";
+            // return tempFile.getPath();
         }
     }
 
