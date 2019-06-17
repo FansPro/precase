@@ -9,8 +9,8 @@ import IMUI from 'aurora-imui-react-native'
 import ChatDao from "../realm/ChatDao"
 const AuroraIController = IMUI.AuroraIMUIController;
 
-const fromAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
-const toAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
+const toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
+const fromAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 const initialState = Immutable.fromJS({
@@ -18,9 +18,9 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansq",
+        name: "fansx",
         pwd: "123456",
-        displayName: "fansq",
+        displayName: "fansx",
         avatarPath: fromAvatar,
         userId: "123"
     }),
@@ -108,7 +108,7 @@ export default (state = initialState, action) => {
             ChatDao.saveChatList({name: action.user, message: chatMessage})
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
-            let jsonMessage = action.message.toJSON();
+            let jsonMessage = JSON.stringify(action.message);
             var message = constructNormalMessage()
             message.msgType = jsonMessage.msgType;
             if (jsonMessage.msgType === "voice") {
@@ -119,10 +119,10 @@ export default (state = initialState, action) => {
                 message.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
             }
             message.duration = jsonMessage.duration ? jsonMessage.duration : null;
-
+            message.id = new Date().toTimeString();
             message.text = jsonMessage.text ? jsonMessage.text : null;
             message.isOutgoing = false;
-            message.fromUser = jsonMessage.fromUser;
+            message.fromUser = { ...JSON.stringify(jsonMessage.fromUser) };
             setTimeout(() => {
                 AuroraIController.appendMessages([message]);
             }, 200);
@@ -171,7 +171,7 @@ export default (state = initialState, action) => {
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
             ChatDao.saveChatList({name: action.name, timeStamp: new Date(), message: chatMessage});
-            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: { ...jsonMessage.fromUser}, timeStamp: new Date()})
+            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: { ...JSON.stringify(jsonMessage.fromUser)}, id: new Date().toTimeString(), timeStamp: new Date()})
             return newState;
         case types.CHAT_GET_CHATLIST:
             chatList.map(item => {
@@ -185,7 +185,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fansx",
+                    name: "fansq",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),

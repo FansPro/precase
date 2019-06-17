@@ -19,6 +19,7 @@ import com.facebook.react.bridge.Callback;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.text.SimpleDateFormat;
 
 
 public class DecodeAudioManager extends ReactContextBaseJavaModule {
@@ -41,7 +42,7 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
         File  tempFile = null;
         try {
             // 创建临时文件,注意这里的格式为.pcm  .amr  .mp3
-            tempFile = File.createTempFile("recording", ".m4a", getCurrentActivity().getCacheDir());
+            tempFile = File.createTempFile("str", ".m4a", getCurrentActivity().getCacheDir());
             byte[] buffer =Base64.decode(base64Str.split(",")[1], Base64.DEFAULT);
             FileOutputStream out = new FileOutputStream(tempFile);
             out.write(buffer);
