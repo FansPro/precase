@@ -30,6 +30,7 @@ import IMUI from 'aurora-imui-react-native'
 const AuroraIController = IMUI.AuroraIMUIController;
 
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
+const NativeOpenManager = NativeModules.NativeOpenManager;
 const Popover = renderers.Popover;
 
 var themsgid = 1
@@ -180,26 +181,24 @@ function mapDispatchToProps(dispatch) {
         }),
         receiveMessage: async (name, message) => {
             let jsonMessage = JSON.parse(message);
+
             var msg = constructNormalMessage()
             msg.msgType = jsonMessage.msgType;
-            if (jsonMessage.msgType === "voice") {
-                console.log("mememmememe", DecodeAudioManager.decodeAudio(jsonMessage.mediaPath));
-                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
-                    message.mediaPath = rs;
-                });
-
-            } else {
-                msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
-            }
             msg.duration = jsonMessage.duration ? jsonMessage.duration : null;
             msg.id = new Date().toTimeString();
             msg.text = jsonMessage.text ? jsonMessage.text : null;
             msg.isOutgoing = false;
             msg.fromUser = jsonMessage.fromUser;
-            console.log("mediaPath", msg.mediaPath);
-           setTimeout(() => {
-               AuroraIController.appendMessages([msg]);
-           }, 100);
+            if (jsonMessage.msgType === "voice") {
+                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
+                    msg.mediaPath = rs;
+                    AuroraIController.appendMessages([msg]);
+                });
+
+            } else {
+                msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
+                AuroraIController.appendMessages([msg]);
+            }
             dispatch({
                 type: types.XMPP_RECEIVE_MESSAGE,
                 message,

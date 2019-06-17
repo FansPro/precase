@@ -57,7 +57,7 @@ public class NativeOpenManager extends ReactContextBaseJavaModule {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getCurrentActivity().startActivity(intent);
     }
-    @ReactMethod
+    @ReactMethod(isBlockingSynchronousMethod = true)
     public String getMsg() {
         return "123";
     }
