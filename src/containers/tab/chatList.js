@@ -4,8 +4,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    ImageBackground,
-} from "react-native";
+    ImageBackground, Platform, NativeModules,
+} from "react-native"
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
 import XMPP from "react-native-xmpp";
@@ -26,8 +26,34 @@ import {
 } from 'react-native-popup-menu';
 import chatCellStyle from "../../style/chat/chatCellStyle";
 import ChatDao from "../../realm/ChatDao";
+import IMUI from 'aurora-imui-react-native'
+const AuroraIController = IMUI.AuroraIMUIController;
 
+const DecodeAudioManager = NativeModules.DecodeAudioManager;
 const Popover = renderers.Popover;
+
+var themsgid = 1
+function constructNormalMessage() {
+
+    var message = {}
+    message.msgId = themsgid.toString()
+    themsgid += 1
+    message.status = "send_succeed"
+    message.isOutgoing = true;
+    // var date = new Date()
+    // message.timeString = date.getHours() + ":" + date.getMinutes()
+    var user = {
+        userId: "",
+        displayName: "replace your nickname",
+        avatarPath: "images"
+    }
+    if (Platform.OS === "ios") {
+        user.avatarPath = RNFS.MainBundlePath + '/default_header.png'
+    }
+    message.fromUser = user
+
+    return message
+}
 
 
 class ChatList extends Component {
@@ -155,11 +181,30 @@ function mapDispatchToProps(dispatch) {
         sendMessage: () => dispatch({
             type: types.XMPP_SEND_MESSAGE,
         }),
-        receiveMessage: (name, message) => dispatch({
+        receiveMessage: async (name, message) => {
+            let jsonMessage = JSON.parse(message);
+            var msg = constructNormalMessage()
+            msg.msgType = jsonMessage.msgType;
+            if (jsonMessage.msgType === "voice") {
+                console.log("mememmememe", DecodeAudioManager.decodeAudio(jsonMessage.mediaPath));
+                msg.mediaPath = await DecodeAudioManager.decodeAudio(jsonMessage.mediaPath);
+
+            } else {
+                msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
+            }
+            msg.duration = jsonMessage.duration ? jsonMessage.duration : null;
+            msg.id = new Date().toTimeString();
+            msg.text = jsonMessage.text ? jsonMessage.text : null;
+            msg.isOutgoing = false;
+            msg.fromUser = jsonMessage.fromUser;
+            console.log("mediaPath", msg.mediaPath);
+            AuroraIController.appendMessages([msg]);
+            dispatch({
                 type: types.XMPP_RECEIVE_MESSAGE,
                 message,
                 name,
-        }),
+            })
+        },
         getChatList: async (name, id) => {
             let rs = ChatDao.getAllChatList();
             dispatch({

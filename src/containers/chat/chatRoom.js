@@ -105,7 +105,8 @@ class ChatRoom extends Component {
         var tmpmessages = [];
         const { messages } = this.props;
         const name = this.props.navigation.state.params.name;
-        messages.map(msg => {
+        messages.map(async msg => {
+
             var message = constructNormalMessage()
             message.fromUser = msg.get("fromUser").toJSON();
             message.msgType = msg.get("msgType");
@@ -114,18 +115,13 @@ class ChatRoom extends Component {
             message.isOutgoing = name === msg.get("fromUser").get("displayName") ? false : true;
             if (msg.get("msgType") !== "text") {
                 if (msg.get("msgType") === "voice") {
-                    // message.mediaPath = msg.get("mediaPath");
                     let path = msg.get("mediaPath");
-                    DecodeAudioManager.decodeAudio(path, (rs) => {
-                        // console.log("history rs", rs);
-                        message.mediaPath = rs;
-                    })
+                    message.mediaPath = await DecodeAudioManager.decodeAudio(path);
                 } else {
                     message.mediaPath =  msg.get("mediaPath");
                 }
             }
-
-
+            console.log("message", message);
             tmpmessages.push(message);
         })
         // for (var index in imageUrlArray) {
@@ -139,10 +135,11 @@ class ChatRoom extends Component {
         //     // AuroraIController.appendMessages([message])
         //     // AuroraIController.scrollToBottom(true)
         // }
-        setTimeout(() => {
-            AuroraIController.appendMessages(tmpmessages)
-            AuroraIController.scrollToBottom(true)
-        }, 200)
+        AuroraIController.appendMessages(tmpmessages)
+        AuroraIController.scrollToBottom(true)
+        // setTimeout(() => {
+        //
+        // }, 200)
 
         // for (var i = 0; i < 10; i++) {
         //   var message = constructNormalMessage()
@@ -453,7 +450,7 @@ class ChatRoom extends Component {
     }
 
     goBack = () => {
-        this.props.navigation.goBack();
+        this.props.navigation.pop();
         this.props.goChatList();
     }
 

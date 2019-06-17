@@ -1,25 +1,24 @@
 import realm from "./index";
 
 class ChatDao {
-    static saveChatList(chatInfo) {
+    static async saveChatList(chatInfo) {
         realm.write(() => {
             realm.create("ChatList", {...chatInfo}, true);
         });
     }
 
-    static saveMessage(name, info) {
-        console.log("sdf", name, info);
+    static  saveMessage(name, info) {
         let chatList = realm.objects("ChatList");
         let chat = chatList.filtered(`name = "${name}"`);
-        let chatMessages = chat[0].messages;
         console.log("sdf", chatMessages, chat);
+        let chatMessages = chat[0].messages;
         realm.write(() => {
             chatMessages.push(info);
         })
 
     }
 
-    static getMessages(name) {
+    static  getMessages(name) {
         let chatList = realm.objects("ChatList");
         let chat = chatList.filtered(`name = "${name}"`);
         let chatMessages = chat[0].messages;
