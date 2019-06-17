@@ -116,30 +116,21 @@ class ChatRoom extends Component {
             if (msg.get("msgType") !== "text") {
                 if (msg.get("msgType") === "voice") {
                     let path = msg.get("mediaPath");
-                    message.mediaPath = await DecodeAudioManager.decodeAudio(path);
+                    DecodeAudioManager.decodeAudio(path, (rs) => {
+                        message.mediaPath = rs;
+                    });
                 } else {
                     message.mediaPath =  msg.get("mediaPath");
                 }
             }
-            console.log("message", message);
             tmpmessages.push(message);
         })
-        // for (var index in imageUrlArray) {
-        //     var message = constructNormalMessage()
-        //     message.fromUser.avatarUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534926548887&di=f107f4f8bd50fada6c5770ef27535277&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F11%2F67%2F23%2F69i58PICP37.jpg",//1
-        //         message.msgType = 'image'
-        //     message.mediaPath = imageUrlArray[index]
-        //     message.contentSize = { 'height': 100, 'width': 200 }
-        //     message.extras = { "extras": "fdfsf" }
-        //     messages.push(message)
-        //     // AuroraIController.appendMessages([message])
-        //     // AuroraIController.scrollToBottom(true)
-        // }
-        AuroraIController.appendMessages(tmpmessages)
-        AuroraIController.scrollToBottom(true)
-        // setTimeout(() => {
-        //
-        // }, 200)
+
+
+        setTimeout(() => {
+            AuroraIController.appendMessages(tmpmessages)
+            AuroraIController.scrollToBottom(true)
+        }, 100)
 
         // for (var i = 0; i < 10; i++) {
         //   var message = constructNormalMessage()

@@ -11,6 +11,7 @@ import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";
 import ChatDao from "../../realm/ChatDao";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
+const NativeOpenManager = NativeModules.NativeOpenManager;
 
 
 class My extends Component {
@@ -22,7 +23,8 @@ class My extends Component {
     doRealmAction = () => {
         ChatDao.deleteAll();
         // DecodeAudioManager.decodeAudio();
-    }
+        console.log("sdfsdf", NativeOpenManager.getMsg())
+}
 
 
     render() {

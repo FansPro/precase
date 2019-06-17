@@ -39,7 +39,7 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public String decodeAudio(String base64Str) {
+    public void decodeAudio(String base64Str, Callback callback) {
         File  tempFile = null;
         try {
             // 创建临时文件,注意这里的格式为.pcm  .amr  .mp3
@@ -48,13 +48,17 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
             FileOutputStream out = new FileOutputStream(tempFile);
             out.write(buffer);
             out.close();
-
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
-            return "123.m4a";
-            // return tempFile.getPath();
+            String  filename = "";
+            if(tempFile==null) {
+                filename = "";
+            } else {
+                filename = tempFile.getPath();
+            }
+            callback.invoke(filename);
         }
     }
 

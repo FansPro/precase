@@ -187,7 +187,9 @@ function mapDispatchToProps(dispatch) {
             msg.msgType = jsonMessage.msgType;
             if (jsonMessage.msgType === "voice") {
                 console.log("mememmememe", DecodeAudioManager.decodeAudio(jsonMessage.mediaPath));
-                msg.mediaPath = await DecodeAudioManager.decodeAudio(jsonMessage.mediaPath);
+                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
+                    message.mediaPath = rs;
+                });
 
             } else {
                 msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
@@ -198,7 +200,9 @@ function mapDispatchToProps(dispatch) {
             msg.isOutgoing = false;
             msg.fromUser = jsonMessage.fromUser;
             console.log("mediaPath", msg.mediaPath);
-            AuroraIController.appendMessages([msg]);
+           setTimeout(() => {
+               AuroraIController.appendMessages([msg]);
+           }, 100);
             dispatch({
                 type: types.XMPP_RECEIVE_MESSAGE,
                 message,
