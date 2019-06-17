@@ -63,7 +63,7 @@ class ChatList extends Component {
 
         this.state ={
             isLogin: false,
-            receiveMsg: "",
+
         };
         XMPP.on('message', this.onReceiveMessage);
         XMPP.on('iq', this.onIQBack);
@@ -94,7 +94,6 @@ class ChatList extends Component {
         var name = from.match(/^([^@]*)@/)[1];
         console.log("receive",from, body, name);
         this.props.receiveMessage(name, body);
-        this.setState({receiveMsg: body})
         // this.conversation.unshift({own:false, text:body});
     }
 
@@ -160,7 +159,6 @@ class ChatList extends Component {
                 {/*    <Text>聊天</Text>*/}
                 {/*</TouchableOpacity>*/}
                 <List ds={this.props.chatList} renderCell={this.renderCell}/>
-                <Text>{this.state.receiveMsg}</Text>
             </View>
         )
     }
