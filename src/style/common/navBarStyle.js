@@ -32,6 +32,17 @@ const navBarStyles  = StyleSheet.create({
     content_title: {
         color: "white",
         fontSize: 18,
+    },
+    loading: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    loading_txt: {
+        marginLeft:5,
+        color: "white",
+        fontSize: 18,
     }
+
 });
 export default navBarStyles;

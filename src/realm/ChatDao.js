@@ -22,7 +22,19 @@ class ChatDao {
         let chatList = realm.objects("ChatList");
         let chat = chatList.filtered(`name = "${name}"`);
         let chatMessages = chat[0].messages;
+        if (chatMessages.length > 10) {
+            return chatMessages.slice(chatMessages.length - 10, chatMessages.length)
+        }
         return chatMessages;
+    }
+    static getOldMessages(name) {
+        let chatList = realm.objects("ChatList");
+        let chat = chatList.filtered(`name = "${name}"`);
+        let chatMessages = chat[0].messages;
+        if (chatMessages.length > 10) {
+            return chatMessages.slice(0, chatMessages.length - 10);
+        };
+        return [];
     }
 
     static getAllChatList() {

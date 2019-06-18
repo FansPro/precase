@@ -82,11 +82,19 @@ export default (state = initialState, action) => {
             });
 
             newState = newState.set("chatList", list);
-            ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
-            ChatDao.saveChatList({name: action.user, message: chatMessage})
+
+            if (msg.msgType === "voice") {
+                DecodeAudioManager.decodeAudio(msg.mediaPath, (rs) => {
+                    msg.voicePath = rs;
+                    ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
+                });
+            } else {
+                ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
+            }
+            ChatDao.saveChatList({name: action.user, message: chatMessage});
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
-
+            console.log("start-=====");
             let jsonMessage = JSON.parse(action.message);
             // console.log("name", action.name)
             list.map(item => {
@@ -128,11 +136,9 @@ export default (state = initialState, action) => {
                 tempChat = tempChat.set("unReadNum", tempChat.get("unReadNum") + 1);
                 console.log("temchat", tempChat, tempChat.get("unReadNum"));
             }
-
             newChatList = newChatList.insert(0, tempChat);
             newState = newState.set("chatList", newChatList);
             ChatDao.saveChatList({name: action.name, avatarPath: tempChat.get("avatarPath"), unReadNum: tempChat.get("unReadNum"), timeStamp: new Date(), message: chatMessage});
-            ChatDao.saveMessage(action.name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             console.log("wait refresh");
             return newState;
         case types.CHAT_GET_CHATLIST:
