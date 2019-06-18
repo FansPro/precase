@@ -279,9 +279,9 @@ class ChatRoom extends Component {
         message.text = text;
         message.fromUser = user.toJSON();
         const name = this.props.navigation.state.params.name;
-
+        AuroraIController.appendMessages([message]);
         sendMessage(message, name);
-        AuroraIController.appendMessages([message])
+
     }
 
     onTakePicture = (media) => {
@@ -379,10 +379,9 @@ class ChatRoom extends Component {
 
                     let subbfix = mediaPath.substring(mediaPath.lastIndexOf('.') + 1, mediaPath.length);
                     message.mediaPath = `data:image/${subbfix};base64,${rs}`;
-
-                    sendMessage(message, name)
-                    AuroraIController.appendMessages([message])
-                    AuroraIController.scrollToBottom(true)
+                    AuroraIController.appendMessages([message]);
+                    AuroraIController.scrollToBottom(true);
+                    sendMessage(message, name);
                     this.resetMenu()
                 })
             });

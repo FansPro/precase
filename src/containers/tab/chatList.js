@@ -4,6 +4,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
+    Alert,
+    AppState,
     ImageBackground, Platform, NativeModules,
 } from "react-native"
 import { connect } from "react-redux";
@@ -77,6 +79,19 @@ class ChatList extends Component {
         this.props.logIn();
         this.props.getChatList();
     }
+    componentDidMount() {
+        AppState.addEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+
+        if(nextAppState === "active") {
+            this.setState({isLogin: false});
+            this.props.logIn();
+        }
+    }
+
+
     onIQBack = (message) => {
         console.log("onIQBack", message, message.query);
         if (message.query) {

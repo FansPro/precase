@@ -8,8 +8,8 @@ const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
 const AuroraIController = IMUI.AuroraIMUIController;
 import ChatDao from "../realm/ChatDao"
-const fromAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
-const toAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
+const fromAvatar  = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
+const toAvatar   = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 const initialState = Immutable.fromJS({
@@ -21,7 +21,7 @@ const initialState = Immutable.fromJS({
         pwd: "123456",
         displayName: "fansx",
         avatarPath: fromAvatar,
-        userId: "qweq"
+        userId: "44123123"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
