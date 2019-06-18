@@ -75,7 +75,7 @@ class ChatList extends Component {
         XMPP.on('login', (message) => this.setState({isLogin: true}));
         XMPP.on('connect', (message) => console.log('CONNECTED!'));
         XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
-        XMPP.on('error', (message) => console.log("error", message))
+        XMPP.on('error', (message) => console.log("error", message));
         this.props.logIn();
         this.props.getChatList();
     }

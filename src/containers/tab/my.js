@@ -30,7 +30,7 @@ class My extends Component {
     render() {
         return (
             <View>
-                <NavBar title={"我的"}/>
+                <NavBar left={true} title={"我的"}/>
                 <Text>123123123</Text>
                 <Text>{this.props.count}</Text>
                 <Text>{I18n.t("home.h5")}</Text>

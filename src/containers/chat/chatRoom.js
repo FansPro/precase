@@ -33,7 +33,7 @@ function constructNormalMessage() {
     var message = {}
     message.msgId = themsgid.toString()
     themsgid += 1
-    message.status = "send_succeed"
+    message.status = "send_success"
     message.isOutgoing = true
     var date = new Date()
     // message.timeString = date.getHours() + ":" + date.getMinutes()
@@ -223,7 +223,7 @@ class ChatRoom extends Component {
     }
 
     onStatusViewClick = (message) => {
-        message.status = 'send_succeed'
+        message.status = 'send_going';
         AuroraIController.updateMessage(message)
     }
 
@@ -318,10 +318,10 @@ class ChatRoom extends Component {
         message.duration = duration
         message.fromUser = user.toJSON();
         RNFS.readFile(mediaPath, "base64").then(rs => {
-            message.mediaPath = 'data:audio/m4a;base64,' + rs;
-            sendMessage(message, name)
             message.mediaPath = mediaPath;
             AuroraIController.appendMessages([message])
+            message.mediaPath = 'data:audio/m4a;base64,' + rs;
+            sendMessage(message, name)
         })
 
         console.log("on finish record voice")
