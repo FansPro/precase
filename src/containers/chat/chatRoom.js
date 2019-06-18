@@ -251,12 +251,8 @@ class ChatRoom extends Component {
                 message.duration = item.duration;
                 message.isOutgoing = name === item.fromUser.displayName ? false : true;
                 if (item.msgType !== "text") {
-                    if (item.msgType === "voice") {
-                        message.mediaPath = item.voicePath;
-                    } else {
-                        message.mediaPath =  item.mediaPath;
-
-                    }
+                    message.mediaPath =  item.mediaPath;
+                    message.data = null;
                 }
                 messages.push(message);
                 this.setState({refresh: false});
@@ -292,15 +288,15 @@ class ChatRoom extends Component {
         let message = constructNormalMessage()
         message.msgType = 'image'
         message.fromUser = user.toJSON();
+        message.mediaPath = media.mediaPath;
+        AuroraIController.appendMessages([message])
+        AuroraIController.scrollToBottom(true)
+        this.resetMenu()
         RNFS.readFile(media.mediaPath, 'base64').then(rs => {
             let subbfix = media.mediaPath.substring(media.mediaPath.lastIndexOf('.') + 1, media.mediaPath.length);
-            message.mediaPath = `data:image/${subbfix};base64,${rs}`;
-            AuroraIController.appendMessages([message])
-            this.resetMenu()
+            message.data = `data:image/${subbfix};base64,${rs}`;
             sendMessage(message, name);
-            AuroraIController.scrollToBottom(true)
-        })
-
+        });
 
     }
 
@@ -317,13 +313,13 @@ class ChatRoom extends Component {
         message.msgType = "voice"
         message.duration = duration
         message.fromUser = user.toJSON();
+
         RNFS.readFile(mediaPath, "base64").then(rs => {
+            message.data = 'data:audio/m4a;base64,' + rs;
+            sendMessage(message, name);
             message.mediaPath = mediaPath;
             AuroraIController.appendMessages([message])
-            message.mediaPath = 'data:audio/m4a;base64,' + rs;
-            sendMessage(message, name)
-        })
-
+        });
         console.log("on finish record voice")
     }
 
@@ -372,17 +368,16 @@ class ChatRoom extends Component {
             const { name } = this.props.navigation.state.params;
             let mediaPath =  mediaFiles[index].mediaPath;
             let mediaFile = mediaFiles[index];
-
+            message.mediaPath = mediaPath;
+            AuroraIController.appendMessages([message]);
+            AuroraIController.scrollToBottom(true);
+            this.resetMenu()
             AuroraIController.scaleImage({path: mediaPath, width: 750, height: mediaFile.height * 750 / mediaFile.width }, (result) => {
                 console.log("compress", result.thumbPath ? result.thumbPath : mediaPath);
                 RNFS.readFile(result.thumbPath ? result.thumbPath : mediaPath, "base64").then(rs => {
-
                     let subbfix = mediaPath.substring(mediaPath.lastIndexOf('.') + 1, mediaPath.length);
-                    message.mediaPath = `data:image/${subbfix};base64,${rs}`;
-                    AuroraIController.appendMessages([message]);
-                    AuroraIController.scrollToBottom(true);
+                    message.data = `data:image/${subbfix};base64,${rs}`;
                     sendMessage(message, name);
-                    this.resetMenu()
                 })
             });
 

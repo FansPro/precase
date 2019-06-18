@@ -48,8 +48,8 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             Date date = new Date(System.currentTimeMillis());
             String time = sdf.format(date);
-
-            tempFile = File.createTempFile(time, ".m4a", getCurrentActivity().getCacheDir());
+            String dataType = base64Str.substring(base64Str.indexOf("/"), base64Str.indexOf(";"));
+            tempFile = File.createTempFile("temp_" + time, "." + dataType, getCurrentActivity().getCacheDir());
             byte[] buffer =Base64.decode(base64Str.split(",")[1], Base64.DEFAULT);
             FileOutputStream out = new FileOutputStream(tempFile);
             out.write(buffer);

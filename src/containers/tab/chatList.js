@@ -95,8 +95,8 @@ class ChatList extends Component {
     onIQBack = (message) => {
         console.log("onIQBack", message, message.query);
         if (message.query) {
-            console.log("jid", message.query.item.jid);
-            var name = message.query.item.jid.match(/^([^@]*)@/)[1];
+            // console.log("jid", message.query.item.jid);
+            // var name = message.query.item.jid.match(/^([^@]*)@/)[1];
             // this.props.getChatList(name, message.id);
         }
     }
@@ -210,17 +210,14 @@ function mapDispatchToProps(dispatch) {
             msg.text = jsonMessage.text ? jsonMessage.text : null;
             msg.isOutgoing = false;
             msg.fromUser = jsonMessage.fromUser;
-            if (jsonMessage.msgType === "voice") {
-                DecodeAudioManager.decodeAudio(jsonMessage.mediaPath, (rs) => {
+            if (jsonMessage.msgType !== "text") {
+                DecodeAudioManager.decodeAudio(jsonMessage.data, (rs) => {
+                    Alert.alert(rs);
                     msg.mediaPath = rs;
+                    msg.data = null;
                     AuroraIController.appendMessages([msg]);
-                    ChatDao.saveMessage(name, { ...jsonMessage, voicePath: rs, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
+                    ChatDao.saveMessage(name, { ...jsonMessage, data: null, mediaPath: rs, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
                 });
-
-            } else {
-                msg.mediaPath = jsonMessage.mediaPath ? jsonMessage.mediaPath : null;
-                AuroraIController.appendMessages([msg]);
-                ChatDao.saveMessage(name, { ...jsonMessage, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
             }
         },
         getChatList: async (name, id) => {

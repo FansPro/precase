@@ -8,8 +8,8 @@ const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
 const AuroraIController = IMUI.AuroraIMUIController;
 import ChatDao from "../realm/ChatDao"
-const  toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
-const fromAvatar    = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
+const toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
+const fromAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 const initialState = Immutable.fromJS({
@@ -17,11 +17,11 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fansg",
+        name: "fans2",
         pwd: "123456",
-        displayName: "fansq",
+        displayName: "fans2",
         avatarPath: fromAvatar,
-        userId: "44123123"
+        userId: "1234"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
@@ -52,7 +52,8 @@ export default (state = initialState, action) => {
             let msg = {
                 msgType: action.message.msgType,
                 text: action.message.msgType === 'text' ? action.message.text : null,
-                mediaPath: action.message.msgType === "text" ? null : action.message.mediaPath,
+                mediaPath: action.message.mediaPath,
+                data: null,
                 duration: action.message.duration ? action.message.duration : null,
                 fromUser: {
                     ...action.message.fromUser,
@@ -83,14 +84,7 @@ export default (state = initialState, action) => {
 
             newState = newState.set("chatList", list);
 
-            if (msg.msgType === "voice") {
-                DecodeAudioManager.decodeAudio(msg.mediaPath, (rs) => {
-                    msg.voicePath = rs;
-                    ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
-                });
-            } else {
-                ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
-            }
+            ChatDao.saveMessage(action.user, {...msg, fromUser: { ...msg.fromUser}});
             ChatDao.saveChatList({name: action.user, message: chatMessage});
             return newState;
         case types.XMPP_RECEIVE_MESSAGE:
@@ -153,7 +147,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fansx",
+                    name: "fans1",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),

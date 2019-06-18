@@ -30,7 +30,7 @@ const MessageSchema = {
         fromUser: {type: "User"},
         van: 'User',
         mediaPath: "string?",
-        voicePath: "string?",
+        data: "string?",
         text: "string?",
         msgType: "string",
         id: "string",
@@ -39,6 +39,6 @@ const MessageSchema = {
     }
 }
 
-const schema = {schema: [ChatListSchema, MessageSchema, UserSchema], schemaVersion: 9 };
+const schema = {schema: [ChatListSchema, MessageSchema, UserSchema], schemaVersion: 10 };
 
 export default realm = new Realm(schema);
