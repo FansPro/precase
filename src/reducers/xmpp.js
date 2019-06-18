@@ -92,7 +92,6 @@ export default (state = initialState, action) => {
             let jsonMessage = JSON.parse(action.message);
             // console.log("name", action.name)
             list.map(item => {
-                console.log("name", action.name, item.name);
                 if(item.get("name") === action.name) {
 
                     tempChat = item

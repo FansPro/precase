@@ -212,6 +212,7 @@ function mapDispatchToProps(dispatch) {
             msg.fromUser = jsonMessage.fromUser;
             if (jsonMessage.msgType !== "text") {
                 DecodeAudioManager.decodeAudio(jsonMessage.data, (rs) => {
+                    console.log("mediaPath====", rs);
                     msg.mediaPath = rs;
                     msg.data = null;
                     AuroraIController.appendMessages([msg]);
