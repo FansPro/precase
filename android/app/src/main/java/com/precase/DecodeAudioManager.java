@@ -64,7 +64,12 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
             } else {
                 filename = tempFile.getPath();
             }
-            callback.invoke(filename);
+            //callback.invoke(filename);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date date = new Date(System.currentTimeMillis());
+            String time = sdf.format(date);
+            String dataType = base64Str.substring(base64Str.indexOf("/"), base64Str.indexOf(";") + 1);
+            callback.invoke(dataType);
         }
     }
 
