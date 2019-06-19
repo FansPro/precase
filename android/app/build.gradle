@@ -119,7 +119,6 @@ android {
         missingDimensionStrategy 'react-native-camera', 'general'
         ndk {
               abiFilters "armeabi-v7a", "x86"
-              abiFilters "armeabi"
         }
         vectorDrawables.useSupportLibrary = true
 

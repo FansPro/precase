@@ -8,8 +8,8 @@ const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
 const AuroraIController = IMUI.AuroraIMUIController;
 import ChatDao from "../realm/ChatDao"
-const toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
-const fromAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
+const fromAvatar  = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.JPEG";
+const toAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
 const SCHEMA = "mobile";
@@ -18,11 +18,11 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fans2",
+        name: "fans1",
         pwd: "123456",
-        displayName: "fans2",
+        displayName: "fans1",
         avatarPath: fromAvatar,
-        userId: "1234"
+        userId: "678"
     }),
     chatList: Immutable.List(),
     messages: Immutable.List(),
@@ -147,7 +147,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fans1",
+                    name: "fans2",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),
