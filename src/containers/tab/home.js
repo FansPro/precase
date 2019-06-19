@@ -9,12 +9,14 @@ import {
     Alert,
     NativeModules,
     Platform,
+    ScrollView
 } from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
 import BaseComponent from "../../base/baseComponent";
 import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const MeiqiaManager = NativeModules.MeiqiaManager;
+const DownloadApkManager = NativeModules.DownloadApkManager;
 import { connect } from "react-redux";
 import * as types  from "../../common/actionType";
 import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
@@ -24,6 +26,9 @@ import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
 import PayTips from "../../components/common/payTips";
 import JPushModule from "jpush-react-native";
+import RNFetchBlob  from "react-native-fetch-blob";
+import RNFS from "react-native-fs";
+import AndroidUpdateTips from "../../components/common/androidUpdateTips";
 
 
 let codePushOptions = {
@@ -40,6 +45,9 @@ class Home extends BaseComponent {
         super(props);
         this.state = {
             modalVisible: false,
+            downloadPercent: "0",
+            status: "wait",
+            androidUpdate: false,
         }
         this.props.setLocale("zh");
     }
@@ -172,39 +180,50 @@ class Home extends BaseComponent {
         this.props.navigation.navigate("scan");
     }
 
-
+    _handleDownloadApk = () => {
+        this.setState({androidUpdate: true});
+    }
     render() {
         const name = "fafaffa"
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
         return (
             <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
                 <NavBar left={true} title={"首页"}/>
-                <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.h5")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.openLinking() } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.openApp")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.openAndroid() } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.nativeOpenApp")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.openMeiqia() } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.meiqiaTest")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.props.addOne() } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.storeTest")}</Text>
-                </TouchableOpacity>
-                <Text>{this.props.count}</Text>
-                <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={ this.goScanPage } style={homeStyles.home_cell}>
-                    <Text style={homeStyles.home_cell_txt}>{I18n.t("home.scanTest")}</Text>
-                </TouchableOpacity>
+                <ScrollView>
+                    <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.h5")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.openLinking() } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.openApp")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.openAndroid() } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.nativeOpenApp")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.openMeiqia() } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.meiqiaTest")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.addOne() } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.storeTest")}</Text>
+                    </TouchableOpacity>
+                    <Text>{this.props.count}</Text>
+                    <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={ this.goScanPage } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.scanTest")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={ this._handleDownloadApk } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>{I18n.t("home.apkDownLoadText")}</Text>
+                    </TouchableOpacity>
+                    <Text>{this.state.status}</Text>
+                    <Text>{this.state.downloadPercent}</Text>
+                    <View style={{height: 50}}/>
+                </ScrollView>
                 <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>
                 </Modal>
                 {/*<PayTips/>*/}
+                <AndroidUpdateTips update={this.state.androidUpdate}/>
             </View>
         )
     }

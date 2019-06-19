@@ -6,6 +6,7 @@
     "meiqiaTest": "美洽客服测试",
     "storeTest": "Store测试",
     "languageTest": "多语言测试",
-    "scanTest": "扫码测试"
+    "scanTest": "扫码测试",
+    "apkDownLoadText": "安卓APK下载测试"
   }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import io.realm.react.RealmReactPackage;
 import cn.jystudio.local.barcode.recognizer.LocalBarcodeRecognizerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -48,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new MainReactPackage(),
+            new RNFetchBlobPackage(),
             new RealmReactPackage(),
             new LocalBarcodeRecognizerPackage(),
             new ImagePickerPackage(),
@@ -63,7 +65,8 @@ public class MainApplication extends Application implements ReactApplication {
             new MeiqiaPackage(),
             new DecodeAudioPackage(),
             new ReactIMUIPackage(),
-            new JPushPackage(true, true)
+            new JPushPackage(true, true),
+              new DownloadApkPackage()
       );
     }
 
