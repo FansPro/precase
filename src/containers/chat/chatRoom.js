@@ -116,13 +116,8 @@ class ChatRoom extends Component {
             message.duration = msg.get("duration");
             message.isOutgoing = name === msg.get("fromUser").get("displayName") ? false : true;
             if (msg.get("msgType") !== "text") {
-                if (msg.get("msgType") === "voice") {
-                    let path = msg.get("mediaPath");
-                    message.mediaPath = msg.get("voicePath");
-                } else {
-                    message.mediaPath =  msg.get("mediaPath");
-
-                }
+                console.log("mediaPath===", msg.get("mediaPath"))
+                message.mediaPath =  msg.get("mediaPath");
             }
             tmpmessages.push(message);
         });

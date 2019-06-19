@@ -12,6 +12,7 @@ const toAvatar = "http://n1.itc.cn/img8/wb/recom/2016/04/22/146131935847875919.J
 const fromAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
+const SCHEMA = "mobile";
 const initialState = Immutable.fromJS({
     logIn: false,
     remote: "",
@@ -29,7 +30,7 @@ const initialState = Immutable.fromJS({
 
 
 function _userForName(name){
-    return name + '@' + DOMAIN;
+    return name + '@' + DOMAIN + "/" + SCHEMA;
 }
 
 
@@ -92,7 +93,6 @@ export default (state = initialState, action) => {
             let jsonMessage = JSON.parse(action.message);
             // console.log("name", action.name)
             list.map(item => {
-                console.log("name", action.name, item.name);
                 if(item.get("name") === action.name) {
 
                     tempChat = item

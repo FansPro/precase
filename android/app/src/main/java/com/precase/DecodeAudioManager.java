@@ -43,34 +43,30 @@ public class DecodeAudioManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void decodeAudio(String base64Str, Callback callback) {
         File  tempFile = null;
-        try {
-            // 创建临时文件,注意这里的格式为.pcm  .amr  .mp3
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            Date date = new Date(System.currentTimeMillis());
-            String time = sdf.format(date);
-            String dataType = base64Str.substring(base64Str.indexOf("/"), base64Str.indexOf(";") + 1);
-            tempFile = File.createTempFile("temp_" + time, "." + dataType, getCurrentActivity().getCacheDir());
-            byte[] buffer =Base64.decode(base64Str.split(",")[1], Base64.DEFAULT);
-            FileOutputStream out = new FileOutputStream(tempFile);
-            out.write(buffer);
-            out.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            String  filename = "";
-            if(tempFile==null) {
-                filename = "";
-            } else {
-                filename = tempFile.getPath();
-            }
-            //callback.invoke(filename);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            Date date = new Date(System.currentTimeMillis());
-            String time = sdf.format(date);
-            String dataType = base64Str.substring(base64Str.indexOf("/"), base64Str.indexOf(";") + 1);
-            callback.invoke(dataType);
-        }
+                try {
+                    // 创建临时文件,注意这里的格式为.pcm  .amr  .mp3
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    Date date = new Date(System.currentTimeMillis());
+                    String time = sdf.format(date);
+                    String dataType = base64Str.substring(base64Str.indexOf("/") + 1, base64Str.indexOf(";") + 1);
+                    tempFile = File.createTempFile("temp_" + time, "." + dataType, getCurrentActivity().getCacheDir());
+                    byte[] buffer =Base64.decode(base64Str.split(",")[1], Base64.DEFAULT);
+                    FileOutputStream out = new FileOutputStream(tempFile);
+                    out.write(buffer);
+                    out.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } finally {
+                    String  filename = "";
+                    if(tempFile==null) {
+                        filename = "";
+                    } else {
+                        filename = tempFile.getPath();
+                    }
+                    callback.invoke(filename);
+                }
+
     }
 
 }

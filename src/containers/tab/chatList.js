@@ -212,10 +212,11 @@ function mapDispatchToProps(dispatch) {
             msg.fromUser = jsonMessage.fromUser;
             if (jsonMessage.msgType !== "text") {
                 DecodeAudioManager.decodeAudio(jsonMessage.data, (rs) => {
+                    console.log("mediaPath====", rs.substr(0,rs.length-1));
                     msg.mediaPath = rs;
                     msg.data = null;
                     AuroraIController.appendMessages([msg]);
-                    ChatDao.saveMessage(name, { ...jsonMessage, data: null, mediaPath: rs, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
+                    ChatDao.saveMessage(name, { ...jsonMessage, data: null, mediaPath: msg.mediaPath, fromUser: jsonMessage.fromUser, id: new Date().toTimeString(), timeStamp: new Date()})
                 });
             } else {
                 AuroraIController.appendMessages([msg]);
