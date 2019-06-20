@@ -66,12 +66,14 @@ class Home extends BaseComponent {
         JPushModule.addReceiveOpenNotificationListener((map) => {
             console.log("Opening notification!", map);
 
-            // this.props.navigator.replace({name: "HomePage",component:HomePage});
+           this.props.navigation.navigate("my");
 
         });
         JPushModule.getInfo((result) => {
             console.log("JPush info", result);
         })
+
+        // this.props.logout();
     }
 
 
@@ -242,7 +244,11 @@ function mapDispatchToProps(dispatch) {
             type: types.ADD,
             num: 1,
         }),
-        setLocale: (lacale) => dispatch(setLocale(lacale))
+        setLocale: (lacale) => dispatch(setLocale(lacale)),
+        logout: () => dispatch({
+            type: "Login",
+        })
+
     }
 }
 Home = CodePush(codePushOptions)(Home);

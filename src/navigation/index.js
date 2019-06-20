@@ -29,11 +29,9 @@ function getNavigation() {
     return routes;
 }
 
-const AppNavigator = createStackNavigator(
+export const AppNavigator = createStackNavigator(
     getNavigation()
 )
 
-export const AppContainer = createAppContainer(
-    AppNavigator
-)
+
 

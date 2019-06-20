@@ -11,6 +11,7 @@ import Game from "../containers/game/game";
 import ChatRoom from "../containers/chat/chatRoom";
 import Scan from "../containers/scan/scan";
 import ChatAdd from "../containers/chat/chatAdd";
+import Login from "../containers/auth/login";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -44,10 +45,12 @@ export const tabs = {
 }
 export const navigators = [
     { screen: tabs, isTab: true, key: "tab"},
+
     { key: "game", screen: Game, title: "游戏", navigationOptions: { headerTitle: "游戏"}},
     { key: "chatRoom", screen: ChatRoom, title: "聊天", navigationOptions: {header: null}},
     {key: "scan", screen: Scan, title: "扫码",  navigationOptions: {header: null}},
-    {key: "chatAdd", screen: ChatAdd, title: "添加聊天",  navigationOptions: {header: null}}
+    {key: "login", screen: Login, title: "登录",  navigationOptions: {header: null}},
+    {key: "chatAdd", screen: ChatAdd, title: "添加聊天",  navigationOptions: {header: null}},
 
 ];
 
@@ -56,5 +59,6 @@ export const pages = {
     my: "my",
     game: "game",
     chatRoom: "chatRoom",
-    chatAdd: "chatAdd"
+    chatAdd: "chatAdd",
+    login: "login",
 }

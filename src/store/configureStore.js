@@ -2,9 +2,15 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
+import { createReactNavigationReduxMiddleware } from "react-navigation-redux-helpers";
 const applyMiddlewares = [];
 applyMiddlewares.push(thunk);
 
+const navMiddleware = createReactNavigationReduxMiddleware(
+    state => state.nav,
+    "root",
+)
+applyMiddlewares.push(navMiddleware);
 
 if(__DEV__) {
     applyMiddlewares.push(createLogger({

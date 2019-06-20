@@ -30,6 +30,7 @@
     "react-native-webview": "^5.10.0",
     "react-native-xmpp": "^1.0.3",
     "react-navigation": "^3.11.0",
+    "react-navigation-redux-helpers": "^3.0.2",
     "react-redux": "^7.0.3",
     "realm": "^2.16.0",
     "redux": "^4.0.1",
