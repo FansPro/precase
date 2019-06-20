@@ -47,15 +47,8 @@ public class DownloadApkManager extends ReactContextBaseJavaModule {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
         File apkFile = new File(fileSavePath);
-        String[] command = {"chmod", "777", apkFile.getPath() };
-        ProcessBuilder builder = new ProcessBuilder(command);
-        try {
-            builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Uri uri = FileProvider.getUriForFile(getCurrentActivity(), getCurrentActivity().getPackageName() + ".fileprovider", apkFile);
-        intent.setData(uri);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         getCurrentActivity().startActivity(intent);
     }

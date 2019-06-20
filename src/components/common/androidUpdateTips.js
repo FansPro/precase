@@ -3,11 +3,13 @@ import {
     View,
     Text,
     Modal,
-    TouchableOpacity
+    TouchableOpacity,
+    NativeModules
 } from "react-native";
 import androidUpdateTipsStyle from "../../style/common/androidUpdateTipsStyle";
 import RNFetchBlob from "react-native-fetch-blob";
 import RNFS from "react-native-fs";
+const DownloadApkManager = NativeModules.DownloadApkManager;
 
 class AndroidUpdateTips extends Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class AndroidUpdateTips extends Component {
             update: false,
             progress: 0,
             downloadStart: false,
+            status: "start",
         }
     }
 
@@ -32,7 +35,7 @@ class AndroidUpdateTips extends Component {
         let android = RNFetchBlob.android;
         RNFS.downloadFile({
             fromUrl: downLoadUrl,
-            toFile: dirs.DownloadDir + "/precase.apk",
+            toFile: dirs.DownloadDir + "/com.precase.apk",
             progressDivider: 5,
             begin: (res) => this.setState({downloadStart: true}) ,
             progress: (res) => {
@@ -44,11 +47,19 @@ class AndroidUpdateTips extends Component {
             //     dirs.DownloadDir + '/precase.apk',
             //     'application/vnd.android.package-archive'
             // );
-            DownloadApkManager.openAPK( dirs.DownloadDir + "/precase.apk")
+            this.setState({update: false});
+            DownloadApkManager.openAPK( dirs.DownloadDir + "/com.precase.apk")
         }).catch(() => {
             this.setState({status: "failed"})
         })
     }
+
+    stopUpdate = () => {
+        let downLoadUrl = "http://bos.pgzs.com/sjapp91/msoft/20180507456/23/official_website6.1.0.370.apk";
+        RNFS.cancelDownload();
+        this.setState({update: false, downloadStart: false});
+    }
+
     render() {
         const { update, downloadStart, progress } = this.state;
         return (
@@ -74,7 +85,17 @@ class AndroidUpdateTips extends Component {
                             </View>
                         </View>}
 
-                        { !downloadStart && <View style={androidUpdateTipsStyle.update_line}/>}
+
+                        <View style={androidUpdateTipsStyle.update_line}/>
+                        {downloadStart && <View style={androidUpdateTipsStyle.update_btns}>
+                            <TouchableOpacity style={androidUpdateTipsStyle.update_btn} onPress={this.stopUpdate}>
+                                <Text style={androidUpdateTipsStyle.update_left_text}>取消</Text>
+                            </TouchableOpacity>
+                            <View style={androidUpdateTipsStyle.update_btn_line}/>
+                            <TouchableOpacity style={androidUpdateTipsStyle.update_btn} onPress={this.update}>
+                                <Text style={androidUpdateTipsStyle.update_btn_cancel}>重新下载</Text>
+                            </TouchableOpacity>
+                        </View>}
                         { !downloadStart && <View style={androidUpdateTipsStyle.update_btns}>
                             <TouchableOpacity style={androidUpdateTipsStyle.update_btn} onPress={() => this.setState({update: false})}>
                                 <Text style={androidUpdateTipsStyle.update_left_text}>取消</Text>

@@ -16,7 +16,6 @@ import BaseComponent from "../../base/baseComponent";
 import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const MeiqiaManager = NativeModules.MeiqiaManager;
-const DownloadApkManager = NativeModules.DownloadApkManager;
 import { connect } from "react-redux";
 import * as types  from "../../common/actionType";
 import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
@@ -46,7 +45,7 @@ class Home extends BaseComponent {
         this.state = {
             modalVisible: false,
             downloadPercent: "0",
-            status: "wait",
+            status: "waitting",
             androidUpdate: false,
         }
         this.props.setLocale("zh");

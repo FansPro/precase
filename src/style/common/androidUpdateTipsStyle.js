@@ -68,7 +68,7 @@ const androidUpdateTipsStyle = StyleSheet.create({
         height: 4,
         width: "100%",
         display: "flex",
-        backgroundColor: "#444",
+        backgroundColor: "#f6f6f6",
         borderRadius: 2,
     },
     update_progress_per: {
@@ -76,5 +76,10 @@ const androidUpdateTipsStyle = StyleSheet.create({
         borderRadius: 2,
         backgroundColor: "#4D78B0"
     },
+    update_btn_cancel: {
+        color: "red",
+        fontSize: 16,
+        fontWeight: "bold",
+    }
 })
 export default androidUpdateTipsStyle;
