@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
 
@@ -46,10 +47,16 @@ public class DownloadApkManager extends ReactContextBaseJavaModule {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        File apkFile = new File(fileSavePath);
-        Uri uri = FileProvider.getUriForFile(getCurrentActivity(), getCurrentActivity().getPackageName() + ".fileprovider", apkFile);
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        File apkFile = new File(fileSavePath);
+        if (Build.VERSION.SDK_INT >= 24) {
+            Uri uri = FileProvider.getUriForFile(getCurrentActivity(), getCurrentActivity().getPackageName() + ".fileprovider", apkFile);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        } else {
+            Uri apkUri =Uri.fromFile(apkFile);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        }
+
         getCurrentActivity().startActivity(intent);
     }
 }
