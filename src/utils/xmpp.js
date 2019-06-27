@@ -5,7 +5,7 @@ class XMPP {
         const { username, password } = opts;
         let ws = new WebSocket("ws://testopenfire.winbox88.com:7070/ws/", "xmpp");
         ws.onopen = () => {
-            console.log("open");
+            console.log("open---");
         }
         this.xmpp = new client({
             service: "ws://testopenfire.winbox88.com:7070/ws",
@@ -14,7 +14,7 @@ class XMPP {
             username: username,
             password: password,
         });
-        this.xmpp.start().cache(console.error);
+        this.xmpp.start();
     }
 
     sendMessage(message, user) {
@@ -35,4 +35,10 @@ class XMPP {
             }
         })
     }
+    onStatus(callback) {
+        this.xmpp.on('status', status => {
+            callback(status);
+        })
+    }
 }
+export default new XMPP();

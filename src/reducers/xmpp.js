@@ -2,7 +2,7 @@ import React from "react";
 import Immutable from "immutable";
 import DB from "../utils/storage";
 import {NativeModules, Platform} from "react-native";
-import XMPP from "react-native-xmpp";
+import XMPP from "../utils/xmpp";
 import * as types  from "../common/actionType";
 const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
@@ -12,15 +12,15 @@ const fromAvatar  = "http://n1.itc.cn/img8/wb/recom/2016/04/22/14613193584787591
 const toAvatar = "http://b-ssl.duitang.com/uploads/item/201608/21/20160821230024_MyCYK.thumb.700_0.jpeg";
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 
-const SCHEMA = "mobile";
+const SCHEMA = "precase";
 const initialState = Immutable.fromJS({
     logIn: false,
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fans1",
+        name: "fans2",
         pwd: "123456",
-        displayName: "fans1",
+        displayName: "fans2",
         avatarPath: fromAvatar,
         userId: "678"
     }),
@@ -44,11 +44,10 @@ export default (state = initialState, action) => {
     let chatMessage = "";
     switch (action.type) {
         case types.XMPP_CONNECT:
-            XMPP.trustHosts([DOMAIN])
-            XMPP.connect(_userForName(newState.get("user").get("name")), newState.get("user").get("pwd"));
+            XMPP.connect({username: newState.get("user").get("name"), password: newState.get("user").get("pwd")})
             return newState;
         case types.XMPP_SEND_MESSAGE:
-            XMPP.message(JSON.stringify(action.message), _userForName(action.user));
+            XMPP.sendMessage(action.message, _userForName(action.user))
             console.log("fromUser", action.message.fromUser);
             let msg = {
                 msgType: action.message.msgType,
@@ -147,7 +146,7 @@ export default (state = initialState, action) => {
                 let initChat = {
                     message: "",
                     unReadNum: 0,
-                    name: "fans2",
+                    name: "fans1",
                     avatarPath: toAvatar,
                     messages: [],
                     timeStamp: new Date(),

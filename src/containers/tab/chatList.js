@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
-import XMPP from "react-native-xmpp";
+import XMPP from "../../utils/xmpp";
 import ChatCell from "../../components/chat/chatCell";
 import Swipeout from "react-native-swipeout";
 import List from "../../components/common/list";
@@ -34,6 +34,9 @@ const AuroraIController = IMUI.AuroraIMUIController;
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const Popover = renderers.Popover;
+var base64 = require('base-64');
+global.btoa = base64.encode;
+global.atob = base64.decode;
 
 var themsgid = 1
 function constructNormalMessage() {
@@ -67,20 +70,23 @@ class ChatList extends Component {
             isLogin: false,
 
         };
-        XMPP.on('message', this.onReceiveMessage);
-        XMPP.on('iq', this.onIQBack);
-        XMPP.on('presence', (message) => console.log('PRESENCE:' + JSON.stringify(message)));
-        XMPP.on('error', (message) => console.log('ERROR:' + message));
-        XMPP.on('loginError', (message) => console.log('LOGIN ERROR:' + message));
-        XMPP.on('login', (message) => this.setState({isLogin: true}));
-        XMPP.on('connect', (message) => console.log('CONNECTED!'));
-        XMPP.on('disconnect', (message) => console.log('DISCONNECTED!'));
-        XMPP.on('error', (message) => console.log("error", message));
         this.props.logIn();
         this.props.getChatList();
     }
     componentDidMount() {
         AppState.addEventListener('change', this._handleAppStateChange);
+        XMPP.onStatus(status => {
+            console.log("xmpp status:", status);
+            if(status === "online") {
+                this.setState({isLogin: true});
+            } else {
+                this.setState({isLogin: false});
+            }
+        });
+        XMPP.receiveMessage((fromUser, toUser, message) => {
+            this.props.receiveMessage(fromUser.split("@")[0], message);
+        })
+
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -92,25 +98,8 @@ class ChatList extends Component {
     }
 
 
-    onIQBack = (message) => {
-        console.log("onIQBack", message, message.query);
-        if (message.query) {
-            // console.log("jid", message.query.item.jid);
-            // var name = message.query.item.jid.match(/^([^@]*)@/)[1];
-            // this.props.getChatList(name, message.id);
-        }
-    }
-    onReceiveMessage = ({from, body}) => {
-        console.log("onReceiveMessage", from, body);
-        // extract username from XMPP UID
-        if (!from || !body){
-            return;
-        }
-        var name = from.match(/^([^@]*)@/)[1];
-        // console.log("receive",from, body, name);
-        this.props.receiveMessage(name, body);
-        // this.conversation.unshift({own:false, text:body});
-    }
+
+
 
     goChatRoom = (item) => {
         this.props.goChatRoom(item.item.get("name"));

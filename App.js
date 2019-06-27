@@ -6,6 +6,7 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { connect} from "react-redux";
 import { createReduxContainer } from "react-navigation-redux-helpers";
 
+
 const stores = configureStore();
 const AppContainer = createReduxContainer(AppNavigator, "root");
 function mapStateToProps(state) {
