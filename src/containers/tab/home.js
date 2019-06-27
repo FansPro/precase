@@ -54,9 +54,9 @@ class Home extends BaseComponent {
         // JPUSH
         JPushModule.initPush();
         // JPushModule.setStyleCustom();
-        JPushModule.notifyJSDidLoad((result) => {
-            console.log("notifi", result);
-        });
+        // JPushModule.notifyJSDidLoad((result) => {
+        //     console.log("notifi", result);
+        // });
         JPushModule.addReceiveCustomMsgListener((message) => {
             console.log("custom msg:", message);
         });
@@ -69,9 +69,9 @@ class Home extends BaseComponent {
            this.props.navigation.navigate("my");
 
         });
-        JPushModule.getInfo((result) => {
-            console.log("JPush info", result);
-        })
+        // JPushModule.getInfo((result) => {
+        //     console.log("JPush info", result);
+        // })
 
         // this.props.logout();
     }

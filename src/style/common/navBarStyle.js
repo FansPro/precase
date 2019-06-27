@@ -7,12 +7,12 @@ import StyleSheet from "../../utils/sheetStyle";
 
 const navBarStyles  = StyleSheet.create({
     container: {
-        marginTop: 0,
         android: {
             height: StatusBar.currentHeight + 46,
         },
         ios: {
-            height: 64,
+            height: 88,
+            // marginTop: -44,
         },
         backgroundColor: "#4D78B0",
         zIndex: 10000000,
@@ -21,7 +21,13 @@ const navBarStyles  = StyleSheet.create({
         flex: 1,
         display: "flex",
         flexDirection: "row",
-        marginTop: StatusBar.currentHeight,
+        android: {
+            marginTop: StatusBar.currentHeight,
+        },
+        ios: {
+          marginTop: 44,
+        }
+
     },
     content_bar: {
         flex: 1,
