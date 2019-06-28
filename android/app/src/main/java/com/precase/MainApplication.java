@@ -7,6 +7,7 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import io.realm.react.RealmReactPackage;
 import cn.jystudio.local.barcode.recognizer.LocalBarcodeRecognizerPackage;
@@ -50,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new RNFetchBlobPackage(),
             new RealmReactPackage(),
             new LocalBarcodeRecognizerPackage(),
@@ -85,7 +87,6 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-
     SoLoader.init(this, /* native exopackage */ false);
     initMeiqiaSDK();
 

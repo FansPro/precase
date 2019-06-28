@@ -23,6 +23,7 @@ const window = Dimensions.get('window');
 import NavBar from "../../components/common/navBar";
 import ChatDao from "../../realm/ChatDao"
 const DecodeAudioManager = NativeModules.DecodeAudioManager;
+import ImageModal from "../../components/common/imageModal";
 
 
 
@@ -55,6 +56,7 @@ class CustomVew extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
         };
     }
     render() {
@@ -78,6 +80,8 @@ class ChatRoom extends Component {
             isAllowPullToRefresh: true,
             navigationBar: {},
             refresh: true,
+            mediaPath: null,
+            modalVisible: false,
         }
 
 
@@ -211,6 +215,9 @@ class ChatRoom extends Component {
         // if(message.msgType !== "text") {
         //     Alert.alert("message", JSON.stringify(message))
         // }
+        if (message.msgType == "image") {
+            this.setState({ mediaPath: message.mediaPath, modalVisible: true});
+        }
     }
 
     onMsgLongClick = (message) => {
@@ -507,6 +514,11 @@ class ChatRoom extends Component {
                                    right: ['send'],
                                    bottom: ['voice','gallery','emoji','camera']
                                }}
+                    />
+                    <ImageModal
+                        close={() => this.setState({modalVisible: false})}
+                        modalVisible={this.state.modalVisible}
+                        imageData={this.state.mediaPath ? this.state.mediaPath : null}
                     />
                 </View>
             </View>

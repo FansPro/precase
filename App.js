@@ -5,6 +5,9 @@ import { Provider } from "react-redux";
 import { MenuProvider } from 'react-native-popup-menu';
 import { connect} from "react-redux";
 import { createReduxContainer } from "react-navigation-redux-helpers";
+import SplashScreen from "react-native-splash-screen";
+
+
 
 const stores = configureStore();
 const AppContainer = createReduxContainer(AppNavigator, "root");
@@ -22,7 +25,7 @@ class App extends Component {
         console.log("oooo", props);
     }
     componentDidMount() {
-
+        SplashScreen.hide();
     }
 
 

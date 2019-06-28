@@ -3,9 +3,13 @@ import { navigators, tabs } from "./navigations";
 import React, { Component } from "react";
 import {
     View,
-    Text
+    Text,
+    Animated,
+    Easing,
 } from "react-native";
 import BottomNav from "../components/common/BottomNav";
+import StackViewStyleInterpolator from "react-navigation-stack/lib/module/views/StackView/StackViewStyleInterpolator"
+
 
 
 function getNavigation() {
@@ -30,7 +34,15 @@ function getNavigation() {
 }
 
 export const AppNavigator = createStackNavigator(
-    getNavigation()
+    getNavigation(), {
+        defaultNavigationOptions: {
+            gesturesEnabled: true,
+        },
+        transitionConfig: () => ({
+            screenInterpolator: StackViewStyleInterpolator.forHorizontal,
+        }),
+    }
+
 )
 
 
