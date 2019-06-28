@@ -7,6 +7,7 @@ import {
     Alert,
     AppState,
     ImageBackground, Platform, NativeModules,
+    SafeAreaView,
 } from "react-native"
 import { connect } from "react-redux";
 import * as types from "../../common/actionType";
