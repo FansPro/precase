@@ -18,9 +18,9 @@ const initialState = Immutable.fromJS({
     remote: "",
     isChatList: true,
     user: Immutable.fromJS({
-        name: "fans1",
+        name: "fans2",
         pwd: "123456",
-        displayName: "fans1",
+        displayName: "fans2",
         avatarPath: fromAvatar,
         userId: "678"
     }),
