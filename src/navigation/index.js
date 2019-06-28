@@ -17,9 +17,9 @@ function getNavigation() {
     navigators.map(navigator => {
         if (navigator.isTab) {
             let tab = createBottomTabNavigator(navigator.screen, {
-                // tabBarComponent: () => {
-                //    return <BottomNav/>
-                // },
+                tabBarComponent: (props) => {
+                   return <BottomNav {...props}/>
+                },
             });
             tab.navigationOptions = {
                 mode: "card",
