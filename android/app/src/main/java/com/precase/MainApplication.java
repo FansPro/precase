@@ -7,16 +7,16 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import io.realm.react.RealmReactPackage;
 import cn.jystudio.local.barcode.recognizer.LocalBarcodeRecognizerPackage;
 import com.imagepicker.ImagePickerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.rnfs.RNFSPackage;
-import com.rnxmpp.RNXMPPPackage;
+import rnxmpp.RNXMPPPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -52,9 +52,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNFetchBlobPackage(),
             new SvgPackage(),
             new SplashScreenReactPackage(),
-            new RNFetchBlobPackage(),
             new RealmReactPackage(),
             new LocalBarcodeRecognizerPackage(),
             new ImagePickerPackage(),

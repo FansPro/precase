@@ -7,7 +7,7 @@ import {
     NativeModules
 } from "react-native";
 import androidUpdateTipsStyle from "../../style/common/androidUpdateTipsStyle";
-import RNFetchBlob from "react-native-fetch-blob";
+import RNFetchBlob from "rn-fetch-blob";
 import RNFS from "react-native-fs";
 const DownloadApkManager = NativeModules.DownloadApkManager;
 

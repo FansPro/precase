@@ -12,6 +12,7 @@ import ChatRoom from "../containers/chat/chatRoom";
 import Scan from "../containers/scan/scan";
 import ChatAdd from "../containers/chat/chatAdd";
 import Login from "../containers/auth/login";
+import Qrcode from "../containers/qrcode/qrcode";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -51,6 +52,7 @@ export const navigators = [
     {key: "scan", screen: Scan, title: "扫码",  navigationOptions: {header: null}},
     {key: "login", screen: Login, title: "登录",  navigationOptions: {header: null}},
     {key: "chatAdd", screen: ChatAdd, title: "添加聊天",  navigationOptions: {header: null}},
+    {key:"qrcode", screen: Qrcode, title: "二维码", navigationOptions: {header: null}},
 
 ];
 
@@ -61,4 +63,5 @@ export const pages = {
     chatRoom: "chatRoom",
     chatAdd: "chatAdd",
     login: "login",
+    qrcode: "qrcode",
 }

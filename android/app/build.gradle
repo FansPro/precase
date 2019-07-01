@@ -183,9 +183,9 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-fetch-blob')
     implementation project(':react-native-svg')
     implementation project(':react-native-splash-screen')
-    implementation project(':react-native-fetch-blob')
     implementation project(':realm')
     implementation project(':react-native-local-barcode-recognizer')
     implementation project(':react-native-image-picker')

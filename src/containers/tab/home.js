@@ -25,7 +25,6 @@ import CodePush from "react-native-code-push";
 import UpdateTips from "../../components/common/updateTips";
 import PayTips from "../../components/common/payTips";
 import JPushModule from "jpush-react-native";
-import RNFetchBlob  from "react-native-fetch-blob";
 import RNFS from "react-native-fs";
 import AndroidUpdateTips from "../../components/common/androidUpdateTips";
 
@@ -184,6 +183,9 @@ class Home extends BaseComponent {
     _handleDownloadApk = () => {
         this.setState({androidUpdate: true});
     }
+    _jumpQrcode = () => {
+        this.props.navigation.navigate("qrcode");
+    }
     render() {
         const name = "fafaffa"
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
@@ -219,6 +221,9 @@ class Home extends BaseComponent {
                     <Text>{this.state.status}</Text>
                     <Text>{this.state.downloadPercent}</Text>
                     <View style={{height: 50}}/>
+                    <TouchableOpacity onPress={ this._jumpQrcode } style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>二维码测试</Text>
+                    </TouchableOpacity>
                 </ScrollView>
                 <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>
