@@ -34,6 +34,7 @@ function _userForName(name){
 }
 
 
+
 export default (state = initialState, action) => {
     let newState = state;
     let chatList = action.chatList ? action.chatList : Immutable.List();
