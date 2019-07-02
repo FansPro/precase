@@ -154,11 +154,11 @@ class ChatList extends Component {
         return (
             <View style={{flex: 1}}>
                 <NavBar isLoading={!this.state.isLogin} left={true} title={"消息"} right={<View>
-                    <Menu  renderer={Popover} rendererProps={{ placement: 'bottom' }}>
-                        <MenuTrigger  >
-                            <Text style={{color: "white", fontSize: 28, marginRight: 10}}>+</Text>
+                    <Menu  style={{marginRight: 15}} renderer={Popover} rendererProps={{ placement: 'bottom', anchorStyle: {backgroundColor: "#444444"} }}>
+                        <MenuTrigger>
+                            <Text style={{color: "white", fontSize: 28}}>+</Text>
                         </MenuTrigger>
-                        <MenuOptions style={{padding: 5, backgroundColor: "#444444", borderRadius: 4}}>
+                        <MenuOptions style={{padding: 5, borderRadius: 4, backgroundColor: "#444444"}}>
                             <MenuOption onSelect={()=> this.props.navigation.navigate("chatAdd")}>
                                 <Text style={{color: "white"}}>添加好友</Text>
                             </MenuOption>
