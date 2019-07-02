@@ -13,6 +13,7 @@ import Scan from "../containers/scan/scan";
 import ChatAdd from "../containers/chat/chatAdd";
 import Login from "../containers/auth/login";
 import Qrcode from "../containers/qrcode/qrcode";
+import ImageCrop from "../containers/scan/imageCrop";
 
 
 function createBottomNavConfig(tabBarLabel, tintImg, defaultImg) {
@@ -53,6 +54,8 @@ export const navigators = [
     {key: "login", screen: Login, title: "登录",  navigationOptions: {header: null}},
     {key: "chatAdd", screen: ChatAdd, title: "添加聊天",  navigationOptions: {header: null}},
     {key:"qrcode", screen: Qrcode, title: "二维码", navigationOptions: {header: null}},
+    {key:"imageCrop", screen: ImageCrop, title: "图片编辑", navigationOptions: {header: null}},
+
 
 ];
 
@@ -64,4 +67,5 @@ export const pages = {
     chatAdd: "chatAdd",
     login: "login",
     qrcode: "qrcode",
+    imageCrop: "imageCrop",
 }

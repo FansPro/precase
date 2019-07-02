@@ -17,6 +17,12 @@ import qrcodeStyle from "../../style/qrcode/qrcodeStyle";
 class Qrcode extends Component {
     constructor(props) {
         super(props);
+
+        const dirs = RNFetchBlob.fs.dirs
+        console.log(dirs.DocumentDir)
+        console.log(dirs.CacheDir)
+        console.log(dirs.DCIMDir)
+        console.log(dirs.DownloadDir)
     }
     componentDidMount() {
         // this.getDataURL();
@@ -27,7 +33,6 @@ class Qrcode extends Component {
     }
     callback(dataURL) {
         console.log(dataURL);
-
     }
 
     /**
@@ -35,15 +40,20 @@ class Qrcode extends Component {
      * @param dataURL
      */
     saveToCamera = (dataURL) => {
-        let path = RNFS.ExternalDirectoryPath;
-        let fullPath = `${path}/${new Date().toString()}qrcode.png`;
+        let path = RNFetchBlob.fs.dirs.DocumentDir;
+        let fullPath = `${path}/${new Date().toTimeString()}qrcode.png`;
         // Alert.alert(dataURL);
+        console.log("QRPath:", fullPath);
        RNFetchBlob.fs.writeFile(fullPath, dataURL,  "base64").then((rs) => {
            // Alert.alert(rs.toString())
-            CameraRoll.saveImageWithTag("file://" + fullPath).then(rs => {
-                // Alert.alert("保存成功")
+            CameraRoll.saveToCameraRoll("file://" + fullPath, "photo").then(rs => {
+                Alert.alert("保存成功")
+                // 删除临时存储，不做失败处理
+                // RNFS.unlink(fullPath);
+            }).catch(e => {
+                Alert.alert("报错")
                 RNFS.unlink(fullPath);
-            }).catch(e => Alert.alert("报错"))
+            })
        }).catch(e => Alert.alert(e.toString()));
     }
     render() {

@@ -184,7 +184,7 @@ class Home extends BaseComponent {
         this.setState({androidUpdate: true});
     }
     _jumpQrcode = () => {
-        this.props.navigation.navigate("qrcode");
+        this.props.navigation.push("qrcode");
     }
     render() {
         const name = "fafaffa"
@@ -209,7 +209,7 @@ class Home extends BaseComponent {
                         <Text style={homeStyles.home_cell_txt}>{I18n.t("home.storeTest")}</Text>
                     </TouchableOpacity>
                     <Text>{this.props.count}</Text>
-                    <TouchableOpacity onPress={()=> this.changeLan() } style={homeStyles.home_cell}>
+                    <TouchableOpacity onPress={this.changeLan} style={homeStyles.home_cell}>
                         <Text style={homeStyles.home_cell_txt}>{I18n.t("home.languageTest")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={ this.goScanPage } style={homeStyles.home_cell}>
@@ -223,6 +223,9 @@ class Home extends BaseComponent {
                     <View style={{height: 50}}/>
                     <TouchableOpacity onPress={ this._jumpQrcode } style={homeStyles.home_cell}>
                         <Text style={homeStyles.home_cell_txt}>二维码测试</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("imageCrop")} style={homeStyles.home_cell}>
+                        <Text style={homeStyles.home_cell_txt}>图片编辑</Text>
                     </TouchableOpacity>
                 </ScrollView>
                 <Modal visible={this.state.modalVisible} transparent={true}>
