@@ -12,17 +12,12 @@ import NavBar from "../../components/common/navBar";
 import RNFS from "react-native-fs";
 import RNFetchBlob from 'rn-fetch-blob';
 import qrcodeStyle from "../../style/qrcode/qrcodeStyle";
+import DateUtil from "../../utils/dateUtil";
 
 
 class Qrcode extends Component {
     constructor(props) {
         super(props);
-
-        const dirs = RNFetchBlob.fs.dirs
-        console.log(dirs.DocumentDir)
-        console.log(dirs.CacheDir)
-        console.log(dirs.DCIMDir)
-        console.log(dirs.DownloadDir)
     }
     componentDidMount() {
         // this.getDataURL();
@@ -41,7 +36,7 @@ class Qrcode extends Component {
      */
     saveToCamera = (dataURL) => {
         let path = RNFetchBlob.fs.dirs.DocumentDir;
-        let fullPath = `${path}/${new Date().toTimeString()}qrcode.png`;
+        let fullPath = `${path}/${DateUtil.dateFormat(new Date(), "yyyyMMddhhmmss")}qrcode.png`;
         // Alert.alert(dataURL);
         console.log("QRPath:", fullPath);
        RNFetchBlob.fs.writeFile(fullPath, dataURL,  "base64").then((rs) => {
