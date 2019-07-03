@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "bundle:build-android": "rm -rf bundle && mkdir bundle && react-native bundle --entry-file index.js --bundle-output ./bundle/main.jsbundle --platform android --assets-dest ./bundle --dev false",
-    "push:android": "code-push release-react pc-android android --d Production --description \" \""
+    "push:android": "code-push release-react pc-android android --d Production --description \" \"",
+    "dist:ios": "rm -rf dist && mkdir dist && react-native bundle --entry-file ./index.js --bundle-output ./dist/main.jsbundle --platform ios --assets-dest ./dist --dev false"
   },
   "dependencies": {
     "@xmpp/client": "^0.7.4",
