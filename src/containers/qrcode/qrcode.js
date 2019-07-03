@@ -12,6 +12,7 @@ import NavBar from "../../components/common/navBar";
 import RNFetchBlob from 'rn-fetch-blob';
 import qrcodeStyle from "../../style/qrcode/qrcodeStyle";
 import DateUtil from "../../utils/dateUtil";
+import PermissionUtil from "../../utils/permissionUtil";
 
 
 class Qrcode extends Component {
@@ -38,13 +39,17 @@ class Qrcode extends Component {
         console.log("QRPath:", fullPath);
        RNFetchBlob.fs.writeFile(fullPath, dataURL,  "base64").then((rs) => {
            // Alert.alert(rs.toString())
-            CameraRoll.saveToCameraRoll("file://" + fullPath, "photo").then(rs => {
-                Alert.alert("保存成功")
-                // 删除临时存储，不做失败处理
-                // RNFS.unlink(fullPath);
-            }).catch(e => {
-                console.log("Error:", e.toString());
-            })
+           // 安卓不能自动判定图片写入权限，手动加上
+           PermissionUtil.checkWritePms().then(() => {
+               CameraRoll.saveToCameraRoll("file://" + fullPath, "photo").then(rs => {
+                   Alert.alert("保存成功")
+                   // 删除临时存储，不做失败处理
+                   // RNFS.unlink(fullPath);
+               }).catch(e => {
+                   console.log("Error:", e.toString());
+               })
+           })
+
        }).catch(e => Alert.alert(e.toString()));
     }
     render() {
