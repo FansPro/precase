@@ -22,7 +22,6 @@ const HigherAppContainer = connect(mapStateToProps)(AppContainer)
 class App extends Component {
     constructor(props) {
         super(props);
-        console.log("oooo", props);
     }
     componentDidMount() {
         SplashScreen.hide();

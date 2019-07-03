@@ -9,7 +9,6 @@ import {
 import QRCode from "react-native-qrcode-svg";
 import avator  from "../../../assets/img/avator_01.jpeg"
 import NavBar from "../../components/common/navBar";
-import RNFS from "react-native-fs";
 import RNFetchBlob from 'rn-fetch-blob';
 import qrcodeStyle from "../../style/qrcode/qrcodeStyle";
 import DateUtil from "../../utils/dateUtil";
@@ -26,9 +25,7 @@ class Qrcode extends Component {
     getDataURL = () => {
         this.svg.toDataURL(this.saveToCamera);
     }
-    callback(dataURL) {
-        console.log(dataURL);
-    }
+
 
     /**
      *
@@ -46,8 +43,7 @@ class Qrcode extends Component {
                 // 删除临时存储，不做失败处理
                 // RNFS.unlink(fullPath);
             }).catch(e => {
-                Alert.alert("报错")
-                RNFS.unlink(fullPath);
+                console.log("Error:", e.toString());
             })
        }).catch(e => Alert.alert(e.toString()));
     }

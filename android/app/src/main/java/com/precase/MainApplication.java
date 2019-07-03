@@ -7,7 +7,8 @@ import android.content.Intent;
 
 
 import com.facebook.react.ReactApplication;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import io.realm.react.RealmReactPackage;
