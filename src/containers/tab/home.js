@@ -12,7 +12,6 @@ import {
     ScrollView
 } from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
-import BaseComponent from "../../base/baseComponent";
 import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const MeiqiaManager = NativeModules.MeiqiaManager;
@@ -27,6 +26,7 @@ import PayTips from "../../components/common/payTips";
 import JPushModule from "jpush-react-native";
 import RNFS from "react-native-fs";
 import AndroidUpdateTips from "../../components/common/androidUpdateTips";
+import BaseComponent from "../../base/baseComponent";
 
 
 let codePushOptions = {
@@ -186,11 +186,11 @@ class Home extends BaseComponent {
     _jumpQrcode = () => {
         this.props.navigation.push("qrcode");
     }
-    render() {
+    renderMain() {
         const name = "fafaffa"
         // let script = "document.getElementsByTagName('body')[0].style.webkitTetSizeAdjust="100%"}"
         return (
-            <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
+            <View style={{ flex: 1, backgroundColor: "white"}}>
                 <NavBar left={true} title={"首页"}/>
                 <ScrollView>
                     <TouchableOpacity onPress={() => this.changeState()} style={homeStyles.home_cell}>
@@ -224,9 +224,10 @@ class Home extends BaseComponent {
                     <TouchableOpacity onPress={ this._jumpQrcode } style={homeStyles.home_cell}>
                         <Text style={homeStyles.home_cell_txt}>二维码测试</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("imageCrop")} style={homeStyles.home_cell}>
+                    <TouchableOpacity onPress={() => this.props.navigation.push("home")} style={homeStyles.home_cell}>
                         <Text style={homeStyles.home_cell_txt}>图片编辑</Text>
                     </TouchableOpacity>
+                    <Text>e2</Text>
                 </ScrollView>
                 <Modal visible={this.state.modalVisible} transparent={true}>
                     <UpdateTips/>

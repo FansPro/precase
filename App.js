@@ -8,7 +8,6 @@ import { createReduxContainer } from "react-navigation-redux-helpers";
 import SplashScreen from "react-native-splash-screen";
 
 
-
 const stores = configureStore();
 const AppContainer = createReduxContainer(AppNavigator, "root");
 function mapStateToProps(state) {

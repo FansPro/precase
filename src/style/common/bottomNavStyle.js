@@ -7,13 +7,13 @@ const bottomNavStyle = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         backgroundColor: "white",
-        borderTopColor: "#605F60",
+        borderTopColor: "#888",
         borderTopWidth: 0.5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -4 },
-        shadowOpacity: 0.8,
-        shadowRadius: 6,
-        elevation: 10
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: -1 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 6,
+        // elevation: 10
     },
     nav_item: {
         display: "flex",

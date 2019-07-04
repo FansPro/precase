@@ -1,14 +1,45 @@
 import React, { Component } from "react";
+import {
+    View,
+    SafeAreaView,
+} from "react-native";
+
+import {isIphoneX} from "../utils/iPhoneX";
 
 class BaseComponent extends Component {
-    navTo(routeName) {
-        this.props.navigation.replace(routeName);
+
+
+    navPush(routeName = null, params = null) {
+        this.props.navigation.push(routeName, params)
     }
-    navPush(routeName) {
-        this.props.navigation.navigate(routeName);
+    navPop() {
+        this.props.navigation.pop();
     }
-    navBack() {
-        this.props.navigation.goBack();
+    navJump(routeName = null, params = null) {
+        this.props.navigation.navigate(routeName, params);
+    }
+    navBack(routeName = null, params = null) {
+        this.props.navigation.state.params && this.props.navigation.state.params.callback
+        && this.props.navigation.state.params.callback(params);
+        this.props.navigation.goBack(routeName);
+    }
+    navTo(routeName = null, params) {
+        this.props.navigation.replace(routeName, params);
+    }
+
+
+    renderMain() {
+    }
+    render() {
+        if(isIphoneX()) {
+            return <SafeAreaView style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "white"}}>
+                {this.renderMain()}
+            </SafeAreaView>
+        } else {
+            return <View style={{flex: 1}}>
+                {this.renderMain()}
+            </View>
+        }
     }
 }
 export default BaseComponent;

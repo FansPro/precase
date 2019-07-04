@@ -55,6 +55,8 @@ export const navigators = [
     {key: "chatAdd", screen: ChatAdd, title: "添加聊天",  navigationOptions: {header: null}},
     {key:"qrcode", screen: Qrcode, title: "二维码", navigationOptions: {header: null}},
     {key:"imageCrop", screen: ImageCrop, title: "图片编辑", navigationOptions: {header: null}},
+    {key:"home", screen: Home, title: "home", navigationOptions: {header: null}},
+
 
 
 ];

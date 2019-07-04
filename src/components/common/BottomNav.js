@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    SafeAreaView
 } from "react-native";
 import { connect } from "react-redux";
 import I18n from "../../i18n/index";
@@ -15,6 +16,7 @@ import icon_chat from "../../../assets/img/tab/icon_serve.png";
 import icon_chat_tint from "../../../assets/img/tab/icon_serve_tint.png";
 import icon_my from "../../../assets/img/tab/icon_my.png";
 import icon_my_tint from "../../../assets/img/tab/icon_my_tint.png";
+import { isIphoneX } from "../../utils/iPhoneX";
 
 class BottomNav extends Component {
     constructor(props) {
@@ -56,14 +58,17 @@ class BottomNav extends Component {
             </View>
         </TouchableOpacity>
     }
-
-    render() {
-
+    renderNav = () => {
         return <View style={bottomNavStyle.container}>
             {this.renderTabItem(0,"首页", icon_home, icon_home_tint)}
             {this.renderTabItem(1,"消息", icon_chat, icon_chat_tint)}
             {this.renderTabItem(2,"我的", icon_my, icon_my_tint)}
         </View>
+    }
+    render() {
+        return isIphoneX() ? <SafeAreaView>
+            {this.renderNav()}
+        </SafeAreaView> : this.renderNav();
     }
 
 }
