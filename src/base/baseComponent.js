@@ -3,8 +3,9 @@ import {
     View,
     SafeAreaView,
 } from "react-native";
+import DeviceInfo from "../utils/deviceInfo";
+import Loading from "../components/common/loading";
 
-import {isIphoneX} from "../utils/iPhoneX";
 
 class BaseComponent extends Component {
 
@@ -31,13 +32,15 @@ class BaseComponent extends Component {
     renderMain() {
     }
     render() {
-        if(isIphoneX()) {
+        if(DeviceInfo.isIphoneX) {
             return <SafeAreaView style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "white"}}>
                 {this.renderMain()}
+                <Loading/>
             </SafeAreaView>
         } else {
             return <View style={{flex: 1}}>
                 {this.renderMain()}
+                <Loading/>
             </View>
         }
     }

@@ -16,7 +16,8 @@ import icon_chat from "../../../assets/img/tab/icon_serve.png";
 import icon_chat_tint from "../../../assets/img/tab/icon_serve_tint.png";
 import icon_my from "../../../assets/img/tab/icon_my.png";
 import icon_my_tint from "../../../assets/img/tab/icon_my_tint.png";
-import { isIphoneX } from "../../utils/iPhoneX";
+import DeviceInfo from "../../utils/deviceInfo";
+
 
 class BottomNav extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class BottomNav extends Component {
         </View>
     }
     render() {
-        return isIphoneX() ? <SafeAreaView>
+        return DeviceInfo.isIphoneX ? <SafeAreaView>
             {this.renderNav()}
         </SafeAreaView> : this.renderNav();
     }

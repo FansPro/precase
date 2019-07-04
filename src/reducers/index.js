@@ -4,8 +4,10 @@ import home from "./home";
 import xmpp from "./xmpp";
 import nav from "./nav";
 import bottomNav from "./bottomNav";
+import app from "./app"
 
 const RootReducer = combineReducers({
+    app,
     home,
     i18n,
     xmpp,

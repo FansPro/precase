@@ -3,7 +3,8 @@ import {
     Platform,
 } from "react-native";
 import StyleSheet from "../../utils/sheetStyle";
-import { isIphoneX } from "../../utils/iPhoneX";
+import DeviceInfo from "../../utils/deviceInfo";
+
 
 
 const navBarStyles  = StyleSheet.create({
@@ -12,8 +13,8 @@ const navBarStyles  = StyleSheet.create({
             height: StatusBar.currentHeight + 46,
         },
         ios: {
-            height:  isIphoneX() ? 88 : 64,
-            marginTop: isIphoneX() ? -44 : 0,
+            height:  DeviceInfo.isIphoneX ? 88 : 64,
+            marginTop: DeviceInfo.isIphoneX ? -44 : 0,
         },
         backgroundColor: "#4D78B0",
         zIndex: 10000000,
@@ -26,7 +27,7 @@ const navBarStyles  = StyleSheet.create({
             marginTop: StatusBar.currentHeight,
         },
         ios: {
-          marginTop: isIphoneX() ? 44 : 20,
+          marginTop: DeviceInfo.isIphoneX ? 44 : 20,
         }
 
     },

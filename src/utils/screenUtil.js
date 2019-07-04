@@ -9,7 +9,7 @@ import {
     ScrollView
 } from 'react-native';
 import { COLOR_BAKCGROUND, COLOR_BLUE_DARD, COLOR_WHITE } from "../constants/constants";
-import { isIphoneX } from "./iPhoneUtil";
+import DeviceInfo from "./deviceInfo";
 
 let props = {};
 export default class Resolution {
@@ -70,7 +70,7 @@ export default class Resolution {
             }
         } else {
             // _height = Dimensions.get("window").width >= 375 ? "100%" : height + 20
-            if(isIphoneX()) {
+            if(DeviceInfo.isIphoneX) {
                 return <SafeAreaView {...p} style={{
                     right: 0,
                     left: 0,
