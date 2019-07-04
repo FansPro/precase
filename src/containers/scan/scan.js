@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { RNCamera } from "react-native-camera";
 import scanStyles from "../../style/scan/sanStyle";
-import {WINDOW_WIDTH} from "../../common/constants";
+import {WINDOW_WIDTH} from "../../constants/constants";
 import NavBar from "../../components/common/navBar";
 import ImagePicker from "react-native-image-picker";
 import LocalBarcodeRecognizer from 'react-native-local-barcode-recognizer';

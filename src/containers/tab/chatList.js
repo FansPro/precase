@@ -10,7 +10,7 @@ import {
     SafeAreaView,
 } from "react-native"
 import { connect } from "react-redux";
-import * as types from "../../common/actionType";
+import * as types from "../../constants/actionType";
 import XMPP from "react-native-xmpp";
 import ChatCell from "../../components/chat/chatCell";
 import Swipeout from "react-native-swipeout";

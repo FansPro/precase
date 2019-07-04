@@ -1,5 +1,5 @@
 import StyleSheet from "../../utils/sheetStyle";
-import {WINDOW_WIDTH} from "../../common/constants";
+import {WINDOW_WIDTH} from "../../constants/constants";
 
 const payTipsStyle = StyleSheet.create({
     container: {

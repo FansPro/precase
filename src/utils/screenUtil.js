@@ -8,7 +8,7 @@ import {
     SafeAreaView,
     ScrollView
 } from 'react-native';
-import { COLOR_BAKCGROUND, COLOR_BLUE_DARD, COLOR_WHITE } from "../common/common";
+import { COLOR_BAKCGROUND, COLOR_BLUE_DARD, COLOR_WHITE } from "../constants/constants";
 import { isIphoneX } from "./iPhoneUtil";
 
 let props = {};
