@@ -5,7 +5,7 @@ import {
     Alert,
     NativeModules,
 } from "react-native";
-import * as types from "../../common/actionType"
+import * as types from "../../constants/actionType"
 import { connect } from "react-redux";
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";

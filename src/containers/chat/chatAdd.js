@@ -7,7 +7,7 @@ import {
 import NavBar from "../../components/common/navBar";
 import chatAddStyle from "../../style/chat/chatAddStyle";
 import { connect } from "react-redux";
-import * as types from "../../common/actionType";
+import * as types from "../../constants/actionType";
 
 class ChatAdd extends Component{
     constructor(props) {

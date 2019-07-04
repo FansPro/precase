@@ -11,7 +11,7 @@ import {
     NativeModules,
 } from 'react-native'
 import { connect } from "react-redux";
-import * as types from "../../common/actionType";
+import * as types from "../../constants/actionType";
 var RNFS = require('react-native-fs')
 
 var ReactNative = require('react-native')

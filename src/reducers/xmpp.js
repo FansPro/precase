@@ -3,7 +3,7 @@ import Immutable from "immutable";
 import DB from "../utils/storage";
 import {NativeModules, Platform} from "react-native";
 import XMPP from "react-native-xmpp";
-import * as types  from "../common/actionType";
+import * as types  from "../constants/actionType";
 const DOMAIN = "testopenfire.winbox88.com";
 import IMUI from 'aurora-imui-react-native'
 const AuroraIController = IMUI.AuroraIMUIController;

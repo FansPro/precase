@@ -1,10 +1,10 @@
 import Immutable from "immutable";
-import {NAV_READ_MESSAGE} from "../common/actionType";
-const intialState = Immutable.fromJS({
+import {NAV_READ_MESSAGE} from "../constants/actionType";
+const initialState = Immutable.fromJS({
     msgNum: 0,
 })
 
-export default (state = intialState, action) => {
+export default (state = initialState, action) => {
     let newState = state;
     switch (action.type) {
         case NAV_READ_MESSAGE:

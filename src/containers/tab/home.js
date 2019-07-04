@@ -17,7 +17,7 @@ import homeStyles from "../../style/home/homeStyle";
 const NativeOpenManager = NativeModules.NativeOpenManager;
 const MeiqiaManager = NativeModules.MeiqiaManager;
 import { connect } from "react-redux";
-import * as types  from "../../common/actionType";
+import * as types  from "../../constants/actionType";
 import { Loc, setLocale, getLanguages } from 'react-native-redux-i18n';
 import I18n from "../../i18n";
 import NavBar from "../../components/common/navBar";

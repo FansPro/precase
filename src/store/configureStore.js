@@ -3,6 +3,7 @@ import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { createReactNavigationReduxMiddleware } from "react-navigation-redux-helpers";
+import api from "../middleware/api";
 const applyMiddlewares = [];
 applyMiddlewares.push(thunk);
 
@@ -11,7 +12,7 @@ const navMiddleware = createReactNavigationReduxMiddleware(
     "root",
 )
 applyMiddlewares.push(navMiddleware);
-
+applyMiddlewares.push(api);
 if(__DEV__) {
     applyMiddlewares.push(createLogger({
         duration: true,

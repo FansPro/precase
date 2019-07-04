@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import I18n from "../../i18n/index";
 import bottomNavStyle from "../../style/common/bottomNavStyle";
-import {NAV_READ_MESSAGE} from "../../common/actionType";
+import {NAV_READ_MESSAGE} from "../../constants/actionType";
 import icon_home from "../../../assets/img/tab/icon_home.png";
 import icon_home_tint from "../../../assets/img/tab/icon_home_tint.png";
 import icon_chat from "../../../assets/img/tab/icon_serve.png";
